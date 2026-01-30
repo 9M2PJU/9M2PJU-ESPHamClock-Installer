@@ -1,0 +1,16 @@
+Project web site: http://www.clearskyinstitute.com/ham/HamClock
+
+HamClock is a kiosk-style application that provides real time space weather, radio propagation models,
+operating events and other information particularly useful to the radio amateur.
+
+Executive summary for UNIX systems:
+    type `make' for size and style options
+    make <size>
+    sudo make install
+
+Executive summary for ESP8266 Huzzah:
+    install and run Arduino IDE
+    configure as per "ESP8266 Notes" tab at above web page
+    open ESPHamClock.ino in IDE
+    Sketch -> Compile
+    Sketch -> Upload
