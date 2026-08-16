@@ -30,12 +30,12 @@
 [Origin & Tribute](#-origin--the-silent-key-legacy) •
 [OHB Migration](#-the-open-hamclock-backend-ohb-era) •
 [Features](#-feature-matrix) •
-[One-Liner Install](#-one-liner-quick-install) •
+[Quick Install](#-one-liner-quick-install) •
 [Docker Setup](#-docker--docker-compose) •
-[Resolution Guide](#-resolution-guide--switching) •
+[Rotator & Radio](#-rotator--radio-cat-integration) •
+[Docs](#-documentation-library) •
 [Manual Build](#-manual-compilation--build-matrix) •
-[CLI & Web Server](#-remote-web-interface--rest-api) •
-[Autostart](#-systemd-service--autostart)
+[CLI & Web Server](#-remote-web-interface--rest-api)
 
 ---
 
@@ -243,6 +243,36 @@ TARGET=web-1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-E
 # Raspberry Pi Direct Framebuffer 800x480 (/dev/fb0)
 TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
 ```
+
+---
+
+## 📻 Rotator & Radio CAT Integration
+
+HamClock is not just a display—it is a complete, real-time command center for your ham shack. Built by **Elwood Downey (WB0OEW)**—the creator of the renowned *XEphem* astronomical telescope software—HamClock features native TCP/IP socket integration for:
+
+- **🧭 Antenna Rotator Control (`rotctld`)**:
+  - Automatically commands 1-axis and 2-axis rotators (Yaesu, AlfaSpid, Easy-Comm, Green Heron, etc.).
+  - **Auto-Turn to DX**: Click anywhere on the world map or enter a callsign to immediately point your directional beam antenna to the short-path (SP) or long-path (LP) bearing.
+  - **Live Satellite Tracking**: Automatically tracks active amateur satellites (ISS, AO-91, RS-44, IO-117) across both Azimuth and Elevation in real-time.
+- **📻 Transceiver CAT Control (`rigctld` / `flrig`)**:
+  - **Dynamic VOACAP Band Matching**: Spinning your physical radio's VFO dial instantly switches the on-screen VOACAP propagation map to the active band.
+  - **Click-to-Tune (QSY)**: Clicking any DX Cluster, POTA, SOTA, or PSK spot prompts you to QSY, immediately tuning your radio to the spotted frequency.
+  - **Live ON AIR Badge**: Visual red transmitter PTT indicator on the clock display when keying the mic.
+
+👉 **Read the complete guide:** [`docs/ROTATOR_AND_RADIO.md`](docs/ROTATOR_AND_RADIO.md)
+
+---
+
+## 📚 Documentation Library
+
+Explore comprehensive guides and documentation in the [`docs/`](docs/) directory:
+
+| Guide | Description |
+| :--- | :--- |
+| 📖 [**Installation Guide**](docs/INSTALLATION.md) | Step-by-step installation for Linux, Raspberry Pi, Inovato Quadra, macOS, FreeBSD, and Docker. |
+| 📻 [**Rotator & Radio CAT Guide**](docs/ROTATOR_AND_RADIO.md) | Setup and usage for `rotctld`, `rigctld`, `flrig`, satellite tracking, and click-to-tune QSY. |
+| ⚙️ [**Configuration & Settings**](docs/CONFIGURATION_AND_SETTINGS.md) | Guide to all setup pages, station coordinates, map layers, DX clusters, and ADIF loggers. |
+| 💡 [**Usage, Tips & CLI Reference**](docs/USAGE_AND_TIPS.md) | Touch gestures, mouse controls, keyboard shortcuts, command line options, and REST APIs. |
 
 ---
 
