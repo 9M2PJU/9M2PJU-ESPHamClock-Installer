@@ -17,11 +17,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /build
 COPY . .
 
-# Build all web targets
-RUN make clean && make hamclock-web-800x480 -j$(nproc) && \
-    make clean && make hamclock-web-1600x960 -j$(nproc) && \
-    make clean && make hamclock-web-2400x1440 -j$(nproc) && \
-    make clean && make hamclock-web-3200x1920 -j$(nproc)
+# Build all web targets and save binaries to /build/bin
+RUN mkdir -p /build/bin && \
+    make hamclock-web-800x480 -j$(nproc) && mv hamclock-web-800x480 /build/bin/ && \
+    make -C ArduinoLib clean && make -C wsServer clean && make -C zlib-hc clean && rm -f *.o && \
+    make hamclock-web-1600x960 -j$(nproc) && mv hamclock-web-1600x960 /build/bin/ && \
+    make -C ArduinoLib clean && make -C wsServer clean && make -C zlib-hc clean && rm -f *.o && \
+    make hamclock-web-2400x1440 -j$(nproc) && mv hamclock-web-2400x1440 /build/bin/ && \
+    make -C ArduinoLib clean && make -C wsServer clean && make -C zlib-hc clean && rm -f *.o && \
+    make hamclock-web-3200x1920 -j$(nproc) && mv hamclock-web-3200x1920 /build/bin/
 
 # ------------------------------------------------------------------------------
 # Stage 2: Minimal Runtime Environment
@@ -38,10 +42,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN useradd -u 1000 -m -s /bin/bash hamclock
 
 # Copy pre-compiled web binaries from builder
-COPY --from=builder /build/hamclock-web-800x480  /usr/local/bin/hamclock-web-800x480
-COPY --from=builder /build/hamclock-web-1600x960 /usr/local/bin/hamclock-web-1600x960
-COPY --from=builder /build/hamclock-web-2400x1440 /usr/local/bin/hamclock-web-2400x1440
-COPY --from=builder /build/hamclock-web-3200x1920 /usr/local/bin/hamclock-web-3200x1920
+COPY --from=builder /build/bin/hamclock-web-800x480  /usr/local/bin/hamclock-web-800x480
+COPY --from=builder /build/bin/hamclock-web-1600x960 /usr/local/bin/hamclock-web-1600x960
+COPY --from=builder /build/bin/hamclock-web-2400x1440 /usr/local/bin/hamclock-web-2400x1440
+COPY --from=builder /build/bin/hamclock-web-3200x1920 /usr/local/bin/hamclock-web-3200x1920
 
 # Create symlink for default binary
 RUN ln -s /usr/local/bin/hamclock-web-800x480 /usr/local/bin/hamclock
