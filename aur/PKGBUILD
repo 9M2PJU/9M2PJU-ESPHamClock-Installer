@@ -1,4 +1,4 @@
-# Maintainer: 9M2PJU <9m2pju@gmail.com>
+# Maintainer: 9M2PJU <9m2pju@hamradio.my>
 pkgname=hamclock-git
 _pkgname=hamclock
 pkgver=4.29.r8.gae6f8e4
