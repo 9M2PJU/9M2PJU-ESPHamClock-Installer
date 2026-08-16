@@ -43,7 +43,16 @@ endif
 
 LDXXFLAGS = -LArduinoLib -LwsServer -Lzlib-hc -g -pthread
 LIBS = -lpthread -larduino -lzlib-hc -lws
-CXX = g++
+# Select compiler (fallback to clang++ if g++ is not available)
+ifeq ($(origin CXX), default)
+    ifeq ($(shell command -v g++ 2>/dev/null),)
+        ifneq ($(shell command -v clang++ 2>/dev/null),)
+            CXX = clang++
+        endif
+    endif
+endif
+CXX ?= g++
+export CXX
 PYTHON = python3
 
 # macOS does not have X11 by default; this assumes XQuartz or macports xorg has been installed

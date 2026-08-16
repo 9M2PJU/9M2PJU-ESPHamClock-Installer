@@ -171,6 +171,11 @@ elif has_cmd sysctl; then
     NPROCS=$(sysctl -n hw.ncpu || echo 1)
 fi
 
+if [ "$IS_TERMUX" = "1" ]; then
+    export CXX="${CXX:-clang++}"
+    export CC="${CC:-clang}"
+fi
+
 make "$MAKE_TARGET" -j"$NPROCS"
 
 # 4. Install binary and desktop shortcuts
