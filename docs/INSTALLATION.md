@@ -137,7 +137,7 @@ Create a `docker-compose.yml` file:
 ```yaml
 services:
   hamclock:
-    image: ghcr.io/9m2pju/hamclock:latest
+    image: ghcr.io/9m2pju/9m2pju-hamclock-docker:latest
     container_name: hamclock
     restart: unless-stopped
     ports:

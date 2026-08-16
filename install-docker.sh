@@ -47,7 +47,7 @@ else
     DOCKER_CMD="docker"
 fi
 
-IMAGE="ghcr.io/9m2pju/9m2pju-hamclock-installer:latest"
+IMAGE="ghcr.io/9m2pju/9m2pju-hamclock-docker:latest"
 RAW_RES="${RESOLUTION:-${HAMCLOCK_RES:-$1}}"
 
 if [ -z "$RAW_RES" ]; then

@@ -170,7 +170,7 @@ jobs:
             
             #### 🐳 Multi-Arch Docker
             ```bash
-            docker pull ghcr.io/9m2pju/9m2pju-hamclock-installer:latest
+            docker pull ghcr.io/9m2pju/9m2pju-hamclock-docker:latest
             ```
             
             ---

@@ -20,7 +20,7 @@
 [![Flathub](https://img.shields.io/badge/Flathub-Pending%20Review-4A90D9.svg?style=for-the-badge&logo=flathub&logoColor=white)](https://github.com/flathub/flathub/pull/9797)
 [![Windows Support](https://img.shields.io/badge/Windows-WSL2%20%7C%20Docker-0078D6.svg?style=for-the-badge&logo=windows&logoColor=white)](docs/WINDOWS.md)
 [![Android Support](https://img.shields.io/badge/Android-Termux%20%7C%20Web-3DDC84.svg?style=for-the-badge&logo=android&logoColor=white)](docs/ANDROID.md)
-[![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2Fhamclock-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/pkgs/container/hamclock)
+[![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2F9m2pju--hamclock--docker-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/pkgs/container/9m2pju-hamclock-docker)
 [![License](https://img.shields.io/badge/license-Custom%20Amateur%20Radio-purple.svg?style=for-the-badge)](file:///home/x/ESPHamClock/LICENSE)
 
 <br/>
@@ -267,7 +267,7 @@ RESOLUTION=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-H
    ```yaml
    services:
      hamclock:
-       image: ghcr.io/9m2pju/9m2pju-hamclock-installer:latest
+       image: ghcr.io/9m2pju/9m2pju-hamclock-docker:latest
        container_name: hamclock
        restart: unless-stopped
        ports:
@@ -304,7 +304,7 @@ docker run -d \
   -p 8082:8082 \
   -e RESOLUTION=1600x960 \
   -v hamclock_data:/home/hamclock/.hamclock \
-  ghcr.io/9m2pju/hamclock:latest
+  ghcr.io/9m2pju/9m2pju-hamclock-docker:latest
 ```
 
 ---

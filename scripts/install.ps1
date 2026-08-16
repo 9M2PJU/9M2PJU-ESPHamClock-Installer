@@ -66,7 +66,7 @@ switch ($choice) {
             Exit 1
         }
         Write-Host "🚀 Pulling and starting 9M2PJU HamClock Docker container..." -ForegroundColor Green
-        docker pull ghcr.io/9m2pju/9m2pju-hamclock-installer:latest
+        docker pull ghcr.io/9m2pju/9m2pju-hamclock-docker:latest
         docker rm -f hamclock 2>$null | Out-Null
         docker run -d `
             --name hamclock `
@@ -75,7 +75,7 @@ switch ($choice) {
             -p 8081:8081 `
             -p 8082:8082 `
             -v "$env:USERPROFILE\.hamclock:/root/.hamclock" `
-            ghcr.io/9m2pju/9m2pju-hamclock-installer:latest
+            ghcr.io/9m2pju/9m2pju-hamclock-docker:latest
 
         Write-Host ""
         Write-Host "✅ HamClock is running in the background!" -ForegroundColor Green
