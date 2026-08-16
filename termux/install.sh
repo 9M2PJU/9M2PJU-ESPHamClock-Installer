@@ -27,32 +27,60 @@ pkg update -y
 pkg install -y clang make git curl
 
 # 2. Resolution Selection
-echo -e "\n${YELLOW}[2/4] Select HamClock Resolution for Android:${NC}"
-echo "  1) Web Browser - 1600x960 (Tablet / Large Screen) [Default]"
-echo "  2) Web Browser - 800x480 (Phone Screen)"
-echo "  3) Web Browser - 2400x1440 (High-DPI Tablet)"
-echo "  4) Web Browser - 3200x1920 (4K / Ultra-High-DPI)"
-echo "  5) X11 GUI - 1600x960 (Requires Termux:X11 app)"
-echo "  6) X11 GUI - 800x480 (Requires Termux:X11 app)"
+RAW_TARGET="${TARGET:-$1}"
+if [ -n "$RAW_TARGET" ]; then
+    case "$RAW_TARGET" in
+        800x480|*800x480*) MAKE_TARGET="hamclock-web-800x480" ;;
+        1600x960|*1600x960*) MAKE_TARGET="hamclock-web-1600x960" ;;
+        2400x1440|*2400x1440*) MAKE_TARGET="hamclock-web-2400x1440" ;;
+        3200x1920|*3200x1920*) MAKE_TARGET="hamclock-web-3200x1920" ;;
+        1) MAKE_TARGET="hamclock-web-1600x960" ;;
+        2) MAKE_TARGET="hamclock-web-800x480" ;;
+        3) MAKE_TARGET="hamclock-web-2400x1440" ;;
+        4) MAKE_TARGET="hamclock-web-3200x1920" ;;
+        5)
+            pkg install -y x11-repo && pkg install -y libx11
+            MAKE_TARGET="hamclock-1600x960"
+            ;;
+        6)
+            pkg install -y x11-repo && pkg install -y libx11
+            MAKE_TARGET="hamclock-800x480"
+            ;;
+        *) MAKE_TARGET="hamclock-web-$RAW_TARGET" ;;
+    esac
+    echo -e "\n${CYAN}Using specified target: $MAKE_TARGET${NC}"
+else
+    echo -e "\n${YELLOW}[2/4] Select HamClock Resolution for Android:${NC}"
+    echo "  1) Web Browser - 1600x960 (Tablet / Large Screen) [Default]"
+    echo "  2) Web Browser - 800x480 (Phone Screen)"
+    echo "  3) Web Browser - 2400x1440 (High-DPI Tablet)"
+    echo "  4) Web Browser - 3200x1920 (4K / Ultra-High-DPI)"
+    echo "  5) X11 GUI - 1600x960 (Requires Termux:X11 app)"
+    echo "  6) X11 GUI - 800x480 (Requires Termux:X11 app)"
 
-read -r -p "Enter choice [1-6, default: 1]: " TARGET_CHOICE
-TARGET_CHOICE=${TARGET_CHOICE:-1}
+    if [ -e /dev/tty ]; then
+        read -r -p "Enter choice [1-6, default: 1]: " TARGET_CHOICE < /dev/tty || TARGET_CHOICE=1
+    else
+        read -r -p "Enter choice [1-6, default: 1]: " TARGET_CHOICE || TARGET_CHOICE=1
+    fi
+    TARGET_CHOICE=${TARGET_CHOICE:-1}
 
-case "$TARGET_CHOICE" in
-    1) MAKE_TARGET="hamclock-web-1600x960" ;;
-    2) MAKE_TARGET="hamclock-web-800x480" ;;
-    3) MAKE_TARGET="hamclock-web-2400x1440" ;;
-    4) MAKE_TARGET="hamclock-web-3200x1920" ;;
-    5)
-        pkg install -y x11-repo && pkg install -y libx11
-        MAKE_TARGET="hamclock-1600x960"
-        ;;
-    6)
-        pkg install -y x11-repo && pkg install -y libx11
-        MAKE_TARGET="hamclock-800x480"
-        ;;
-    *) MAKE_TARGET="hamclock-web-1600x960" ;;
-esac
+    case "$TARGET_CHOICE" in
+        1) MAKE_TARGET="hamclock-web-1600x960" ;;
+        2) MAKE_TARGET="hamclock-web-800x480" ;;
+        3) MAKE_TARGET="hamclock-web-2400x1440" ;;
+        4) MAKE_TARGET="hamclock-web-3200x1920" ;;
+        5)
+            pkg install -y x11-repo && pkg install -y libx11
+            MAKE_TARGET="hamclock-1600x960"
+            ;;
+        6)
+            pkg install -y x11-repo && pkg install -y libx11
+            MAKE_TARGET="hamclock-800x480"
+            ;;
+        *) MAKE_TARGET="hamclock-web-1600x960" ;;
+    esac
+fi
 
 # 3. Source & Build
 echo -e "\n${YELLOW}[3/4] Compiling $MAKE_TARGET...${NC}"
