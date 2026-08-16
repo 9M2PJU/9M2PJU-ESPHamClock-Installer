@@ -21,6 +21,8 @@
 [![Windows Support](https://img.shields.io/badge/Windows-WSL2%20%7C%20Docker-0078D6.svg?style=for-the-badge&logo=windows&logoColor=white)](docs/WINDOWS.md)
 [![Android Support](https://img.shields.io/badge/Android-Termux%20%7C%20Web-3DDC84.svg?style=for-the-badge&logo=android&logoColor=white)](docs/ANDROID.md)
 [![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2F9m2pju--hamclock--docker-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/pkgs/container/9m2pju-hamclock-docker)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy_Me_a_Coffee-9M2PJU-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/9m2pju)
+[![Wise](https://img.shields.io/badge/Wise-faizulz13-163300?style=for-the-badge&logo=wise&logoColor=white)](https://wise.com/pay/me/faizulz13)
 [![License](https://img.shields.io/badge/license-Custom%20Amateur%20Radio-purple.svg?style=for-the-badge)](file:///home/x/ESPHamClock/LICENSE)
 
 <br/>
@@ -567,6 +569,24 @@ Contributions, bug fixes, and feature enhancements are welcome!
 2. Create your feature branch from `Staging` (`git checkout -b feature/my-new-feature`).
 3. Commit your changes.
 4. Push to your branch and open a Pull Request.
+
+---
+
+## 💖 Sponsor & Support
+
+If you find this installer, packaging suite, and the Open HamClock Backend useful for your amateur radio shack, please consider supporting ongoing maintenance and development:
+
+<div align="center">
+
+<a href="https://buymeacoffee.com/9m2pju" target="_blank"><img src="https://img.shields.io/badge/Buy_Me_a_Coffee-9M2PJU-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee" /></a>
+&nbsp;&nbsp;
+<a href="https://wise.com/pay/me/faizulz13" target="_blank"><img src="https://img.shields.io/badge/Wise-faizulz13-163300?style=for-the-badge&logo=wise&logoColor=white" alt="Wise" /></a>
+
+<br/><br/>
+
+Your sponsorship helps cover server costs for the **Open HamClock Backend (OHB)** and ongoing packaging maintenance. Thank you for your support! 73 de 9M2PJU.
+
+</div>
 
 ---
 
