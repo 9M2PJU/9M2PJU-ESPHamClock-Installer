@@ -2,6 +2,10 @@
 
 This directory contains standalone installers, build helpers, and service scripts to build and run **HamClock** natively on Android devices via **Termux**, without altering any upstream source code.
 
+<p align="center">
+  <img src="../docs/images/9m2pju-hamclock-android.jpg" alt="HamClock running on Android Phone using Termux with Fully Kiosk Browser" width="600" />
+</p>
+
 ## Quick One-Liner Install
 
 Open Termux on Android and paste:

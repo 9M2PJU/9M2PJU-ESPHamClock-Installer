@@ -4,6 +4,10 @@
 
 Repurposing an old or spare Android tablet makes one of the **cheapest, lowest-power (<3W), and most responsive dedicated HamClock touch dashboards** for your amateur radio shack!
 
+<p align="center">
+  <img src="images/9m2pju-hamclock-android.jpg" alt="HamClock running on Android Phone using Termux with Fully Kiosk Browser" width="700" />
+</p>
+
 ---
 
 ## ⚡ 1-Liner Quick Install (Termux)

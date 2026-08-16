@@ -213,6 +213,10 @@ irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/scri
 
 Turn spare Android tablets or phones into permanent, low-power (<3W) **shack touch clocks**:
 
+<p align="center">
+  <img src="docs/images/9m2pju-hamclock-android.jpg" alt="HamClock running on Android Phone using Termux with Fully Kiosk Browser" width="700" />
+</p>
+
 ```bash
 pkg update -y && pkg install -y curl && bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh)"
 ```
