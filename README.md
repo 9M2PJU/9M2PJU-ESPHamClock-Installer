@@ -211,16 +211,26 @@ irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/scri
 
 ## 📱 Android & Termux Support
 
-Turn spare Android tablets or phones into permanent, low-power **shack touch clocks**:
+Turn spare Android tablets or phones into permanent, low-power (<3W) **shack touch clocks**:
 
 ```bash
 pkg update -y && pkg install -y curl && bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh)"
 ```
 
-1. Run `hamclock -k &` in Termux.
-2. Open `http://localhost:8081/live.html` in Chrome or Brave.
-3. Tap **"Add to Home screen"** to get a full-screen, native touch app!
-4. For 24/7 background operation, battery optimization, and boot autostart, see the [Android & Termux Guide](docs/ANDROID.md).
+### Quick Non-Interactive Target Selection:
+```bash
+# 1600x960 (Recommended for Tablets & 1080p Screens)
+TARGET=1600x960 bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh)"
+
+# 800x480 (Recommended for Phones & Compact Screens)
+TARGET=800x480 bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh)"
+```
+
+### Full-Screen & 24/7 Shack Operation:
+1. **Background Running**: Run `termux-wake-lock && hamclock -k &`
+2. **Interactive UI**: Open `http://localhost:8081/live.html` in Chrome or Brave.
+3. **Full-Screen PWA**: Tap the browser menu (`⋮`) ➔ **"Add to Home screen"** to launch HamClock as a borderless, full-screen touch app!
+4. For battery optimization, kiosk mode, and autostart on boot, see the [Android & Termux Guide](docs/ANDROID.md).
 
 ---
 

@@ -57,12 +57,43 @@ hamclock -k &
 
 ---
 
-### Step 5: Create a Full-Screen Home Screen Web App
-To make HamClock look and feel like a native full-screen Android app:
-1. In Google Chrome or Brave, tap the **three-dot menu (`⋮`)** in the upper right.
-2. Tap **"Add to Home screen"** or **"Install app"**.
+### Step 5: Make It Full-Screen & Fit to Screen
+
+There are three ways to get a borderless, full-screen display on Android:
+
+#### Option A: Add to Home Screen (PWA Mode — Easiest & Recommended)
+1. In Chrome, Brave, or Firefox, tap the **three-dot menu (`⋮`)** in the upper right.
+2. Tap **"Add to Home screen"** (or **"Install app"**).
 3. Name it **HamClock** and tap **Add**.
-4. An icon will appear on your Android home screen. Tapping it opens HamClock full-screen without URL bars or browser clutter!
+4. Launch HamClock from your Android Home Screen — it will run as a standalone, borderless full-screen application with no browser URL bar!
+
+#### Option B: Enable "Web Full Screen" in HamClock Setup
+1. Tap the **Callsign / Lock** area on the HamClock screen to enter **Setup**.
+2. Set **`Web full scrn`** to **`Yes`** and tap **Done**.
+3. Next time you tap anywhere on the screen, the browser will expand to HTML5 full-screen.
+
+#### Option C: Fully Kiosk Browser (Best for Permanent Wall/Desk Clocks)
+For a 24/7 dedicated shack clock tablet, install [**Fully Kiosk Browser**](https://play.google.com/store/apps/details?id=de.fullyfactory.fully):
+- Set Start URL to `http://localhost:8081/live.html`.
+- Enable **Fullscreen Mode** (hides Android navigation bar & status bar).
+- Enable **Keep Screen On** and **Auto-scale content to fit window**.
+
+---
+
+## 🎯 Direct Non-Interactive Resolution Install
+
+You can bypass the interactive menu by setting `TARGET`:
+
+```bash
+# For Tablets & 1080p Screens (Default)
+TARGET=1600x960 bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh)"
+
+# For Phones & Compact Screens
+TARGET=800x480 bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh)"
+
+# For 2K High-DPI Tablets
+TARGET=2400x1440 bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh)"
+```
 
 ---
 
@@ -71,7 +102,7 @@ To make HamClock look and feel like a native full-screen Android app:
 If you are using your Android device as a permanent wall-mounted or desk-mounted HamClock:
 
 ### 1. Prevent Android from Sleeping (Wake Lock)
-Keep the Termux background service alive even when the screen is dimmed or off:
+Keep the Termux background service alive even when switching apps or locking the screen:
 ```bash
 termux-wake-lock
 ```
