@@ -144,18 +144,20 @@ LOCAL_IP=$(ip -4 addr show 2>/dev/null | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | g
 echo -e "\n${GREEN}=====================================================${NC}"
 echo -e "${GREEN}      HamClock Installation Completed on Android!   ${NC}"
 echo -e "${GREEN}=====================================================${NC}"
-echo -e "To start HamClock, run:\n"
-echo -e "  ${CYAN}hamclock${NC}\n"
-echo -e "Then open your Android web browser (Chrome/Brave/Firefox) to:
-  Interactive Touch Screen:  ${CYAN}http://localhost:8081/live.html${NC}
-  LAN Remote Access:         ${CYAN}http://${LOCAL_IP}:8081/live.html${NC}
-  Read-Only Monitor Screen:  ${CYAN}http://localhost:8082/live.html${NC}
-  Backend RESTful API:       ${CYAN}http://localhost:8080/${NC}
-
-${YELLOW}Tips for Best Full-Screen & 24/7 Shack Display:${NC}
-  1. Run '${CYAN}termux-wake-lock${NC}' to prevent Android background sleep.
-  2. Start with '${CYAN}hamclock -k &${NC}' (or '${CYAN}termux/hamclock-service.sh${NC}').
-  3. For instant borderless full-screen & auto-fit display, install
-     ${CYAN}Fully Kiosk Browser${NC} from Google Play:
-     https://play.google.com/store/apps/details?id=de.ozerov.fully&hl=en"
-echo -e "${GREEN}=====================================================${NC}"
+echo -e "\n${YELLOW}🚀 NEXT STEPS TO RUN HAMCLOCK:${NC}\n"
+echo -e "  ${CYAN}Step 1:${NC} Keep Termux running in the background:"
+echo -e "    ${YELLOW}termux-wake-lock${NC}\n"
+echo -e "  ${CYAN}Step 2:${NC} Start HamClock daemon:"
+echo -e "    ${YELLOW}hamclock -k &${NC}\n"
+echo -e "  ${CYAN}Step 3:${NC} For the best borderless Full-Screen & Auto-Fit shack display:"
+echo -e "    Install ${CYAN}Fully Kiosk Browser & Launcher${NC} from Google Play:"
+echo -e "    ${CYAN}https://play.google.com/store/apps/details?id=de.ozerov.fully&hl=en${NC}\n"
+echo -e "    Set Start URL to: ${GREEN}http://localhost:8081/live.html${NC}"
+echo -e "    (Or open in Chrome / Brave / Firefox)\n"
+echo -e "-----------------------------------------------------"
+echo -e "${CYAN}🌐 Quick Access URLs:${NC}"
+echo -e "  Interactive Touch Screen:  ${GREEN}http://localhost:8081/live.html${NC}"
+echo -e "  LAN Remote Access:         ${GREEN}http://${LOCAL_IP}:8081/live.html${NC}"
+echo -e "  Read-Only Monitor Screen:  ${GREEN}http://localhost:8082/live.html${NC}"
+echo -e "  Backend RESTful API:       ${GREEN}http://localhost:8080/${NC}"
+echo -e "${GREEN}=====================================================${NC}\n"
