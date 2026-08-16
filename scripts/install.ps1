@@ -89,7 +89,7 @@ switch ($choice) {
             Exit 1
         }
         Write-Host "🚀 Installing and compiling ESPHamClock inside WSL..." -ForegroundColor Green
-        wsl -e bash -c "curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash"
+        wsl -e bash -c "curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash"
         
         Write-Host ""
         Write-Host "✅ Installation completed in WSL." -ForegroundColor Green

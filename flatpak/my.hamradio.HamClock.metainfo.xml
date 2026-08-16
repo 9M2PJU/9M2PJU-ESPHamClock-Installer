@@ -3,13 +3,13 @@
   <id>my.hamradio.HamClock</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LicenseRef-custom</project_license>
-  <name>9M2PJU ESPHamClock</name>
+  <name>9M2PJU HamClock</name>
   <summary>Space weather, propagation and telemetry dashboard for radio amateurs</summary>
   <developer_name>9M2PJU</developer_name>
 
   <description>
     <p>
-      9M2PJU ESPHamClock (Open HamClock - OHB Edition) is the premier open-source space weather,
+      9M2PJU HamClock (Open HamClock - OHB Edition) is the premier open-source space weather,
       radio propagation, VOACAP modeling, satellite tracking, and telemetry dashboard designed
       for amateur radio operators worldwide.
     </p>
@@ -31,13 +31,13 @@
   <screenshots>
     <screenshot type="default">
       <image>https://hamclock.hamradio.my/images/9m2pju-esphamclock-ohb.png</image>
-      <caption>9M2PJU ESPHamClock dashboard with Open HamClock Backend (OHB)</caption>
+      <caption>9M2PJU HamClock dashboard with Open HamClock Backend (OHB)</caption>
     </screenshot>
   </screenshots>
 
   <url type="homepage">https://hamclock.hamradio.my</url>
-  <url type="bugtracker">https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/issues</url>
-  <url type="vcs-browser">https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer</url>
+  <url type="bugtracker">https://github.com/9M2PJU/9M2PJU-HamClock-Installer/issues</url>
+  <url type="vcs-browser">https://github.com/9M2PJU/9M2PJU-HamClock-Installer</url>
 
   <categories>
     <category>Network</category>

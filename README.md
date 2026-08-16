@@ -1,4 +1,4 @@
-# 9M2PJU ESPHamClock Installer
+# 9M2PJU HamClock Installer
 
 <div align="center">
 
@@ -16,10 +16,10 @@
 [![HamClock Version](https://img.shields.io/badge/version-4.29-blue.svg?style=for-the-badge&logo=cplusplus)](file:///home/x/ESPHamClock/version.cpp)
 [![Backend Status](https://img.shields.io/badge/backend-OHB%20(Open%20HamClock%20Backend)-brightgreen.svg?style=for-the-badge&logo=server)](https://ohb.hamclock.app)
 [![AUR package](https://img.shields.io/aur/version/esphamclock-git?color=1793D1&label=AUR&logo=archlinux&style=for-the-badge)](https://aur.archlinux.org/packages/esphamclock-git)
-[![Snap Store](https://img.shields.io/badge/Snap%20Store-Submitted-E95420.svg?style=for-the-badge&logo=snapcraft&logoColor=white)](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/actions/workflows/snap.yml)
+[![Snap Store](https://img.shields.io/badge/Snap%20Store-Submitted-E95420.svg?style=for-the-badge&logo=snapcraft&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/actions/workflows/snap.yml)
 [![Flathub](https://img.shields.io/badge/Flathub-Pending%20Review-4A90D9.svg?style=for-the-badge&logo=flathub&logoColor=white)](https://github.com/flathub/flathub/pull/9797)
 [![Windows Support](https://img.shields.io/badge/Windows-WSL2%20%7C%20Docker-0078D6.svg?style=for-the-badge&logo=windows&logoColor=white)](docs/WINDOWS.md)
-[![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2Fesphamclock-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/pkgs/container/esphamclock)
+[![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2Fesphamclock-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/pkgs/container/esphamclock)
 [![License](https://img.shields.io/badge/license-Custom%20Amateur%20Radio-purple.svg?style=for-the-badge)](file:///home/x/ESPHamClock/LICENSE)
 
 <br/>
@@ -101,24 +101,24 @@ Use the universal automated installation script to install build dependencies, c
 
 ### Linux / Raspberry Pi / Inovato Quadra / Ubuntu / Debian / Arch / Fedora
 ```bash
-curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 ```
 
 ### macOS (Apple Silicon & Intel)
 > *Requires [Homebrew](https://brew.sh/) and [XQuartz](https://www.xquartz.org/).*
 ```bash
-curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 ```
 
 ### FreeBSD
 ```bash
-curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 ```
 
 ### Local Execution
 ```bash
-git clone https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer.git
-cd 9M2PJU-ESPHamClock-Installer
+git clone https://github.com/9M2PJU/9M2PJU-HamClock-Installer.git
+cd 9M2PJU-HamClock-Installer
 ./install.sh
 ```
 
@@ -126,7 +126,7 @@ cd 9M2PJU-ESPHamClock-Installer
 
 ## 📦 Pre-Built Linux Packages (.deb, .rpm, .AppImage)
 
-For instant installation without compiling from source, pre-built binary packages are available directly from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/releases) for **amd64**, **arm64**, and **armhf**:
+For instant installation without compiling from source, pre-built binary packages are available directly from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/releases) for **amd64**, **arm64**, and **armhf**:
 
 <div align="center">
 
@@ -144,7 +144,7 @@ For instant installation without compiling from source, pre-built binary package
 ### 📦 Snap Store (Ubuntu / Universal Linux)
 > ⏳ **Submission in progress** — publishing to the Snap Store now. Will be available as `sudo snap install esphamclock` once approved.
 >
-> Track build: [GitHub Actions — Snap Build](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/actions/workflows/snap.yml)
+> Track build: [GitHub Actions — Snap Build](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/actions/workflows/snap.yml)
 
 ### 📦 Flatpak / Flathub
 > ⏳ **Pending Flathub reviewer approval** — [PR #9797](https://github.com/flathub/flathub/pull/9797). Once merged, install via:
@@ -193,7 +193,7 @@ chmod +x ESPHamClock-4.29-x86_64.AppImage
 Run HamClock on **Windows 10 & Windows 11** via automated PowerShell installer:
 
 ```powershell
-irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/scripts/install.ps1 | iex
 ```
 
 - **WSL2 / WSLg**: Runs as a seamless, hardware-accelerated native desktop window.
@@ -216,12 +216,12 @@ Multi-architecture images are built automatically via **GitHub Actions** and hos
 Run this single command to pull the multi-arch container, select your resolution, and start HamClock:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install-docker.sh | bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install-docker.sh | bash
 ```
 
 Or pass your desired resolution directly:
 ```bash
-RESOLUTION=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install-docker.sh | bash
+RESOLUTION=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install-docker.sh | bash
 ```
 
 ---
@@ -313,16 +313,16 @@ Pass `TARGET` or resolution directly into the command:
 
 ```bash
 # Desktop X11 1600x960 (Large)
-TARGET=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+TARGET=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 
 # Desktop X11 2400x1440 (2K Hi-DPI)
-TARGET=2400x1440 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+TARGET=2400x1440 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 
 # Web Server Only 1600x960 (Headless)
-TARGET=web-1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+TARGET=web-1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 
 # Raspberry Pi Direct Framebuffer 800x480 (/dev/fb0)
-TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 ```
 
 ---
@@ -487,7 +487,7 @@ sudo systemctl status hamclock
 ## 📂 Repository Layout
 
 ```text
-9M2PJU-ESPHamClock-Installer/
+9M2PJU-HamClock-Installer/
 ├── src/                          # C++ implementation source files
 │   ├── ESPHamClock.cpp           # Main application entry point
 │   ├── astro.cpp, clocks.cpp...  # Core telemetry & map engines

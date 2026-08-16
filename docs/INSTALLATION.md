@@ -22,26 +22,26 @@ Comprehensive installation instructions for **HamClock (Open HamClock / OHB Edit
 The universal installer automatically detects your operating system, installs any missing build packages, compiles HamClock, and sets up desktop shortcuts.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 ```
 
 ### Selecting Resolution / Target Non-Interactively:
 ```bash
 # Large Desktop (1600x960)
-TARGET=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+TARGET=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 
 # Headless Web Server (1600x960)
-TARGET=web-1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+TARGET=web-1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 
 # Raspberry Pi Touchscreen Framebuffer (/dev/fb0)
-TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 ```
 
 ---
 
 ## 2. Pre-Built Linux Packages (AUR, .deb, .rpm, .AppImage, Flatpak)
 
-For quick installation without building from source, download pre-compiled packages directly from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/releases) or install via package managers:
+For quick installation without building from source, download pre-compiled packages directly from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/releases) or install via package managers:
 
 ### 📦 Snap Store (Ubuntu / Universal Linux)
 ```bash
@@ -95,7 +95,7 @@ See the full [Windows Installation Guide](WINDOWS.md) for complete instructions.
 
 ### 1-Click Automated PowerShell Installer:
 ```powershell
-irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/scripts/install.ps1 | iex
 ```
 
 ---
@@ -103,19 +103,19 @@ irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/s
 ## 4. Docker & Containerized Setup
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 ```
 
 ### Selecting Resolution / Target Non-Interactively:
 ```bash
 # Large Desktop (1600x960)
-TARGET=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+TARGET=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 
 # Headless Web Server (1600x960)
-TARGET=web-1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+TARGET=web-1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 
 # Raspberry Pi Touchscreen Framebuffer (/dev/fb0)
-TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 ```
 
 ---
@@ -126,7 +126,7 @@ For servers, NAS devices (Synology, TrueNAS, Unraid), and headless Raspberry Pis
 
 ### Option A: 1-Line Docker Automated Deployment
 ```bash
-curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install-docker.sh | bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install-docker.sh | bash
 ```
 
 ### Option B: Docker Compose
@@ -163,8 +163,8 @@ docker compose up -d
 If you are running a Raspberry Pi or Inovato Quadra without a heavy desktop environment (e.g. Raspberry Pi OS Lite):
 ```bash
 sudo apt update && sudo apt install -y build-essential make g++ libgpiod-dev curl
-git clone https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer.git
-cd 9M2PJU-ESPHamClock-Installer
+git clone https://github.com/9M2PJU/9M2PJU-HamClock-Installer.git
+cd 9M2PJU-HamClock-Installer
 make hamclock-fb0-800x480 -j$(nproc)
 sudo make install
 ```
@@ -181,8 +181,8 @@ sudo hamclock -k -f on
 ```bash
 sudo apt update
 sudo apt install -y build-essential make g++ libx11-dev libgpiod-dev curl unzip pkg-config
-git clone https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer.git
-cd 9M2PJU-ESPHamClock-Installer
+git clone https://github.com/9M2PJU/9M2PJU-HamClock-Installer.git
+cd 9M2PJU-HamClock-Installer
 make hamclock-1600x960 -j$(nproc)
 sudo make install
 ```
@@ -190,8 +190,8 @@ sudo make install
 ### Arch Linux / CachyOS / Manjaro
 ```bash
 sudo pacman -Syu --needed base-devel libx11 libgpiod curl unzip
-git clone https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer.git
-cd 9M2PJU-ESPHamClock-Installer
+git clone https://github.com/9M2PJU/9M2PJU-HamClock-Installer.git
+cd 9M2PJU-HamClock-Installer
 make hamclock-1600x960 -j$(nproc)
 sudo make install
 ```
@@ -199,8 +199,8 @@ sudo make install
 ### Fedora / RHEL / AlmaLinux
 ```bash
 sudo dnf install -y gcc-c++ make libX11-devel libgpiod-devel curl unzip
-git clone https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer.git
-cd 9M2PJU-ESPHamClock-Installer
+git clone https://github.com/9M2PJU/9M2PJU-HamClock-Installer.git
+cd 9M2PJU-HamClock-Installer
 make hamclock-1600x960 -j$(nproc)
 sudo make install
 ```
@@ -214,8 +214,8 @@ Requires [Homebrew](https://brew.sh/) and [XQuartz](https://www.xquartz.org/):
 ```bash
 brew install make gcc
 brew install --cask xquartz
-git clone https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer.git
-cd 9M2PJU-ESPHamClock-Installer
+git clone https://github.com/9M2PJU/9M2PJU-HamClock-Installer.git
+cd 9M2PJU-HamClock-Installer
 make hamclock-1600x960 -j$(sysctl -n hw.ncpu)
 sudo make install
 ```
@@ -226,8 +226,8 @@ sudo make install
 
 ```bash
 sudo pkg install -y gmake gcc libX11 libgpio curl unzip
-git clone https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer.git
-cd 9M2PJU-ESPHamClock-Installer
+git clone https://github.com/9M2PJU/9M2PJU-HamClock-Installer.git
+cd 9M2PJU-HamClock-Installer
 gmake hamclock-1600x960
 sudo gmake install
 ```

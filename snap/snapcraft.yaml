@@ -12,8 +12,8 @@ grade: stable
 confinement: strict
 website: https://hamclock.hamradio.my
 contact: 9m2pju@gmail.com
-issues: https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/issues
-source-code: https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer
+issues: https://github.com/9M2PJU/9M2PJU-HamClock-Installer/issues
+source-code: https://github.com/9M2PJU/9M2PJU-HamClock-Installer
 
 platforms:
   amd64:

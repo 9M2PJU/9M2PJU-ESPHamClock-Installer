@@ -1,6 +1,6 @@
 # 📦 Canonical Snap Package Guide
 
-**9M2PJU ESPHamClock (Open HamClock - OHB Edition)** can be published and installed directly from Canonical's **Snap Store** across Ubuntu, Debian, Fedora, Arch Linux, openSUSE, and Manjaro.
+**9M2PJU HamClock (Open HamClock - OHB Edition)** can be published and installed directly from Canonical's **Snap Store** across Ubuntu, Debian, Fedora, Arch Linux, openSUSE, and Manjaro.
 
 ---
 

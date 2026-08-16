@@ -1,6 +1,6 @@
 # 📦 Flatpak & Flathub Submission Guide
 
-This directory contains the official Flathub Flatpak packaging files for **9M2PJU ESPHamClock (Open HamClock - OHB Edition)**.
+This directory contains the official Flathub Flatpak packaging files for **9M2PJU HamClock (Open HamClock - OHB Edition)**.
 
 - **Application ID**: `my.hamradio.HamClock`
 - **Domain**: `hamradio.my`
@@ -37,7 +37,7 @@ git checkout -b new-pr/my.hamradio.HamClock
 ```bash
 cp /home/x/ESPHamClock/flatpak/my.hamradio.HamClock.yml .
 git add my.hamradio.HamClock.yml
-git commit -m "Add my.hamradio.HamClock (9M2PJU ESPHamClock)"
+git commit -m "Add my.hamradio.HamClock (9M2PJU HamClock)"
 git push -u origin new-pr/my.hamradio.HamClock
 ```
 

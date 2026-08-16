@@ -120,7 +120,7 @@ if [ -f "$SCRIPT_DIR/Makefile" ]; then
 else
     BUILD_DIR="$(mktemp -d /tmp/hamclock-build-XXXXXX)"
     echo "Fetching latest source into temporary directory $BUILD_DIR..."
-    git clone --depth 1 https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer.git "$BUILD_DIR"
+    git clone --depth 1 https://github.com/9M2PJU/9M2PJU-HamClock-Installer.git "$BUILD_DIR"
     cd "$BUILD_DIR"
     CLEANUP_BUILD_DIR=1
 fi

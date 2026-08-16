@@ -1,6 +1,6 @@
 # 🪟 Windows Installation & User Guide
 
-**9M2PJU ESPHamClock (Open HamClock - OHB Edition)** can be run effortlessly on Windows 10 and Windows 11 using several convenient options.
+**9M2PJU HamClock (Open HamClock - OHB Edition)** can be run effortlessly on Windows 10 and Windows 11 using several convenient options.
 
 ---
 
@@ -9,7 +9,7 @@
 Open **PowerShell** (press `Win + X`, then click **Terminal** or **PowerShell**) and paste:
 
 ```powershell
-irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/scripts/install.ps1 | iex
 ```
 
 The script automatically checks your environment (Docker Desktop or WSL2), sets up HamClock, and opens the live dashboard in your browser.
@@ -29,7 +29,7 @@ wsl --install
 ### 2. Install HamClock in WSL
 Open **Ubuntu** or your WSL terminal and run:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 ```
 
 ### 3. Launch from Windows
