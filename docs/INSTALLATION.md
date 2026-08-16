@@ -178,21 +178,55 @@ sudo hamclock -k -f on
 
 ---
 
-## 7. Linux Native Compilation
+## 7. Package Managers & Pre-Built Distributions
+
+### Arch Linux / CachyOS / Manjaro (AUR)
+Install the official AUR package with `yay` or `paru`:
+```bash
+yay -S hamclock-git
+```
+
+> [!NOTE]
+> **Resolution in Package Managers:**
+> The AUR package builds and installs all 6 resolutions (`800x480`, `1600x960`, `2400x1440`, `3200x1920`, and web versions) at once into `/usr/lib/hamclock/`.
+> 
+> To launch your desired resolution:
+> ```bash
+> hamclock -r 1600x960    # Launch 1600x960 (recommended for PC)
+> hamclock-1600x960       # Direct alias
+> hamclock -r 2400x1440   # Launch 2K
+> hamclock -r 3200x1920   # Launch 4K
+> ```
+> Or set a permanent default in `~/.bashrc`:
+> ```bash
+> export HAMCLOCK_RES=1600x960
+> ```
+
+### Pre-Built Packages (Debian, Fedora, AppImage)
+Download the latest binaries from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/releases):
+
+- **Ubuntu / Debian / Raspberry Pi OS (`.deb`)**:
+  ```bash
+  sudo dpkg -i hamclock_4.29-1_amd64.deb   # (or arm64 / armhf)
+  ```
+- **Fedora / RHEL / openSUSE (`.rpm`)**:
+  ```bash
+  sudo rpm -Uvh hamclock-4.29-1.x86_64.rpm  # (or aarch64 / armhfp)
+  ```
+- **Universal Linux (`.AppImage`)**:
+  ```bash
+  chmod +x HamClock-4.29-x86_64.AppImage
+  ./HamClock-4.29-x86_64.AppImage
+  ```
+
+---
+
+## 8. Linux Native Source Compilation
 
 ### Debian / Ubuntu / Mint / Raspberry Pi OS Desktop
 ```bash
 sudo apt update
 sudo apt install -y build-essential make g++ libx11-dev libgpiod-dev curl unzip pkg-config
-git clone https://github.com/9M2PJU/9M2PJU-HamClock-Installer.git
-cd 9M2PJU-HamClock-Installer
-make hamclock-1600x960 -j$(nproc)
-sudo make install
-```
-
-### Arch Linux / CachyOS / Manjaro
-```bash
-sudo pacman -Syu --needed base-devel libx11 libgpiod curl unzip
 git clone https://github.com/9M2PJU/9M2PJU-HamClock-Installer.git
 cd 9M2PJU-HamClock-Installer
 make hamclock-1600x960 -j$(nproc)
@@ -210,7 +244,7 @@ sudo make install
 
 ---
 
-## 8. macOS Installation
+## 9. macOS Installation
 
 Requires [Homebrew](https://brew.sh/) and [XQuartz](https://www.xquartz.org/):
 
@@ -225,7 +259,7 @@ sudo make install
 
 ---
 
-## 9. FreeBSD Installation
+## 10. FreeBSD Installation
 
 ```bash
 sudo pkg install -y gmake gcc libX11 libgpio curl unzip
@@ -237,7 +271,7 @@ sudo gmake install
 
 ---
 
-## 10. Systemd Autostart & Background Services
+## 11. Systemd Autostart & Background Services
 
 ### Desktop Autostart on Login
 ```bash

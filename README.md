@@ -337,6 +337,42 @@ All four resolutions are **pre-compiled** inside the Docker image. You can switc
 
 ---
 
+### How Resolution Works in Package Managers (AUR `yay`, `.deb`, `.rpm`, Snap, Flatpak, AppImage)
+
+> [!NOTE]
+> **Why doesn't `yay` / `pacman` / `apt` ask for screen resolution during installation?**
+> Standard Linux package managers require **non-interactive, unattended builds** so automated system updates (`yay -Syu`) never hang waiting for user prompts.
+> 
+> Therefore, package managers build and install **all 6 resolutions simultaneously** into `/usr/lib/hamclock/`. You choose or change your resolution at **runtime** using the universal launcher:
+
+1. **Launch a specific resolution on demand:**
+   ```bash
+   hamclock -r 1600x960     # Recommended for 1080p Desktop Monitors
+   hamclock -r 2400x1440    # 2K Quad HD
+   hamclock -r 3200x1920    # 4K Ultra HD
+   hamclock -r 800x480      # Standard Definition / Touchscreens
+   ```
+
+2. **Or use direct binary symlinks:**
+   ```bash
+   hamclock-1600x960
+   hamclock-800x480
+   ```
+
+3. **Set a permanent default resolution in your shell:**
+   Add to `~/.bashrc` or `~/.profile`:
+   ```bash
+   export HAMCLOCK_RES=1600x960
+   ```
+   Then running `hamclock` will always open in `1600x960` automatically.
+
+4. **List all available resolutions:**
+   ```bash
+   hamclock --list-resolutions
+   ```
+
+---
+
 ### How to Change Resolution with One-Liner Script (`install.sh`)
 
 #### Method 1: Interactive Menu
