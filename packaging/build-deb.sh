@@ -36,7 +36,7 @@ Depends: libx11-6, libc6, libgcc-s1, libstdc++6
 Recommends: libgpiod2 | libgpiod-dev
 Provides: esphamclock
 Replaces: esphamclock
-Maintainer: 9M2PJU <9m2pju@gmail.com>
+Maintainer: 9M2PJU <9m2pju@hamradio.my>
 Homepage: https://hamclock.hamradio.my
 Description: Portable space weather, propagation and telemetry dashboard for radio amateurs
  9M2PJU HamClock (Open HamClock - OHB Edition) is a dashboard suite for

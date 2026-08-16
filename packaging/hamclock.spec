@@ -52,5 +52,5 @@ fi
 /usr/share/man/man1/hamclock.1.gz
 
 %changelog
-* Sun Aug 16 2026 9M2PJU <9m2pju@gmail.com> - 4.29-1
+* Sun Aug 16 2026 9M2PJU <9m2pju@hamradio.my> - 4.29-1
 - Initial RPM release with Open HamClock Backend (OHB) and multi-resolution support.
