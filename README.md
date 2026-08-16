@@ -228,9 +228,8 @@ TARGET=800x480 bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M
 
 ### Full-Screen & 24/7 Shack Operation:
 1. **Background Running**: Run `termux-wake-lock && hamclock -k &`
-2. **Interactive UI**: Open `http://localhost:8081/live.html` in Chrome or Brave.
-3. **Full-Screen PWA**: Tap the browser menu (`⋮`) ➔ **"Add to Home screen"** to launch HamClock as a borderless, full-screen touch app!
-4. For battery optimization, kiosk mode, and autostart on boot, see the [Android & Termux Guide](docs/ANDROID.md).
+2. **Best Full-Screen & Auto-Fit View**: Install [**Fully Kiosk Browser**](https://play.google.com/store/apps/details?id=de.ozerov.fully&hl=en) from Google Play and set Start URL to `http://localhost:8081/live.html`.
+3. For battery optimization, kiosk settings, and autostart on boot, see the [Android & Termux Guide](docs/ANDROID.md).
 
 ---
 

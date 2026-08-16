@@ -152,8 +152,10 @@ echo -e "Then open your Android web browser (Chrome/Brave/Firefox) to:
   Read-Only Monitor Screen:  ${CYAN}http://localhost:8082/live.html${NC}
   Backend RESTful API:       ${CYAN}http://localhost:8080/${NC}
 
-${YELLOW}Tip for 24/7 display:${NC}
-  1. Run '${CYAN}termux-wake-lock${NC}' to keep HamClock running when switching apps.
-  2. Start with '${CYAN}hamclock -k &${NC}' (or run '${CYAN}termux/hamclock-service.sh${NC}').
-  3. In Chrome, tap 'Add to Home screen' for a full-screen kiosk touch app."
+${YELLOW}Tips for Best Full-Screen & 24/7 Shack Display:${NC}
+  1. Run '${CYAN}termux-wake-lock${NC}' to prevent Android background sleep.
+  2. Start with '${CYAN}hamclock -k &${NC}' (or '${CYAN}termux/hamclock-service.sh${NC}').
+  3. For instant borderless full-screen & auto-fit display, install
+     ${CYAN}Fully Kiosk Browser${NC} from Google Play:
+     https://play.google.com/store/apps/details?id=de.ozerov.fully&hl=en"
 echo -e "${GREEN}=====================================================${NC}"

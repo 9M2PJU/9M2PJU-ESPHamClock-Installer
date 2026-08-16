@@ -7,7 +7,7 @@ This directory contains standalone installers, build helpers, and service script
 Open Termux on Android and paste:
 
 ```bash
-pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh | bash
+pkg update -y && pkg install -y curl && bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh)"
 ```
 
 ## Files in this Directory
@@ -30,8 +30,7 @@ HamClock is built using Clang with `-D_WEB_ONLY` target (e.g. `hamclock-web-1600
 - **Read-Only Monitor Screen**: `http://localhost:8082/live.html` (Port 8082)
 - **Backend RESTful API**: `http://localhost:8080/` (Port 8080)
 
-### 24/7 Background Running & Wake Lock
-```bash
-termux-wake-lock
-hamclock -k &
-```
+### Best Full-Screen & Fit-to-Screen Display
+1. Start HamClock: `termux-wake-lock && hamclock -k &`
+2. Install [**Fully Kiosk Browser**](https://play.google.com/store/apps/details?id=de.ozerov.fully&hl=en) from Google Play.
+3. Set Start URL to `http://localhost:8081/live.html` for edge-to-edge borderless display with automatic screen fitting and keep-screen-on support.

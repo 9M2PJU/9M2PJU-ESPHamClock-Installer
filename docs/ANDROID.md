@@ -47,36 +47,22 @@ hamclock -k &
 
 ---
 
-### Step 4: Open in Your Android Browser
-1. Open **Google Chrome**, **Brave**, or **Firefox** on your Android device.
-2. Navigate to:
+### Step 4: Open in Fully Kiosk Browser (Best Full-Screen Experience)
+
+For the best, seamless, borderless full-screen display that automatically fits your screen:
+
+1. Install [**Fully Kiosk Browser & Launcher**](https://play.google.com/store/apps/details?id=de.ozerov.fully&hl=en) from the Google Play Store.
+2. In Fully Kiosk Browser settings, set the **Start URL** to:
    ```text
    http://localhost:8081/live.html
    ```
-3. You now have a full, high-speed, touch-interactive HamClock mirror running locally on your device!
+3. Fully Kiosk Browser automatically:
+   - Hides Android status bars and navigation buttons for true full screen.
+   - Automatically scales the HamClock display to perfectly fit your device screen.
+   - Keeps the screen awake for 24/7 continuous shack monitoring.
+   - Can optionally autostart on device boot.
 
----
-
-### Step 5: Make It Full-Screen & Fit to Screen
-
-There are three ways to get a borderless, full-screen display on Android:
-
-#### Option A: Add to Home Screen (PWA Mode — Easiest & Recommended)
-1. In Chrome, Brave, or Firefox, tap the **three-dot menu (`⋮`)** in the upper right.
-2. Tap **"Add to Home screen"** (or **"Install app"**).
-3. Name it **HamClock** and tap **Add**.
-4. Launch HamClock from your Android Home Screen — it will run as a standalone, borderless full-screen application with no browser URL bar!
-
-#### Option B: Enable "Web Full Screen" in HamClock Setup
-1. Tap the **Callsign / Lock** area on the HamClock screen to enter **Setup**.
-2. Set **`Web full scrn`** to **`Yes`** and tap **Done**.
-3. Next time you tap anywhere on the screen, the browser will expand to HTML5 full-screen.
-
-#### Option C: Fully Kiosk Browser (Best for Permanent Wall/Desk Clocks)
-For a 24/7 dedicated shack clock tablet, install [**Fully Kiosk Browser**](https://play.google.com/store/apps/details?id=de.fullyfactory.fully):
-- Set Start URL to `http://localhost:8081/live.html`.
-- Enable **Fullscreen Mode** (hides Android navigation bar & status bar).
-- Enable **Keep Screen On** and **Auto-scale content to fit window**.
+*(Alternatively, you can open `http://localhost:8081/live.html` in Chrome, Brave, or Firefox).*
 
 ---
 

@@ -112,12 +112,16 @@ pkg update -y && pkg install -y curl && bash -c "$(curl -fsSL https://raw.github
 ```
 
 ### Quick Start:
-1. Start HamClock background server:
+1. Keep Termux running in background and start HamClock:
    ```bash
+   termux-wake-lock
    hamclock -k &
    ```
-2. Open Chrome or Brave to `http://localhost:8081/live.html`.
-3. Tap **"Add to Home screen"** in Chrome for a full-screen, touch-enabled standalone clock app!
+2. For the best **Full-Screen & Auto-Fit** display, install [**Fully Kiosk Browser**](https://play.google.com/store/apps/details?id=de.ozerov.fully&hl=en) from Google Play and open:
+   ```text
+   http://localhost:8081/live.html
+   ```
+   *(Or open in Chrome, Brave, or Firefox).*
 
 ---
 
