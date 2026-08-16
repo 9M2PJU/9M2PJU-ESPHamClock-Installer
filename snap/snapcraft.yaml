@@ -1,0 +1,89 @@
+name: esphamclock
+title: 9M2PJU ESPHamClock
+base: core24
+version: '4.29'
+summary: Space Weather, Propagation & Telemetry Dashboard
+description: |
+  9M2PJU ESPHamClock (Open HamClock - OHB Edition) is an open-source space
+  weather, VOACAP HF radio propagation modeling, satellite orbital tracking,
+  DX cluster, and live telemetry dashboard for amateur radio operators.
+
+grade: stable
+confinement: strict
+website: https://hamclock.hamradio.my
+contact: 9m2pju@gmail.com
+issues: https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/issues
+source-code: https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer
+
+platforms:
+  amd64:
+    build-on: [amd64]
+    build-for: [amd64]
+  arm64:
+    build-on: [arm64]
+    build-for: [arm64]
+  armhf:
+    build-on: [armhf]
+    build-for: [armhf]
+
+apps:
+  esphamclock:
+    command: bin/hamclock-launcher
+    desktop: share/applications/esphamclock.desktop
+    plugs:
+      - x11
+      - network
+      - network-bind
+      - home
+      - removable-media
+    environment:
+      HAMCLOCK_RES: "1600x960"
+
+parts:
+  hamclock:
+    plugin: nil
+    source: .
+    build-packages:
+      - build-essential
+      - g++
+      - make
+      - libx11-dev
+      - zlib1g-dev
+      - curl
+      - git
+    stage-packages:
+      - libx11-6
+      - zlib1g
+      - libcurl4
+    override-build: |
+      mkdir -p $CRAFT_PART_INSTALL/lib/hamclock $CRAFT_PART_INSTALL/bin $CRAFT_PART_INSTALL/share/applications $CRAFT_PART_INSTALL/share/icons/hicolor/128x128/apps
+      
+      make -j$(nproc) hamclock-800x480
+      cp hamclock-800x480 $CRAFT_PART_INSTALL/lib/hamclock/
+      make clean
+
+      make -j$(nproc) hamclock-1600x960
+      cp hamclock-1600x960 $CRAFT_PART_INSTALL/lib/hamclock/
+      make clean
+
+      make -j$(nproc) hamclock-2400x1440
+      cp hamclock-2400x1440 $CRAFT_PART_INSTALL/lib/hamclock/
+      make clean
+
+      make -j$(nproc) hamclock-3200x1920
+      cp hamclock-3200x1920 $CRAFT_PART_INSTALL/lib/hamclock/
+      make clean
+
+      make -j$(nproc) hamclock-web-800x480
+      cp hamclock-web-800x480 $CRAFT_PART_INSTALL/lib/hamclock/
+      make clean
+
+      make -j$(nproc) hamclock-web-1600x960
+      cp hamclock-web-1600x960 $CRAFT_PART_INSTALL/lib/hamclock/
+      make clean
+
+      install -m 755 packaging/hamclock-launcher.sh $CRAFT_PART_INSTALL/bin/hamclock-launcher
+      install -m 644 flatpak/my.hamradio.HamClock.desktop $CRAFT_PART_INSTALL/share/applications/esphamclock.desktop
+      sed -i 's/Exec=hamclock/Exec=esphamclock/' $CRAFT_PART_INSTALL/share/applications/esphamclock.desktop
+      sed -i 's/Icon=my.hamradio.HamClock/Icon=esphamclock/' $CRAFT_PART_INSTALL/share/applications/esphamclock.desktop
+      install -m 644 flatpak/my.hamradio.HamClock.png $CRAFT_PART_INSTALL/share/icons/hicolor/128x128/apps/esphamclock.png
