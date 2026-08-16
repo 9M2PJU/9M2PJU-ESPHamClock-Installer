@@ -6,7 +6,11 @@
 
 SELF_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-if [ -d "/usr/lib/hamclock" ]; then
+if [ -n "$SNAP" ] && [ -d "$SNAP/lib/hamclock" ]; then
+  LIB_DIR="$SNAP/lib/hamclock"
+elif [ -n "$FLATPAK_ID" ] && [ -d "/app/lib/hamclock" ]; then
+  LIB_DIR="/app/lib/hamclock"
+elif [ -d "/usr/lib/hamclock" ]; then
   LIB_DIR="/usr/lib/hamclock"
 elif [ -d "/usr/local/lib/hamclock" ]; then
   LIB_DIR="/usr/local/lib/hamclock"
