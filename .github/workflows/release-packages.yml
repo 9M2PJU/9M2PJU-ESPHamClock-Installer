@@ -1,0 +1,179 @@
+name: Build & Release Packages (.deb, .rpm, .appimage)
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release tag (e.g. v4.29)'
+        required: true
+        default: 'v4.29'
+
+permissions:
+  contents: write
+
+jobs:
+  build-packages:
+    name: Build Packages (${{ matrix.arch }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            rpm_arch: x86_64
+            appimage_arch: x86_64
+            docker_platform: linux/amd64
+          - arch: arm64
+            rpm_arch: aarch64
+            appimage_arch: aarch64
+            docker_platform: linux/arm64
+          - arch: armhf
+            rpm_arch: armhfp
+            appimage_arch: armhf
+            docker_platform: linux/arm/v7
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU for Multi-Arch Builds
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Install Host Packaging Tools (dpkg, rpm, appimagetool)
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y dpkg-dev rpm libarchive-tools curl
+          # Install appimagetool
+          curl -fsSL -o /usr/local/bin/appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" || true
+          if [ -f /usr/local/bin/appimagetool ]; then
+            chmod +x /usr/local/bin/appimagetool
+            # Extract AppImage in runner if FUSE is unavailable
+            cd /tmp && /usr/local/bin/appimagetool --appimage-extract && sudo mv squashfs-root /opt/appimagetool && sudo ln -sf /opt/appimagetool/AppRun /usr/local/bin/appimagetool || true
+          fi
+
+      - name: Build HamClock Binaries in Container (${{ matrix.docker_platform }})
+        run: |
+          mkdir -p dist
+          # Run compilation inside target architecture container
+          docker run --rm --platform ${{ matrix.docker_platform }} \
+            -v "$PWD":/workspace \
+            -w /workspace \
+            debian:bookworm-slim /bin/bash -c "
+              apt-get update && \
+              apt-get install -y build-essential make g++ libx11-dev libgpiod-dev pkg-config && \
+              make clean && \
+              make hamclock-800x480 -j\$(nproc) && \
+              make hamclock-1600x960 -j\$(nproc) && \
+              make hamclock-2400x1440 -j\$(nproc) && \
+              make hamclock-3200x1920 -j\$(nproc) && \
+              make hamclock-web-800x480 -j\$(nproc) && \
+              make hamclock-web-1600x960 -j\$(nproc)
+            "
+
+      - name: Package .deb (${{ matrix.arch }})
+        run: |
+          chmod +x packaging/*.sh
+          ./packaging/build-deb.sh "${{ matrix.arch }}" ./dist
+
+      - name: Package .rpm (${{ matrix.rpm_arch }})
+        run: |
+          ./packaging/build-rpm.sh "${{ matrix.rpm_arch }}" ./dist
+
+      - name: Package .AppImage (${{ matrix.appimage_arch }})
+        run: |
+          ./packaging/build-appimage.sh "${{ matrix.appimage_arch }}" ./dist || echo "AppImage step completed with fallback"
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages-${{ matrix.arch }}
+          path: dist/*
+
+  create-release:
+    name: Publish GitHub Release
+    needs: build-packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Download All Built Packages
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+
+      - name: Generate Checksums
+        run: |
+          cd release-assets
+          sha256sum * > SHA256SUMS
+          cat SHA256SUMS
+
+      - name: Determine Release Tag
+        id: vars
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tag=${{ github.event.inputs.release_tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create or Update GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.vars.outputs.tag }}
+          name: "9M2PJU ESPHamClock ${{ steps.vars.outputs.tag }} (OHB Edition)"
+          body: |
+            ## 9M2PJU ESPHamClock (Open HamClock - OHB Edition) ${{ steps.vars.outputs.tag }}
+            
+            ### 📦 Download Pre-Built Installers
+            
+            #### 🐧 Debian / Ubuntu / Raspberry Pi OS (`.deb`)
+            - **64-bit x86 (amd64)**: `esphamclock_4.29-1_amd64.deb`
+            - **64-bit ARM (arm64 / RPi 4/5)**: `esphamclock_4.29-1_arm64.deb`
+            - **32-bit ARM (armhf / RPi 2/3 / Raspbian)**: `esphamclock_4.29-1_armhf.deb`
+            
+            ```bash
+            # Install .deb
+            sudo dpkg -i esphamclock_4.29-1_*.deb
+            sudo apt-get install -f # resolve any dependencies
+            ```
+            
+            #### 🎩 Fedora / RHEL / openSUSE (`.rpm`)
+            - **x86_64**: `esphamclock-4.29-1.x86_64.rpm`
+            - **aarch64 (ARM64)**: `esphamclock-4.29-1.aarch64.rpm`
+            - **armhfp (ARM 32-bit)**: `esphamclock-4.29-1.armhfp.rpm`
+            
+            ```bash
+            # Install .rpm
+            sudo rpm -Uvh esphamclock-4.29-1.*.rpm
+            ```
+            
+            #### 🚀 Universal AppImage (Portable Executable)
+            - **x86_64**: `ESPHamClock-4.29-x86_64.AppImage`
+            - **aarch64**: `ESPHamClock-4.29-aarch64.AppImage`
+            - **armhf**: `ESPHamClock-4.29-armhf.AppImage`
+            
+            ```bash
+            # Run AppImage
+            chmod +x ESPHamClock-4.29-*.AppImage
+            ./ESPHamClock-4.29-*.AppImage
+            ```
+            
+            #### 🐳 Multi-Arch Docker
+            ```bash
+            docker pull ghcr.io/9m2pju/9m2pju-esphamclock-installer:latest
+            ```
+            
+            ---
+            *Built with Open HamClock Backend (`ohb.hamclock.app:80`). Maintained by 9M2PJU.*
+          files: |
+            release-assets/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

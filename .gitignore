@@ -11,6 +11,7 @@ hamclock-*
 hamclock-web-*
 hamclock-fb0-*
 zpipe
+dist/
 
 # IDE and Editor artifacts
 .vscode/

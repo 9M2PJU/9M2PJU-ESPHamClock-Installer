@@ -6,12 +6,43 @@ Comprehensive installation instructions for **HamClock (Open HamClock / OHB Edit
 
 ## 📑 Table of Contents
 1. [One-Liner Quick Install (Recommended)](#1-one-liner-quick-install)
-2. [Docker & Containerized Setup](#2-docker--containerized-setup)
-3. [Raspberry Pi & Inovato Quadra Setup](#3-raspberry-pi--inovato-quadra-setup)
-4. [Linux Native Compilation (Debian, Ubuntu, Arch, Fedora)](#4-linux-native-compilation)
-5. [macOS Installation (Apple Silicon & Intel)](#5-macos-installation)
-6. [FreeBSD Installation](#6-freebsd-installation)
-7. [Systemd Autostart & Background Services](#7-systemd-autostart--background-services)
+2. [Pre-Built Linux Packages (.deb, .rpm, .AppImage)](#2-pre-built-linux-packages-deb-rpm-appimage)
+3. [Docker & Containerized Setup](#3-docker--containerized-setup)
+4. [Raspberry Pi & Inovato Quadra Setup](#4-raspberry-pi--inovato-quadra-setup)
+5. [Linux Native Compilation (Debian, Ubuntu, Arch, Fedora)](#5-linux-native-compilation)
+6. [macOS Installation (Apple Silicon & Intel)](#6-macos-installation)
+7. [FreeBSD Installation](#7-freebsd-installation)
+8. [Systemd Autostart & Background Services](#8-systemd-autostart--background-services)
+
+---
+
+## 2. Pre-Built Linux Packages (.deb, .rpm, .AppImage)
+
+For quick installation without building from source, download pre-compiled packages directly from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/releases):
+
+### 🐧 Debian / Ubuntu / Raspberry Pi OS (`.deb`)
+Supports `amd64`, `arm64` (RPi 4/5), and `armhf` (RPi 2/3, 32-bit):
+```bash
+# Download and install
+sudo dpkg -i esphamclock_4.29-1_amd64.deb    # or _arm64.deb / _armhf.deb
+sudo apt-get install -f                      # resolve dependencies
+```
+
+### 🎩 Fedora / RHEL / openSUSE (`.rpm`)
+Supports `x86_64`, `aarch64`, and `armhfp`:
+```bash
+sudo rpm -Uvh esphamclock-4.29-1.x86_64.rpm  # or .aarch64.rpm
+```
+
+### 🚀 Universal AppImage (Runs on ANY Linux distro without installation)
+Supports `x86_64`, `aarch64`, and `armhf`:
+```bash
+chmod +x ESPHamClock-4.29-x86_64.AppImage
+./ESPHamClock-4.29-x86_64.AppImage
+
+# Launch with specific resolution
+./ESPHamClock-4.29-x86_64.AppImage -r 1600x960
+```
 
 ---
 
