@@ -9,7 +9,7 @@
 #include <stdint.h>
 #include <string>
 
-#include "../ArduinoLib.h"
+#include "ArduinoLib.h"
 
 #define	String std::string
 

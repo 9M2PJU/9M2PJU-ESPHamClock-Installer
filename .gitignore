@@ -1,0 +1,22 @@
+# Compiled Object files and Libraries
+*.o
+*.a
+*.so
+*.dylib
+*.dSYM
+
+# Built HamClock Executables
+hamclock
+hamclock-*
+hamclock-web-*
+hamclock-fb0-*
+zpipe
+
+# IDE and Editor artifacts
+.vscode/
+.idea/
+*.swp
+*~
+
+# Temporary test logs
+tests/*.log

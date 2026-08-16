@@ -29,8 +29,7 @@ OBJS = \
 	passwords.o \
 	timeout.o
 
-default:
-	@echo "This Makefile is not intended for stand-alone use -- use only from HamClock's main Makefile"
+default: libarduino.a
 
 libarduino.a: $(OBJS)
 	rm -f $@

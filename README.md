@@ -403,13 +403,36 @@ sudo systemctl status hamclock
 
 ---
 
+## 📂 Repository Layout
+
+```text
+ESPHamClock-Installer/
+├── src/                          # C++ implementation source files
+│   ├── ESPHamClock.cpp           # Main application entry point
+│   ├── astro.cpp, clocks.cpp...  # Core telemetry & map engines
+│   ├── gimbal.cpp, radio.cpp...  # Rotator and CAT radio controllers
+│   └── liveweb.cpp, wifi.cpp...  # Embedded WebSocket & REST servers
+├── include/                      # C++ header files & global definitions
+├── ArduinoLib/                   # POSIX / Linux Arduino hardware abstraction
+├── wsServer/                     # Real-time WebSocket server library
+├── zlib-hc/                      # Embedded data decompression library
+├── deploy/                       # Linux desktop launchers, icons, systemd units
+├── docker/                       # Dockerfile, entrypoint, and compose configs
+├── scripts/                      # Native & Docker automated 1-line installers
+├── docs/                         # Comprehensive documentation library
+├── Makefile                      # Standard POSIX build system
+└── README.md
+```
+
+---
+
 ## 🛠️ Microcontroller Support (ESP8266)
 
 For legacy standalone microcontroller builds on the **Adafruit Feather HUZZAH ESP8266** with Adafruit RA8875 driver:
 
 1. Install and open the **Arduino IDE**.
 2. Install the ESP8266 board definitions and required libraries (`Adafruit_RA8875`, `Adafruit_BME280`).
-3. Open [`ESPHamClock.cpp`](file:///home/x/ESPHamClock/ESPHamClock.cpp) (or `ESPHamClock.ino`).
+3. Open [`src/ESPHamClock.cpp`](src/ESPHamClock.cpp) (or `ESPHamClock.ino`).
 4. Select `Adafruit Feather HUZZAH ESP8266`, CPU Frequency `160 MHz`, Flash Size `4M (3M SPIFFS)`.
 5. Compile and upload.
 

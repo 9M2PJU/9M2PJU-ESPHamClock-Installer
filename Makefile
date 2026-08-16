@@ -10,10 +10,12 @@
 # WIFI_NEVER=1
 
 # always runs these non-file targets
-.PHONY: clean clobber help hclibs
+.PHONY: clean clobber help hclibs install
+
+TOP_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # build flags common to all options and architectures
-CXXFLAGS = -IArduinoLib -IwsServer/include -Izlib-hc -I. -g -O2 -Wall -pthread -std=c++17
+CXXFLAGS = -I$(TOP_DIR)/include -I$(TOP_DIR)/src -I$(TOP_DIR)/ArduinoLib -I$(TOP_DIR)/wsServer/include -I$(TOP_DIR)/zlib-hc -I. -g -O2 -Wall -pthread -std=c++17
 # CXXFLAGS += -Wextra -pedantic -Werror -Wno-attributes -Wno-unknown-pragmas
 
 # add explicit framebuffer depth as _FB_DEPTH if defined
@@ -74,113 +76,11 @@ ifeq ($(shell find /usr/lib -name libgpiod.a 2>/dev/null | wc -l), 1)
     LIBS += -lgpiod
 endif
 
-
 # make CXXFLAGS available to sub makes
 export CXXFLAGS
 
-
-OBJS = \
-	BME280.o \
-	ESPHamClock.o \
-	Germano-Bold-16.o \
-	Germano-Bold-30.o \
-	Germano-Regular-16.o \
-	OTAupdate.o \
-	P13.o \
-	adif.o \
-	adif_parser.o \
-	activenets.o \
-    antenna_lookup.o \
-	antennas.o \
-	antennas-html.o \
-	asknewpos.o \
-	astro.o \
-	bands.o \
-	blinker.o \
-	bmp.o \
-	borders.o \
-	brightness.o \
-	cachefile.o \
-	callsign.o \
-	clocks.o \
-	cities.o \
-	color.o \
-	configs.o \
-	cfg_info.o \
-	contests.o \
-	cputemp.o \
-	dashboard-html.o \
-	debug.o \
-	drawextra.o \
-	dxcluster.o \
-	dxpeds.o \
-	dxpeds_hide.o \
-	hamqsl.o \
-	hamsat.o \
-	hurricane.o \
-	earthmap.o \
-	earthsat.o \
-	emetool.o \
-	favicon.o \
-	fsfree.o \
-	gimbal.o \
-	gpsd.o \
-	grayline.o \
-	kd3tree.o \
-	launches.o \
-	lightning.o \
-	infobox.o \
-	liveweb.o \
-	liveweb-html.o \
-	magdecl.o \
-	maidenhead.o \
-	mapmanage.o \
-	menu.o \
-	meshtastic.o \
-	moon_imgs.o \
-	moonpane.o \
-	motd.o \
-	ncdxf.o \
-	nmea.o \
-	nvram.o \
-	ontheair.o \
-	parsespot.o \
-	passwd.o \
-	planets.o \
-	plot.o \
-	plotmap.o \
-	plotmgmnt.o \
-	prefixes.o \
-	pskreporter.o \
-	qrz.o \
-	radio.o \
-	robinson.o \
-	rss.o \
-	runner.o \
-	santa.o \
-	sattool.o \
-	satsked.o \
-	scrollbar.o \
-	scrollstate.o \
-	sdo.o \
-	selectFont.o \
-	setup.o \
-	sevenseg.o \
-	spacewx.o \
-	sphere.o \
-	spots.o \
-	stopwatch.o \
-	string.o \
-	tooltip.o \
-	touch.o \
-	tz.o \
-	version.o \
-	webserver.o \
-	watchlist.o \
-	wifi.o \
-	wifimeter.o \
-	wx.o \
-	zones.o
+SRCS = $(wildcard src/*.cpp)
+OBJS = $(patsubst src/%.cpp,src/%.o,$(SRCS))
 
 help:
 	@printf "\nThe following targets are available (as appropriate for your system)\n\n"
@@ -199,82 +99,73 @@ help:
 	@printf "    hamclock-fb0-2400x1440    RPi stand-alone /dev/fb0, larger yet\n"
 	@printf "    hamclock-fb0-3200x1920    RPi stand-alone /dev/fb0, huge\n"
 	@printf "\n";
-	@printf "Optional command line variables which may be set before the desired target:\n"
-	@printf "    FB_DEPTH=16 or 32         - Specify a given frame buffer pixel size (default is 32 on all but fb0)\n"
-	@printf "    WIFI_NEVER=1              - Disable WiFi fields in setup (already the default on all but fb0)\n"
-	@printf "    B=backend                 - Set backend server default so -b is not required, format host:port\n"
-	@printf "    S=software                - Set software server default so -S is not required. format host.domain\n"
-	@printf "    T=time                    - Set timout default (seconds) so -b is not required if timout to backend need to be increased\n"
+	@printf "    hamclock                  synonym for hamclock-800x480\n"
+	@printf "    hamclock-big              synonym for hamclock-1600x960\n"
+	@printf "    hamclock-web              synonym for hamclock-web-800x480\n"
+	@printf "    hamclock-web-big          synonym for hamclock-web-1600x960\n"
+	@printf "    hamclock-fb0-small        synonym for hamclock-fb0-800x480\n"
+	@printf "    hamclock-fb0              synonym for hamclock-fb0-1600x960\n"
+	@printf "\n";
+	@printf "    install                   install target (default: /usr/local/bin, override with DIR=...)\n"
+	@printf "    clean                     remove intermediate object files\n"
+	@printf "    clobber                   remove all object files and built binaries\n"
+	@printf "\n"
 
-# supporting libs
 hclibs:
 	$(MAKE) -C ArduinoLib libarduino.a
-	$(MAKE) -C wsServer libws.a
-	$(MAKE) -C zlib-hc libzlib-hc.a
+	$(MAKE) -C wsServer
+	$(MAKE) -C zlib-hc
 
+src/%.o: src/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-
-# X11 versions
-
-# N.B. do it but also remain backward compatable
-
-hamclock-big: hamclock-1600x960
-	cp $? $@
+# basic X11 versions
 
 hamclock: hamclock-800x480
 	cp $? $@
 
+hamclock-big: hamclock-1600x960
+	cp $? $@
 
 hamclock-800x480: CXXFLAGS+=-D_USE_X11
-hamclock-800x480: LIBS+=-lX11
 hamclock-800x480: $(OBJS) hclibs
-	$(CXX) $(LDXXFLAGS) $(OBJS) -o $@ $(LIBS)
-
+	$(CXX) $(LDXXFLAGS) $(OBJS) -lX11 -o $@ $(LIBS)
 
 hamclock-1600x960: CXXFLAGS+=-D_USE_X11 -D_CLOCK_1600x960
-hamclock-1600x960: LIBS+=-lX11
 hamclock-1600x960: $(OBJS) hclibs
-	$(CXX) $(LDXXFLAGS) $(OBJS) -o $@ $(LIBS)
-
+	$(CXX) $(LDXXFLAGS) $(OBJS) -lX11 -o $@ $(LIBS)
 
 hamclock-2400x1440: CXXFLAGS+=-D_USE_X11 -D_CLOCK_2400x1440
-hamclock-2400x1440: LIBS+=-lX11
 hamclock-2400x1440: $(OBJS) hclibs
-	$(CXX) $(LDXXFLAGS) $(OBJS) -o $@ $(LIBS)
-
+	$(CXX) $(LDXXFLAGS) $(OBJS) -lX11 -o $@ $(LIBS)
 
 hamclock-3200x1920: CXXFLAGS+=-D_USE_X11 -D_CLOCK_3200x1920
-hamclock-3200x1920: LIBS+=-lX11
 hamclock-3200x1920: $(OBJS) hclibs
-	$(CXX) $(LDXXFLAGS) $(OBJS) -o $@ $(LIBS)
-
-
-
+	$(CXX) $(LDXXFLAGS) $(OBJS) -lX11 -o $@ $(LIBS)
 
 # web server versions
 
+hamclock-web: hamclock-web-800x480
+	cp $? $@
+
+hamclock-web-big: hamclock-web-1600x960
+	cp $? $@
 
 hamclock-web-800x480: CXXFLAGS+=-D_WEB_ONLY
 hamclock-web-800x480: $(OBJS) hclibs
 	$(CXX) $(LDXXFLAGS) $(OBJS) -o $@ $(LIBS)
 
-
 hamclock-web-1600x960: CXXFLAGS+=-D_WEB_ONLY -D_CLOCK_1600x960
 hamclock-web-1600x960: $(OBJS) hclibs
 	$(CXX) $(LDXXFLAGS) $(OBJS) -o $@ $(LIBS)
-
 
 hamclock-web-2400x1440: CXXFLAGS+=-D_WEB_ONLY -D_CLOCK_2400x1440
 hamclock-web-2400x1440: $(OBJS) hclibs
 	$(CXX) $(LDXXFLAGS) $(OBJS) -o $@ $(LIBS)
 
-
 hamclock-web-3200x1920: CXXFLAGS+=-D_WEB_ONLY -D_CLOCK_3200x1920
 hamclock-web-3200x1920: $(OBJS) hclibs
 	$(CXX) $(LDXXFLAGS) $(OBJS) -o $@ $(LIBS)
-
-
-
 
 # RPi fb0 versions
 
@@ -284,27 +175,21 @@ hamclock-fb0-small: hamclock-fb0-800x480
 hamclock-fb0: hamclock-fb0-1600x960
 	cp $? $@
 
-
 hamclock-fb0-800x480: CXXFLAGS+=-D_USE_FB0
 hamclock-fb0-800x480: $(OBJS) hclibs
 	$(CXX) $(LDXXFLAGS) $(OBJS) -o $@ $(LIBS)
-
 
 hamclock-fb0-1600x960: CXXFLAGS+=-D_USE_FB0 -D_CLOCK_1600x960
 hamclock-fb0-1600x960: $(OBJS) hclibs
 	$(CXX) $(LDXXFLAGS) $(OBJS) -o $@ $(LIBS)
 
-
 hamclock-fb0-2400x1440: CXXFLAGS+=-D_USE_FB0 -D_CLOCK_2400x1440
 hamclock-fb0-2400x1440: $(OBJS) hclibs
 	$(CXX) $(LDXXFLAGS) $(OBJS) -o $@ $(LIBS)
 
-
 hamclock-fb0-3200x1920: CXXFLAGS+=-D_USE_FB0 -D_CLOCK_3200x1920
 hamclock-fb0-3200x1920: $(OBJS) hclibs
 	$(CXX) $(LDXXFLAGS) $(OBJS) -o $@ $(LIBS)
-
-
 
 install:
 	@SOURCE=hamclock-*0x*0 ; \
@@ -330,17 +215,13 @@ install:
 		&& chmod u+s $$TARGET; \
 	fi
 
-clean clobber:
+clean:
 	$(MAKE) -C ArduinoLib clean
 	$(MAKE) -C wsServer clean
 	$(MAKE) -C zlib-hc clean
-	touch x.o x.dSYM hamclock hamclock-
-	rm -rf *.o *.dSYM hamclock hamclock-*
+	touch src/x.o src/x.dSYM
+	rm -rf src/*.o *.o src/*.dSYM *.dSYM
 
-
-.PHONY: test test-eeprom
-
-test: test-eeprom
-
-test-eeprom:
-	$(PYTHON) ../tests/test_eeprom.py
+clobber: clean
+	touch hamclock hamclock-
+	rm -rf hamclock hamclock-*
