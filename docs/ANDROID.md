@@ -87,20 +87,16 @@ TARGET=2400x1440 bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/
 
 ## 🔋 24/7 Shack Dashboard Optimizations
 
-If you are using your Android device as a permanent wall-mounted or desk-mounted HamClock:
+For permanent wall-mounted or desk-mounted Android clocks:
 
-### 1. Prevent Android from Sleeping (Wake Lock)
-Keep the Termux background service alive even when switching apps or locking the screen:
-```bash
-termux-wake-lock
-```
-Also, go to Android **Settings $\to$ Apps $\to$ Termux $\to$ Battery** and set it to **"Unrestricted"** (disable battery optimization).
+### 1. Battery Health & Power Supply
+- Keep the device plugged into a 5V 2A+ USB power adapter.
+- If your Android build supports **Battery Protect** (limiting max charge to 80%–85%), enable it in Android Settings to preserve battery longevity.
 
-### 2. Dedicated Kiosk Mode (Wall Clocks)
-For a permanent shack wall clock, use [**Fully Kiosk Browser**](https://www.fully-kiosk.com/) (free on Android) or Android's built-in **App Pinning / Screen Pinning**:
-- Auto-starts on tablet boot.
-- Locks the screen to `http://localhost:8081/live.html`.
-- Keeps the screen always on with adjustable brightness schedules.
+### 2. Fully Kiosk Browser Features
+- **Keep Screen On**: Prevents Android from dimming or locking the screen during operation.
+- **Auto-Reload on Connection Loss**: Automatically reconnects if the local WiFi restarts.
+- **Night Mode / Screen Dimming**: Set scheduled brightness dimming during quiet hours.
 
 ---
 

@@ -123,29 +123,7 @@ pkg update -y && pkg install -y curl && bash -c "$(curl -fsSL https://raw.github
    http://localhost:8081/live.html
    ```
 
----
-
 ## 5. Docker & Containerized Setup
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
-```
-
-### Selecting Resolution / Target Non-Interactively:
-```bash
-# Large Desktop (1600x960)
-TARGET=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
-
-# Headless Web Server (1600x960)
-TARGET=web-1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
-
-# Raspberry Pi Touchscreen Framebuffer (/dev/fb0)
-TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
-```
-
----
-
-## 2. Docker & Containerized Setup
 
 For servers, NAS devices (Synology, TrueNAS, Unraid), and headless Raspberry Pis.
 
@@ -182,7 +160,7 @@ docker compose up -d
 
 ---
 
-## 3. Raspberry Pi & Inovato Quadra Setup
+## 6. Raspberry Pi & Inovato Quadra Setup
 
 ### Standalone Kiosk Mode (Direct Linux Framebuffer)
 If you are running a Raspberry Pi or Inovato Quadra without a heavy desktop environment (e.g. Raspberry Pi OS Lite):
@@ -200,7 +178,7 @@ sudo hamclock -k -f on
 
 ---
 
-## 4. Linux Native Compilation
+## 7. Linux Native Compilation
 
 ### Debian / Ubuntu / Mint / Raspberry Pi OS Desktop
 ```bash
@@ -232,7 +210,7 @@ sudo make install
 
 ---
 
-## 5. macOS Installation
+## 8. macOS Installation
 
 Requires [Homebrew](https://brew.sh/) and [XQuartz](https://www.xquartz.org/):
 
@@ -247,7 +225,7 @@ sudo make install
 
 ---
 
-## 6. FreeBSD Installation
+## 9. FreeBSD Installation
 
 ```bash
 sudo pkg install -y gmake gcc libX11 libgpio curl unzip
@@ -259,7 +237,7 @@ sudo gmake install
 
 ---
 
-## 7. Systemd Autostart & Background Services
+## 10. Systemd Autostart & Background Services
 
 ### Desktop Autostart on Login
 ```bash

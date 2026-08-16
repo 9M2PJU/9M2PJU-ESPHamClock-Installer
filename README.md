@@ -535,6 +535,7 @@ sudo systemctl status hamclock
 ├── deploy/                       # Linux desktop launchers, icons, systemd units
 ├── docker/                       # Dockerfile, entrypoint, and compose configs
 ├── scripts/                      # Native & Docker automated 1-line installers
+├── termux/                       # Dedicated Android Termux installer & build helpers
 ├── docs/                         # Comprehensive documentation library & GitHub Pages
 ├── Makefile                      # Standard POSIX build system
 └── README.md
