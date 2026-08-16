@@ -1,0 +1,27 @@
+services:
+  hamclock:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: 9m2pju/esphamclock:latest
+    container_name: hamclock
+    restart: unless-stopped
+    ports:
+      - "8080:8080" # RESTful API & Live Screenshots (e.g. http://localhost:8080/live.png)
+      - "8081:8081" # Interactive Touch/Click Live Web Interface (e.g. http://localhost:8081/live.html)
+      - "8082:8082" # Read-Only Live Web Interface
+    environment:
+      # Resolution Options:
+      # - 800x480   (Standard definition)
+      # - 1600x960  (Recommended for Tablets / iPads / 1080p displays)
+      # - 2400x1440 (High-DPI / 2K)
+      # - 3200x1920 (4K UHD)
+      - RESOLUTION=800x480
+      # Optional: Additional CLI flags (e.g. "-k -g" for auto-geolocation startup)
+      - EXTRA_ARGS=-k
+    volumes:
+      - hamclock_data:/home/hamclock/.hamclock
+
+volumes:
+  hamclock_data:
+    name: hamclock_data

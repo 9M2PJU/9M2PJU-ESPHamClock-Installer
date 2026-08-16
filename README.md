@@ -30,6 +30,8 @@
 [OHB Migration](#-the-open-hamclock-backend-ohb-era) •
 [Features](#-feature-matrix) •
 [One-Liner Install](#-one-liner-quick-install) •
+[Docker Setup](#-docker--docker-compose) •
+[Resolution Guide](#-resolution-guide--switching) •
 [Manual Build](#-manual-compilation--build-matrix) •
 [CLI & Web Server](#-remote-web-interface--rest-api) •
 [Autostart](#-systemd-service--autostart)
@@ -114,6 +116,111 @@ curl -fsSL https://raw.githubusercontent.com/9M2PJU/ESPHamClock/main/install.sh 
 git clone https://github.com/9M2PJU/ESPHamClock.git
 cd ESPHamClock
 ./install.sh
+```
+
+---
+
+## 🐳 Docker & Docker Compose
+
+Docker is the easiest way to deploy HamClock in **Headless / Server Mode** on home servers, NAS devices (Synology, TrueNAS, Unraid), Proxmox, and mini PCs without installing GUI or X11 dependencies.
+
+### Option A: Using Docker Compose (Recommended)
+
+1. Save the [`docker-compose.yml`](file:///home/x/ESPHamClock/docker-compose.yml) file:
+   ```yaml
+   services:
+     hamclock:
+       image: 9m2pju/esphamclock:latest
+       container_name: hamclock
+       restart: unless-stopped
+       ports:
+         - "8080:8080" # RESTful API & Screenshot (/live.png)
+         - "8081:8081" # Real-time Interactive Web UI (/live.html)
+         - "8082:8082" # Read-Only Web Monitor
+       environment:
+         - RESOLUTION=1600x960  # Options: 800x480, 1600x960, 2400x1440, 3200x1920
+         - EXTRA_ARGS=-k
+       volumes:
+         - hamclock_data:/home/hamclock/.hamclock
+
+   volumes:
+     hamclock_data:
+   ```
+
+2. Start the container:
+   ```bash
+   docker compose up -d
+   ```
+
+3. Open your browser to [`http://<server-ip>:8081/live.html`](http://localhost:8081/live.html) to interact with HamClock!
+
+---
+
+### Option B: Using Standalone `docker run`
+
+```bash
+docker run -d \
+  --name hamclock \
+  --restart unless-stopped \
+  -p 8080:8080 \
+  -p 8081:8081 \
+  -p 8082:8082 \
+  -e RESOLUTION=1600x960 \
+  -v hamclock_data:/home/hamclock/.hamclock \
+  9m2pju/esphamclock:latest
+```
+
+---
+
+## 📐 Resolution Guide & Switching
+
+HamClock supports four distinct display resolutions tailored for different screen sizes:
+
+| Resolution | Width × Height | Best Suited For |
+| :--- | :--- | :--- |
+| **`800x480`** | 800 × 480 px | Standard definition, smaller 5"–7" Raspberry Pi displays, low-bandwidth web access. |
+| **`1600x960`** *(Recommended)* | 1600 × 960 px | Full HD (1080p) monitors, desktop windows, iPads, tablets, and wall dashboard screens. |
+| **`2400x1440`** | 2400 × 1440 px | 2K / QHD monitors, high-DPI displays. |
+| **`3200x1920`** | 3200 × 1920 px | 4K UHD large televisions and ultra-high-resolution displays. |
+
+### How to Change Resolution in Docker
+All four resolutions are **pre-compiled** inside the Docker image. You can switch resolutions instantly by updating the `RESOLUTION` environment variable—no container rebuild needed:
+
+1. Edit `RESOLUTION` in `docker-compose.yml`:
+   ```yaml
+   environment:
+     - RESOLUTION=1600x960   # Choose: 800x480, 1600x960, 2400x1440, 3200x1920
+   ```
+2. Apply the change:
+   ```bash
+   docker compose up -d
+   ```
+
+---
+
+### How to Change Resolution with One-Liner Script (`install.sh`)
+
+#### Method 1: Interactive Menu
+Simply run `./install.sh` and select your preferred resolution target from the numbered prompt:
+```bash
+./install.sh
+```
+
+#### Method 2: Non-Interactive One-Liner (Environment Variable or Argument)
+Pass `TARGET` or resolution directly into the command:
+
+```bash
+# Desktop X11 1600x960 (Large)
+TARGET=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/ESPHamClock/main/install.sh | bash
+
+# Desktop X11 2400x1440 (2K Hi-DPI)
+TARGET=2400x1440 curl -fsSL https://raw.githubusercontent.com/9M2PJU/ESPHamClock/main/install.sh | bash
+
+# Web Server Only 1600x960 (Headless)
+TARGET=web-1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/ESPHamClock/main/install.sh | bash
+
+# Raspberry Pi Direct Framebuffer 800x480 (/dev/fb0)
+TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/ESPHamClock/main/install.sh | bash
 ```
 
 ---

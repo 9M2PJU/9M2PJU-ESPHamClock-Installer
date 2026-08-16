@@ -11,6 +11,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
+CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 echo -e "${BLUE}====================================================${NC}"
@@ -60,30 +61,51 @@ elif [ "$OS" = "FreeBSD" ]; then
 fi
 
 # 2. Select build target & resolution
-echo -e "\n${YELLOW}[2/4] Select HamClock Build Target:${NC}"
-echo "  1) Desktop X11 - 800x480 (Standard Desktop GUI) [Default]"
-echo "  2) Desktop X11 - 1600x960 (Large Desktop GUI)"
-echo "  3) Desktop X11 - 2400x1440 (High-DPI Desktop GUI)"
-echo "  4) Desktop X11 - 3200x1920 (Huge 4K Desktop GUI)"
-echo "  5) Web Server Only - 800x480 (Headless / Remote Browser Access)"
-echo "  6) Web Server Only - 1600x960 (Large Headless)"
-echo "  7) Raspberry Pi /dev/fb0 - 800x480 (Standalone Touchscreen / Kiosk)"
-echo "  8) Raspberry Pi /dev/fb0 - 1600x960 (Large Standalone Kiosk)"
+RAW_TARGET="${TARGET:-${RES:-${RESOLUTION:-$1}}}"
 
-read -r -p "Enter choice [1-8, default: 1]: " TARGET_CHOICE
-TARGET_CHOICE=${TARGET_CHOICE:-1}
+if [ -n "$RAW_TARGET" ]; then
+    case "$RAW_TARGET" in
+        *web*800*|web-800x480)   MAKE_TARGET="hamclock-web-800x480" ;;
+        *web*1600*|web-1600x960) MAKE_TARGET="hamclock-web-1600x960" ;;
+        *web*2400*|web-2400x1440) MAKE_TARGET="hamclock-web-2400x1440" ;;
+        *web*3200*|web-3200x1920) MAKE_TARGET="hamclock-web-3200x1920" ;;
+        *fb*800*|fb0-800x480)    MAKE_TARGET="hamclock-fb0-800x480" ;;
+        *fb*1600*|fb0-1600x960)  MAKE_TARGET="hamclock-fb0-1600x960" ;;
+        *fb*2400*|fb0-2400x1440) MAKE_TARGET="hamclock-fb0-2400x1440" ;;
+        *fb*3200*|fb0-3200x1920) MAKE_TARGET="hamclock-fb0-3200x1920" ;;
+        *1600*|1600x960)         MAKE_TARGET="hamclock-1600x960" ;;
+        *2400*|2400x1440)        MAKE_TARGET="hamclock-2400x1440" ;;
+        *3200*|3200x1920)        MAKE_TARGET="hamclock-3200x1920" ;;
+        *800*|800x480)           MAKE_TARGET="hamclock-800x480" ;;
+        *)                       MAKE_TARGET="$RAW_TARGET" ;;
+    esac
+    echo -e "\n${CYAN}Using specified target: $MAKE_TARGET${NC}"
+else
+    echo -e "\n${YELLOW}[2/4] Select HamClock Build Target & Resolution:${NC}"
+    echo "  1) Desktop X11 - 800x480 (Standard Desktop GUI) [Default]"
+    echo "  2) Desktop X11 - 1600x960 (Large Desktop GUI)"
+    echo "  3) Desktop X11 - 2400x1440 (High-DPI Desktop GUI)"
+    echo "  4) Desktop X11 - 3200x1920 (Huge 4K Desktop GUI)"
+    echo "  5) Web Server Only - 800x480 (Headless / Remote Browser Access)"
+    echo "  6) Web Server Only - 1600x960 (Large Headless)"
+    echo "  7) Raspberry Pi /dev/fb0 - 800x480 (Standalone Kiosk)"
+    echo "  8) Raspberry Pi /dev/fb0 - 1600x960 (Large Standalone Kiosk)"
 
-case "$TARGET_CHOICE" in
-    1) MAKE_TARGET="hamclock-800x480" ;;
-    2) MAKE_TARGET="hamclock-1600x960" ;;
-    3) MAKE_TARGET="hamclock-2400x1440" ;;
-    4) MAKE_TARGET="hamclock-3200x1920" ;;
-    5) MAKE_TARGET="hamclock-web-800x480" ;;
-    6) MAKE_TARGET="hamclock-web-1600x960" ;;
-    7) MAKE_TARGET="hamclock-fb0-800x480" ;;
-    8) MAKE_TARGET="hamclock-fb0-1600x960" ;;
-    *) MAKE_TARGET="hamclock-800x480" ;;
-esac
+    read -r -p "Enter choice [1-8, default: 1]: " TARGET_CHOICE
+    TARGET_CHOICE=${TARGET_CHOICE:-1}
+
+    case "$TARGET_CHOICE" in
+        1) MAKE_TARGET="hamclock-800x480" ;;
+        2) MAKE_TARGET="hamclock-1600x960" ;;
+        3) MAKE_TARGET="hamclock-2400x1440" ;;
+        4) MAKE_TARGET="hamclock-3200x1920" ;;
+        5) MAKE_TARGET="hamclock-web-800x480" ;;
+        6) MAKE_TARGET="hamclock-web-1600x960" ;;
+        7) MAKE_TARGET="hamclock-fb0-800x480" ;;
+        8) MAKE_TARGET="hamclock-fb0-1600x960" ;;
+        *) MAKE_TARGET="hamclock-800x480" ;;
+    esac
+fi
 
 # 3. Build
 echo -e "\n${YELLOW}[3/4] Compiling $MAKE_TARGET...${NC}"
@@ -130,7 +152,8 @@ fi
 
 echo -e "\n${GREEN}====================================================${NC}"
 echo -e "${GREEN}  Installation Complete!                           ${NC}"
-echo -e "${GREEN}  Binary installed to: $BIN_DEST/hamclock          ${NC}"
+echo -e "${GREEN}  Target:          $MAKE_TARGET                    ${NC}"
+echo -e "${GREEN}  Binary Path:     $BIN_DEST/hamclock              ${NC}"
 echo -e "${GREEN}  Default Backend: ohb.hamclock.app:80             ${NC}"
 echo -e "${GREEN}====================================================${NC}"
 echo -e "You can start HamClock by running:\n  ${YELLOW}hamclock${NC}\n"
