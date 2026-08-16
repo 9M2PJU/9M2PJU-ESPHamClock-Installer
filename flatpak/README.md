@@ -35,7 +35,7 @@ git checkout -b new-pr/my.hamradio.HamClock
 
 ### Step 3: Copy the Manifest
 ```bash
-cp /home/x/ESPHamClock/flatpak/my.hamradio.HamClock.yml .
+cp ./flatpak/my.hamradio.HamClock.yml .
 git add my.hamradio.HamClock.yml
 git commit -m "Add my.hamradio.HamClock (9M2PJU HamClock)"
 git push -u origin new-pr/my.hamradio.HamClock

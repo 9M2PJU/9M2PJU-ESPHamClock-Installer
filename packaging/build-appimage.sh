@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# 9M2PJU ESPHamClock AppImage Generator
+# 9M2PJU HamClock AppImage Generator
 # Usage: ./packaging/build-appimage.sh <arch> [output_dir]
 # Supported arch: x86_64, aarch64, armhf
 # ==============================================================================
@@ -49,7 +49,7 @@ EOF
 chmod 755 "$APPDIR/AppRun"
 
 # 5. Build AppImage using appimagetool
-APPIMAGE_NAME="ESPHamClock-${VERSION}-${ARCH}.AppImage"
+APPIMAGE_NAME="HamClock-${VERSION}-${ARCH}.AppImage"
 export ARCH="$ARCH"
 
 if command -v appimagetool >/dev/null 2>&1; then

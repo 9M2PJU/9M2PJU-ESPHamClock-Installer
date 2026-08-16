@@ -74,11 +74,11 @@ sudo rpm -Uvh esphamclock-4.29-1.x86_64.rpm  # or .aarch64.rpm
 ### 🚀 Universal AppImage (Runs on ANY Linux distro without installation)
 Supports `x86_64`, `aarch64`, and `armhf`:
 ```bash
-chmod +x ESPHamClock-4.29-x86_64.AppImage
-./ESPHamClock-4.29-x86_64.AppImage
+chmod +x HamClock-4.29-x86_64.AppImage
+./HamClock-4.29-x86_64.AppImage
 
 # Launch with specific resolution
-./ESPHamClock-4.29-x86_64.AppImage -r 1600x960
+./HamClock-4.29-x86_64.AppImage -r 1600x960
 ```
 
 ### 📦 Flatpak (Flathub)
@@ -134,7 +134,7 @@ Create a `docker-compose.yml` file:
 ```yaml
 services:
   hamclock:
-    image: ghcr.io/9m2pju/esphamclock:latest
+    image: ghcr.io/9m2pju/hamclock:latest
     container_name: hamclock
     restart: unless-stopped
     ports:

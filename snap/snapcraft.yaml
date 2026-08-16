@@ -1,10 +1,10 @@
 name: esphamclock
-title: 9M2PJU ESPHamClock
+title: 9M2PJU HamClock
 base: core24
 version: '4.29'
 summary: Space Weather, Propagation & Telemetry Dashboard
 description: |
-  9M2PJU ESPHamClock (Open HamClock - OHB Edition) is an open-source space
+  9M2PJU HamClock (Open HamClock - OHB Edition) is an open-source space
   weather, VOACAP HF radio propagation modeling, satellite orbital tracking,
   DX cluster, and live telemetry dashboard for amateur radio operators.
 

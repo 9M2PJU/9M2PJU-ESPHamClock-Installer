@@ -130,9 +130,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.vars.outputs.tag }}
-          name: "9M2PJU ESPHamClock ${{ steps.vars.outputs.tag }} (OHB Edition)"
+          name: "9M2PJU HamClock ${{ steps.vars.outputs.tag }} (OHB Edition)"
           body: |
-            ## 9M2PJU ESPHamClock (Open HamClock - OHB Edition) ${{ steps.vars.outputs.tag }}
+            ## 9M2PJU HamClock (Open HamClock - OHB Edition) ${{ steps.vars.outputs.tag }}
             
             ### 📦 Download Pre-Built Installers
             
@@ -158,19 +158,19 @@ jobs:
             ```
             
             #### 🚀 Universal AppImage (Portable Executable)
-            - **x86_64**: `ESPHamClock-4.29-x86_64.AppImage`
-            - **aarch64**: `ESPHamClock-4.29-aarch64.AppImage`
-            - **armhf**: `ESPHamClock-4.29-armhf.AppImage`
+            - **x86_64**: `HamClock-4.29-x86_64.AppImage`
+            - **aarch64**: `HamClock-4.29-aarch64.AppImage`
+            - **armhf**: `HamClock-4.29-armhf.AppImage`
             
             ```bash
             # Run AppImage
-            chmod +x ESPHamClock-4.29-*.AppImage
-            ./ESPHamClock-4.29-*.AppImage
+            chmod +x HamClock-4.29-*.AppImage
+            ./HamClock-4.29-*.AppImage
             ```
             
             #### 🐳 Multi-Arch Docker
             ```bash
-            docker pull ghcr.io/9m2pju/9m2pju-esphamclock-installer:latest
+            docker pull ghcr.io/9m2pju/9m2pju-hamclock-installer:latest
             ```
             
             ---

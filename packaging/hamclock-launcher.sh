@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# 9M2PJU ESPHamClock Universal Launcher
+# 9M2PJU HamClock Universal Launcher
 # Compatible with: Standard FHS installs, AppImage, and Standalone Folders
 # ==============================================================================
 

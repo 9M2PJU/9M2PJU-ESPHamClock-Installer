@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# 9M2PJU ESPHamClock .rpm Package Generator
+# 9M2PJU HamClock .rpm Package Generator
 # Usage: ./packaging/build-rpm.sh <arch> [output_dir]
 # Supported arch: x86_64, aarch64, armhfp
 # ==============================================================================

@@ -53,7 +53,7 @@ docker run -d `
   -p 8081:8081 `
   -p 8082:8082 `
   -v "$env:USERPROFILE\.hamclock:/root/.hamclock" `
-  ghcr.io/9m2pju/9m2pju-esphamclock-installer:latest
+  ghcr.io/9m2pju/9m2pju-hamclock-installer:latest
 ```
 
 ### Accessing the Web Dashboard:

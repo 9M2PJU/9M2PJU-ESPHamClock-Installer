@@ -1,4 +1,4 @@
-# 9M2PJU ESPHamClock - Automated Windows One-Click Installer
+# 9M2PJU HamClock - Automated Windows One-Click Installer
 # Author: 9M2PJU <9m2pju@gmail.com>
 # Website: https://hamclock.hamradio.my
 
@@ -8,7 +8,7 @@ $ErrorActionPreference = "Stop"
 function Write-Header {
     Clear-Host
     Write-Host "======================================================" -ForegroundColor Cyan
-    Write-Host "      9M2PJU ESPHamClock - Windows Installer           " -ForegroundColor Yellow
+    Write-Host "      9M2PJU HamClock - Windows Installer           " -ForegroundColor Yellow
     Write-Host "   Space Weather, Propagation & Telemetry Dashboard   " -ForegroundColor Green
     Write-Host "======================================================" -ForegroundColor Cyan
     Write-Host ""
@@ -64,8 +64,8 @@ switch ($choice) {
             Write-Host "❌ Docker Desktop is not running. Please start Docker Desktop or install it from https://docker.com" -ForegroundColor Red
             Exit 1
         }
-        Write-Host "🚀 Pulling and starting 9M2PJU ESPHamClock Docker container..." -ForegroundColor Green
-        docker pull ghcr.io/9m2pju/9m2pju-esphamclock-installer:latest
+        Write-Host "🚀 Pulling and starting 9M2PJU HamClock Docker container..." -ForegroundColor Green
+        docker pull ghcr.io/9m2pju/9m2pju-hamclock-installer:latest
         docker rm -f hamclock 2>$null | Out-Null
         docker run -d `
             --name hamclock `
@@ -74,7 +74,7 @@ switch ($choice) {
             -p 8081:8081 `
             -p 8082:8082 `
             -v "$env:USERPROFILE\.hamclock:/root/.hamclock" `
-            ghcr.io/9m2pju/9m2pju-esphamclock-installer:latest
+            ghcr.io/9m2pju/9m2pju-hamclock-installer:latest
 
         Write-Host ""
         Write-Host "✅ ESPHamClock is running in the background!" -ForegroundColor Green

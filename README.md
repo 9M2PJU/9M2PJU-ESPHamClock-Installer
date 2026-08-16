@@ -19,13 +19,13 @@
 [![Snap Store](https://img.shields.io/badge/Snap%20Store-Submitted-E95420.svg?style=for-the-badge&logo=snapcraft&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/actions/workflows/snap.yml)
 [![Flathub](https://img.shields.io/badge/Flathub-Pending%20Review-4A90D9.svg?style=for-the-badge&logo=flathub&logoColor=white)](https://github.com/flathub/flathub/pull/9797)
 [![Windows Support](https://img.shields.io/badge/Windows-WSL2%20%7C%20Docker-0078D6.svg?style=for-the-badge&logo=windows&logoColor=white)](docs/WINDOWS.md)
-[![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2Fesphamclock-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/pkgs/container/esphamclock)
+[![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2Fhamclock-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/pkgs/container/hamclock)
 [![License](https://img.shields.io/badge/license-Custom%20Amateur%20Radio-purple.svg?style=for-the-badge)](file:///home/x/ESPHamClock/LICENSE)
 
 <br/>
 
 <p align="center">
-  <img src="docs/images/9m2pju-esphamclock-ohb.png" alt="ESPHamClock OHB Backend Screenshot" width="850" />
+  <img src="docs/images/9m2pju-esphamclock-ohb.png" alt="9M2PJU HamClock OHB Backend Screenshot" width="850" />
 </p>
 
 ---
@@ -179,11 +179,11 @@ sudo rpm -Uvh esphamclock-4.29-1.aarch64.rpm # ARM64
 
 ### 🚀 Universal AppImage (Single-File Executable)
 ```bash
-chmod +x ESPHamClock-4.29-x86_64.AppImage
-./ESPHamClock-4.29-x86_64.AppImage
+chmod +x HamClock-4.29-x86_64.AppImage
+./HamClock-4.29-x86_64.AppImage
 
 # Launch with custom resolution
-./ESPHamClock-4.29-x86_64.AppImage -r 1600x960
+./HamClock-4.29-x86_64.AppImage -r 1600x960
 ```
 
 ---
@@ -232,7 +232,7 @@ RESOLUTION=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-H
    ```yaml
    services:
      hamclock:
-       image: ghcr.io/9m2pju/9m2pju-esphamclock-installer:latest
+       image: ghcr.io/9m2pju/9m2pju-hamclock-installer:latest
        container_name: hamclock
        restart: unless-stopped
        ports:
@@ -269,7 +269,7 @@ docker run -d \
   -p 8082:8082 \
   -e RESOLUTION=1600x960 \
   -v hamclock_data:/home/hamclock/.hamclock \
-  ghcr.io/9m2pju/esphamclock:latest
+  ghcr.io/9m2pju/hamclock:latest
 ```
 
 ---
