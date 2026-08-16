@@ -285,35 +285,43 @@
 
     /* Quick Install Box */
     .install-box {
-      max-width: 780px;
+      max-width: 860px;
       margin: 0 auto 40px;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 8px;
+      padding: 12px;
       box-shadow: var(--shadow-card);
+      overflow: hidden;
     }
     .install-tabs {
       display: flex;
+      flex-wrap: wrap;
       gap: 6px;
-      padding: 6px 12px 10px;
+      padding: 6px 6px 12px;
       border-bottom: 1px solid var(--border-color);
+      justify-content: center;
     }
     .install-tab {
       background: transparent;
-      border: none;
+      border: 1px solid transparent;
       color: var(--text-muted);
-      padding: 6px 14px;
+      padding: 6px 12px;
       border-radius: var(--radius-sm);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
       transition: var(--transition);
+      white-space: nowrap;
+    }
+    .install-tab:hover {
+      color: var(--text-main);
+      background: var(--bg-card-hover);
     }
     .install-tab.active {
       background: var(--bg-main);
       color: var(--accent-emerald);
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border-highlight);
     }
     .command-display {
       display: flex;
@@ -322,15 +330,33 @@
       padding: 16px 20px;
       background: var(--bg-input);
       border-radius: var(--radius-md);
-      margin-top: 8px;
+      margin-top: 10px;
+      gap: 12px;
+      overflow: hidden;
     }
     .command-text {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.95rem;
+      font-size: 0.90rem;
       color: var(--accent-cyan);
-      white-space: nowrap;
-      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      overflow-wrap: anywhere;
       text-align: left;
+      line-height: 1.5;
+      flex: 1;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .command-hint {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: rgba(17, 24, 39, 0.6);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--accent-emerald);
+      text-align: left;
+      line-height: 1.45;
     }
     .btn-copy {
       background: var(--bg-card);
@@ -346,7 +372,6 @@
       gap: 6px;
       transition: var(--transition);
       flex-shrink: 0;
-      margin-left: 16px;
     }
     .btn-copy:hover {
       background: var(--bg-card-hover);
@@ -518,21 +543,54 @@
 
     /* Responsive */
     @media (max-width: 768px) {
+      .nav-wrap {
+        height: 60px;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero {
+        padding: 45px 0 35px;
+      }
       .hero h1 {
-        font-size: 2.2rem;
+        font-size: 2.1rem;
       }
       .hero p {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        margin-bottom: 24px;
+      }
+      .install-box {
+        padding: 8px;
+        margin-bottom: 30px;
+      }
+      .install-tabs {
+        gap: 4px;
+        padding: 4px 2px 10px;
+      }
+      .install-tab {
+        padding: 5px 8px;
+        font-size: 0.75rem;
       }
       .command-display {
         flex-direction: column;
         gap: 12px;
-        align-items: flex-start;
+        align-items: stretch;
+        padding: 12px 14px;
+      }
+      .command-text {
+        font-size: 0.82rem;
       }
       .btn-copy {
-        margin-left: 0;
         width: 100%;
         justify-content: center;
+      }
+      .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .footer-links {
+        flex-wrap: wrap;
+        gap: 12px;
       }
     }
   </style>
@@ -572,15 +630,15 @@
       <div class="install-box" id="install">
         <div class="install-tabs">
           <button class="install-tab active" onclick="setTab('native')">🚀 1-Line</button>
+          <button class="install-tab" onclick="setTab('android')">📱 Android (Termux)</button>
           <button class="install-tab" onclick="setTab('windows')">🪟 Windows</button>
-          <button class="install-tab" onclick="setTab('android')">📱 Android</button>
-          <button class="install-tab" onclick="setTab('aur')">🏹 AUR (Arch)</button>
+          <button class="install-tab" onclick="setTab('docker')">🐳 Docker</button>
+          <button class="install-tab" onclick="setTab('aur')">🏹 Arch (AUR)</button>
           <button class="install-tab" onclick="setTab('snap')">📦 Snap ⏳</button>
           <button class="install-tab" onclick="setTab('flatpak')">📦 Flatpak ⏳</button>
           <button class="install-tab" onclick="setTab('deb')">🐧 .deb (Ubuntu/Pi)</button>
           <button class="install-tab" onclick="setTab('rpm')">🎩 .rpm (Fedora)</button>
           <button class="install-tab" onclick="setTab('appimage')">📦 AppImage</button>
-          <button class="install-tab" onclick="setTab('docker')">🐳 Docker</button>
         </div>
 
         <div class="command-display">
@@ -588,6 +646,9 @@
           <button class="btn-copy" onclick="copyCommand()">
             <span id="copy-text">📋 Copy</span>
           </button>
+        </div>
+        <div class="command-hint" id="cmd-hint">
+          🚀 <strong>Universal Installer:</strong> Auto-detects Linux (Debian, Ubuntu, Raspberry Pi OS, Arch, Fedora), macOS (Apple Silicon & Intel), and FreeBSD.
         </div>
       </div>
 
@@ -601,9 +662,15 @@
   <!-- Core Features Section -->
   <section class="container" id="features">
     <h2 class="section-title">Engineered for Radio Amateurs</h2>
-    <p class="section-desc">Real-time solar data, dynamic VOACAP HF propagation, on-air QSO maps, and full shack automation.</p>
+    <p class="section-desc">Real-time solar data, dynamic VOACAP HF propagation, on-air QSO maps, satellite tracking, and shack automation.</p>
 
     <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Android &amp; Termux Touch Clock</h3>
+        <p>Turn spare Android phones and tablets into permanent, low-power (&lt;3W) shack touch clocks via <strong>Termux</strong>. Open with <strong>Fully Kiosk Browser</strong> for auto-fit edge-to-edge full screen.</p>
+      </div>
+
       <div class="feature-card">
         <div class="feature-icon">🌐</div>
         <h3>Open HamClock Backend (OHB)</h3>
@@ -717,10 +784,24 @@
       docker: "curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install-docker.sh | bash"
     };
 
+    const hints = {
+      native: "🚀 <strong>Universal Installer:</strong> Auto-detects Linux (Debian, Ubuntu, Raspberry Pi OS, Arch, Fedora), macOS (Apple Silicon & Intel), and FreeBSD.",
+      android: "📱 <strong>Android via Termux:</strong> After install, keep awake with <code>termux-wake-lock && hamclock -k &</code>, disable battery saver (Unrestricted), and open in <strong>Fully Kiosk Browser</strong> at <code>http://localhost:8081/live.html</code>.",
+      windows: "🪟 <strong>Windows 10/11:</strong> Run PowerShell command. Auto-configures WSLg native GUI window or Docker container.",
+      docker: "🐳 <strong>Docker Multi-Arch:</strong> Runs headless container. Access UI at <code>http://localhost:8081/live.html</code>.",
+      aur: "🏹 <strong>Arch Linux:</strong> Builds the bleeding-edge native package from the Arch User Repository.",
+      snap: "📦 <strong>Snapcraft:</strong> Sandboxed package with auto-updating for Ubuntu and Snap-supported distros.",
+      flatpak: "📦 <strong>Flathub:</strong> Universal desktop sandbox package for all modern Linux desktops.",
+      deb: "🐧 <strong>Debian / Ubuntu / Raspberry Pi:</strong> Pre-built standalone native <code>.deb</code> package.",
+      rpm: "🎩 <strong>Fedora / RHEL / openSUSE:</strong> Pre-built standalone native <code>.rpm</code> package.",
+      appimage: "📦 <strong>Universal Linux:</strong> Single executable binary — run anywhere without root permissions."
+    };
+
     function setTab(tab) {
       document.querySelectorAll('.install-tab').forEach(el => el.classList.remove('active'));
       event.target.classList.add('active');
       document.getElementById('cmd-display').innerText = commands[tab];
+      document.getElementById('cmd-hint').innerHTML = hints[tab] || '';
       document.getElementById('copy-text').innerText = "📋 Copy";
     }
 
