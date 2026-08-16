@@ -108,7 +108,7 @@ See the full [Android & Termux Guide](ANDROID.md) for detailed battery, kiosk, a
 ### 1-Line Automated Termux Installer:
 Open the **Termux** app and run:
 ```bash
-pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
+pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh | bash
 ```
 
 ### Quick Start:

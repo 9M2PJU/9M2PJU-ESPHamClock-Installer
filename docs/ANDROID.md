@@ -14,8 +14,6 @@ Open the **Termux** app and paste this single command:
 pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh | bash
 ```
 
-> 💡 **Tip:** The installer is also available via the main installer (`install.sh`), which automatically detects Termux.
-
 ---
 
 ## 📖 Step-by-Step Setup Walkthrough
@@ -30,13 +28,14 @@ pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent
 ### Step 2: Run the Installer
 Open Termux and run the installer one-liner:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
+pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh | bash
 ```
 The script will automatically:
 1. Detect Termux on Android.
 2. Install `clang`, `make`, `git`, and `curl` via `pkg`.
 3. Prompt you for your desired resolution (default: `1600x960` for tablets, or `800x480` for phones).
-4. Compile the optimized native ARM binary and install `hamclock` to `$PREFIX/bin/hamclock`.
+4. Apply Android Bionic `fdsan` protection.
+5. Compile the optimized native ARM binary and install `hamclock` to `$PREFIX/bin/hamclock`.
 
 ---
 
@@ -117,7 +116,8 @@ If you prefer running HamClock as an X11 window rather than through the web serv
    ```
 3. Compile the X11 target:
    ```bash
-   TARGET=1600x960 ./install.sh
+   ./termux/build.sh hamclock-1600x960
+   cp hamclock-1600x960 $PREFIX/bin/hamclock
    ```
 4. Start the Termux:X11 server and run:
    ```bash
