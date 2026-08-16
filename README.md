@@ -16,7 +16,6 @@
 [![HamClock Version](https://img.shields.io/badge/version-4.29-blue.svg?style=for-the-badge&logo=cplusplus)](file:///home/x/ESPHamClock/version.cpp)
 [![Backend Status](https://img.shields.io/badge/backend-OHB%20(Open%20HamClock%20Backend)-brightgreen.svg?style=for-the-badge&logo=server)](https://ohb.hamclock.app)
 [![AUR package](https://img.shields.io/aur/version/esphamclock-git?color=1793D1&label=AUR&logo=archlinux&style=for-the-badge)](https://aur.archlinux.org/packages/esphamclock-git)
-[![Snap Store](https://img.shields.io/badge/Snap%20Store-esphamclock-E95420.svg?style=for-the-badge&logo=snapcraft&logoColor=white)](docs/SNAP.md)
 [![Windows Support](https://img.shields.io/badge/Windows-WSL2%20%7C%20Docker-0078D6.svg?style=for-the-badge&logo=windows&logoColor=white)](docs/WINDOWS.md)
 [![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2Fesphamclock-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/pkgs/container/esphamclock)
 [![License](https://img.shields.io/badge/license-Custom%20Amateur%20Radio-purple.svg?style=for-the-badge)](file:///home/x/ESPHamClock/LICENSE)
@@ -132,17 +131,11 @@ For instant installation without compiling from source, pre-built binary package
 | Package Format | Target Operating Systems | Supported Architectures |
 | :--- | :--- | :--- |
 | **`AUR`** | Arch Linux, Manjaro, EndeavourOS, CachyOS | `x86_64`, `aarch64`, `armv7h` |
-| **`Snap`** | Ubuntu, Debian, Fedora, Arch Linux, Manjaro, openSUSE | `amd64`, `arm64`, `armhf` |
 | **`.deb`** | Debian, Ubuntu, Raspberry Pi OS, Armbian, Linux Mint | `amd64`, `arm64`, `armhf` |
 | **`.rpm`** | Fedora, RHEL, CentOS, Rocky Linux, openSUSE | `x86_64`, `aarch64`, `armhfp` |
 | **`.AppImage`** | **Universal** (Runs on any Linux distribution) | `x86_64`, `aarch64`, `armhf` |
 
 </div>
-
-### 📦 Snap Store (Ubuntu / Universal Linux)
-```bash
-sudo snap install esphamclock
-```
 
 ### 🏹 Arch Linux (AUR)
 ```bash

@@ -43,11 +43,6 @@ TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ES
 
 For quick installation without building from source, download pre-compiled packages directly from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/releases) or install via package managers:
 
-### 📦 Snap Store (Ubuntu / Universal Linux)
-```bash
-sudo snap install esphamclock
-```
-
 ### 🏹 Arch Linux / Manjaro / EndeavourOS / CachyOS (AUR)
 ```bash
 # Using yay
