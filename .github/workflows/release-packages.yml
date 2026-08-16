@@ -60,23 +60,12 @@ jobs:
       - name: Build HamClock Binaries in Container (${{ matrix.docker_platform }})
         run: |
           mkdir -p dist
+          chmod +x packaging/*.sh
           # Run compilation inside target architecture container
           docker run --rm --platform ${{ matrix.docker_platform }} \
             -v "$PWD":/workspace \
             -w /workspace \
-            debian:bookworm-slim /bin/bash -c "
-              set -e
-              apt-get update && \
-              apt-get install -y build-essential make g++ libx11-dev libgpiod-dev pkg-config
-              mkdir -p /tmp/built-bin
-              for t in hamclock-800x480 hamclock-1600x960 hamclock-2400x1440 hamclock-3200x1920 hamclock-web-800x480 hamclock-web-1600x960; do
-                echo "=== Compiling target: \$t ==="
-                make clean
-                make \$t LIBS="-lpthread -larduino -lzlib-hc -lws -lX11" -j\$(nproc)
-                cp \$t /tmp/built-bin/
-              done
-              cp /tmp/built-bin/* ./
-            "
+            debian:bookworm-slim ./packaging/build-in-container.sh
 
       - name: Package .deb (${{ matrix.arch }})
         run: |
