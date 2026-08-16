@@ -1,4 +1,4 @@
-Name:           esphamclock
+Name:           hamclock
 Version:        4.29
 Release:        1%{?dist}
 Summary:        Portable space weather, propagation and telemetry dashboard for radio amateurs
@@ -8,9 +8,11 @@ Group:          Applications/Engineering
 BuildArch:      %{_target_cpu}
 
 Requires:       libX11
+Provides:       esphamclock = %{version}-%{release}
+Obsoletes:      esphamclock < %{version}-%{release}
 
 %description
-9M2PJU ESPHamClock (Open HamClock - OHB Edition) is a dashboard suite for
+9M2PJU HamClock (Open HamClock - OHB Edition) is a dashboard suite for
 amateur radio operators providing VOACAP propagation modeling, live SDO/NOAA space
 weather, satellite tracking, ADIF log broadcasting, and rotator/radio CAT control.
 

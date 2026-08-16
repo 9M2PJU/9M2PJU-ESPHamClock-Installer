@@ -77,7 +77,7 @@ switch ($choice) {
             ghcr.io/9m2pju/9m2pju-hamclock-installer:latest
 
         Write-Host ""
-        Write-Host "✅ ESPHamClock is running in the background!" -ForegroundColor Green
+        Write-Host "✅ HamClock is running in the background!" -ForegroundColor Green
         Write-Host "🌐 Opening interactive dashboard in default browser..." -ForegroundColor Cyan
         Start-Sleep -Seconds 2
         Start-Process "http://localhost:8081/live.html"
@@ -88,7 +88,7 @@ switch ($choice) {
             Write-Host "❌ WSL is not installed. To install WSL, open PowerShell as Administrator and run: wsl --install" -ForegroundColor Red
             Exit 1
         }
-        Write-Host "🚀 Installing and compiling ESPHamClock inside WSL..." -ForegroundColor Green
+        Write-Host "🚀 Installing and compiling HamClock inside WSL..." -ForegroundColor Green
         wsl -e bash -c "curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash"
         
         Write-Host ""

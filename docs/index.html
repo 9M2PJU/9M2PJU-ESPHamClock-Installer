@@ -24,8 +24,8 @@
   <meta property="og:url" content="https://hamclock.hamradio.my/">
   <meta property="og:title" content="9M2PJU HamClock Installer | Open HamClock (OHB Edition)">
   <meta property="og:description" content="One-line install for HamClock v4.29 with Open HamClock Backend (OHB), multi-architecture Docker, VOACAP propagation, satellite orbits, rig CAT, and rotator automation.">
-  <meta property="og:image" content="https://hamclock.hamradio.my/images/9m2pju-esphamclock-ohb.png">
-  <meta property="og:image:secure_url" content="https://hamclock.hamradio.my/images/9m2pju-esphamclock-ohb.png">
+  <meta property="og:image" content="https://hamclock.hamradio.my/images/9m2pju-hamclock-ohb.png">
+  <meta property="og:image:secure_url" content="https://hamclock.hamradio.my/images/9m2pju-hamclock-ohb.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1600">
   <meta property="og:image:height" content="960">
@@ -38,7 +38,7 @@
   <meta name="twitter:url" content="https://hamclock.hamradio.my/">
   <meta name="twitter:title" content="9M2PJU HamClock Installer | Open HamClock (OHB Edition)">
   <meta name="twitter:description" content="One-line install for HamClock v4.29 with Open HamClock Backend (OHB), multi-architecture Docker, VOACAP propagation, satellite orbits, rig CAT, and rotator automation.">
-  <meta name="twitter:image" content="https://hamclock.hamradio.my/images/9m2pju-esphamclock-ohb.png">
+  <meta name="twitter:image" content="https://hamclock.hamradio.my/images/9m2pju-hamclock-ohb.png">
   <meta name="twitter:image:alt" content="9M2PJU HamClock Space Weather & Telemetry Dashboard">
   
   <!-- Schema.org JSON-LD Structured Data -->
@@ -61,7 +61,7 @@
         "description": "Open-source space weather, radio propagation, VOACAP modeling, satellite tracking, and telemetry dashboard for amateur radio operators worldwide with Open HamClock Backend (OHB).",
         "url": "https://hamclock.hamradio.my/",
         "downloadUrl": "https://github.com/9M2PJU/9M2PJU-HamClock-Installer",
-        "screenshot": "https://hamclock.hamradio.my/images/9m2pju-esphamclock-ohb.png",
+        "screenshot": "https://hamclock.hamradio.my/images/9m2pju-hamclock-ohb.png",
         "author": {
           "@type": "Person",
           "name": "9M2PJU",
@@ -95,7 +95,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images/9m2pju-esphamclock-ohb.png">
+  <link rel="icon" type="image/png" href="images/9m2pju-hamclock-ohb.png">
 
   <style>
     :root {
@@ -592,7 +592,7 @@
 
       <!-- Screenshot Showcase -->
       <div class="screenshot-wrap">
-        <img src="images/9m2pju-esphamclock-ohb.png" alt="9M2PJU HamClock with Open HamClock Backend (OHB)">
+        <img src="images/9m2pju-hamclock-ohb.png" alt="9M2PJU HamClock with Open HamClock Backend (OHB)">
       </div>
     </div>
   </section>
@@ -705,10 +705,10 @@
       native: "curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash",
       windows: "irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/scripts/install.ps1 | iex",
       aur: "yay -S hamclock-git",
-      snap: "# ⏳ Snap Store submission in progress — coming soon!\n# Track: https://github.com/9M2PJU/9M2PJU-HamClock-Installer/actions/workflows/snap.yml\n# Once approved:\nsudo snap install esphamclock",
+      snap: "# ⏳ Snap Store submission in progress — coming soon!\n# Track: https://github.com/9M2PJU/9M2PJU-HamClock-Installer/actions/workflows/snap.yml\n# Once approved:\nsudo snap install hamclock",
       flatpak: "# ⏳ Flathub review pending — PR #9797\n# Track: https://github.com/flathub/flathub/pull/9797\n# Once approved:\nflatpak install flathub my.hamradio.HamClock\nflatpak run my.hamradio.HamClock",
-      deb: "sudo dpkg -i esphamclock_4.29-1_amd64.deb # (or arm64 / armhf)",
-      rpm: "sudo rpm -Uvh esphamclock-4.29-1.x86_64.rpm # (or aarch64 / armhfp)",
+      deb: "sudo dpkg -i hamclock_4.29-1_amd64.deb # (or arm64 / armhf)",
+      rpm: "sudo rpm -Uvh hamclock-4.29-1.x86_64.rpm # (or aarch64 / armhfp)",
       appimage: "chmod +x HamClock-4.29-x86_64.AppImage && ./HamClock-4.29-x86_64.AppImage",
       docker: "curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install-docker.sh | bash"
     };

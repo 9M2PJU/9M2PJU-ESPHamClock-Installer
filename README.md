@@ -25,7 +25,7 @@
 <br/>
 
 <p align="center">
-  <img src="docs/images/9m2pju-esphamclock-ohb.png" alt="9M2PJU HamClock OHB Backend Screenshot" width="850" />
+  <img src="docs/images/9m2pju-hamclock-ohb.png" alt="9M2PJU HamClock OHB Backend Screenshot" width="850" />
 </p>
 
 ---
@@ -142,7 +142,7 @@ For instant installation without compiling from source, pre-built binary package
 </div>
 
 ### 📦 Snap Store (Ubuntu / Universal Linux)
-> ⏳ **Submission in progress** — publishing to the Snap Store now. Will be available as `sudo snap install esphamclock` once approved.
+> ⏳ **Submission in progress** — publishing to the Snap Store now. Will be available as `sudo snap install hamclock` once approved.
 >
 > Track build: [GitHub Actions — Snap Build](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/actions/workflows/snap.yml)
 
@@ -165,16 +165,16 @@ paru -S hamclock-git
 ### 🐧 Debian / Ubuntu / Raspberry Pi OS (`.deb`)
 ```bash
 # Download and install for your architecture
-sudo dpkg -i esphamclock_4.29-1_amd64.deb    # x86_64 PCs
-sudo dpkg -i esphamclock_4.29-1_arm64.deb    # Raspberry Pi 4/5 / 64-bit ARM
-sudo dpkg -i esphamclock_4.29-1_armhf.deb    # Raspberry Pi 2/3 / 32-bit Raspbian
-sudo apt-get install -f                      # Resolve any missing dependencies
+sudo dpkg -i hamclock_4.29-1_amd64.deb    # x86_64 PCs
+sudo dpkg -i hamclock_4.29-1_arm64.deb    # Raspberry Pi 4/5 / 64-bit ARM
+sudo dpkg -i hamclock_4.29-1_armhf.deb    # Raspberry Pi 2/3 / 32-bit Raspbian
+sudo apt-get install -f                   # Resolve any missing dependencies
 ```
 
 ### 🎩 Fedora / RHEL / openSUSE (`.rpm`)
 ```bash
-sudo rpm -Uvh esphamclock-4.29-1.x86_64.rpm  # x86_64
-sudo rpm -Uvh esphamclock-4.29-1.aarch64.rpm # ARM64
+sudo rpm -Uvh hamclock-4.29-1.x86_64.rpm  # x86_64
+sudo rpm -Uvh hamclock-4.29-1.aarch64.rpm # ARM64
 ```
 
 ### 🚀 Universal AppImage (Single-File Executable)

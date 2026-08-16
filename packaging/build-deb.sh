@@ -10,7 +10,7 @@ set -e
 ARCH="${1:-amd64}"
 VERSION="4.29"
 REVISION="1"
-PKG_NAME="esphamclock"
+PKG_NAME="hamclock"
 OUT_DIR="${2:-./dist}"
 TOP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
@@ -32,6 +32,8 @@ Priority: optional
 Architecture: $ARCH
 Depends: libx11-6, libc6, libgcc-s1, libstdc++6
 Recommends: libgpiod2 | libgpiod-dev
+Provides: esphamclock
+Replaces: esphamclock
 Maintainer: 9M2PJU <9m2pju@gmail.com>
 Homepage: https://hamclock.hamradio.my
 Description: Portable space weather, propagation and telemetry dashboard for radio amateurs

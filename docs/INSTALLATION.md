@@ -61,14 +61,14 @@ paru -S hamclock-git
 Supports `amd64`, `arm64` (RPi 4/5), and `armhf` (RPi 2/3, 32-bit):
 ```bash
 # Download and install
-sudo dpkg -i esphamclock_4.29-1_amd64.deb    # or _arm64.deb / _armhf.deb
-sudo apt-get install -f                      # resolve dependencies
+sudo dpkg -i hamclock_4.29-1_amd64.deb    # or _arm64.deb / _armhf.deb
+sudo apt-get install -f                   # resolve dependencies
 ```
 
 ### 🎩 Fedora / RHEL / openSUSE (`.rpm`)
 Supports `x86_64`, `aarch64`, and `armhfp`:
 ```bash
-sudo rpm -Uvh esphamclock-4.29-1.x86_64.rpm  # or .aarch64.rpm
+sudo rpm -Uvh hamclock-4.29-1.x86_64.rpm  # or .aarch64.rpm
 ```
 
 ### 🚀 Universal AppImage (Runs on ANY Linux distro without installation)
