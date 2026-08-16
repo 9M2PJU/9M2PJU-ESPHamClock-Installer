@@ -6,12 +6,19 @@
 *.dSYM
 
 # Built HamClock Executables
-hamclock
-hamclock-*
-hamclock-web-*
-hamclock-fb0-*
+/hamclock
+/hamclock-800x480
+/hamclock-1600x960
+/hamclock-2400x1440
+/hamclock-3200x1920
+/hamclock-web-800x480
+/hamclock-web-1600x960
+/hamclock-fb0-*
 zpipe
 dist/
+*.deb
+*.rpm
+*.AppImage
 
 # IDE and Editor artifacts
 .vscode/
