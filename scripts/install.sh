@@ -137,21 +137,15 @@ make "$MAKE_TARGET" -j"$NPROCS"
 
 # 4. Install binary and desktop shortcuts
 echo -e "\n${YELLOW}[4/4] Installing HamClock...${NC}"
-BIN_DEST="/usr/local/bin"
-if [ ! -w "$BIN_DEST" ] && [ "$(id -u)" -ne 0 ]; then
-    if sudo -n true 2>/dev/null; then
-        sudo cp "$MAKE_TARGET" "$BIN_DEST/hamclock"
-        sudo chmod +x "$BIN_DEST/hamclock"
-    else
-        BIN_DEST="$HOME/.local/bin"
-        mkdir -p "$BIN_DEST"
-        cp "$MAKE_TARGET" "$BIN_DEST/hamclock"
-        chmod +x "$BIN_DEST/hamclock"
-    fi
+if [ "$(id -u)" -eq 0 ]; then
+    BIN_DEST="/usr/local/bin"
 else
-    cp "$MAKE_TARGET" "$BIN_DEST/hamclock"
-    chmod +x "$BIN_DEST/hamclock"
+    BIN_DEST="$HOME/.local/bin"
 fi
+
+mkdir -p "$BIN_DEST"
+cp "$MAKE_TARGET" "$BIN_DEST/hamclock"
+chmod +x "$BIN_DEST/hamclock"
 
 # Install desktop shortcut on Linux
 if [ "$OS" = "Linux" ]; then
