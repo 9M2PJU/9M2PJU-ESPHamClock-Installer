@@ -22,6 +22,7 @@ static SBox askde_b;                    // de lat/lng dialog
 SBox de_title_b;                        // de title location
 SBox map_b;                             // entire map, pixels only, not border
 SBox view_btn_b;                        // map View button
+SBox borders_btn_b;                     // on-map Borders On/Off badge, right of the View button
 SBox dx_maid_b;                         // dx maindenhead 
 SBox de_maid_b;                         // de maindenhead 
 
@@ -50,6 +51,7 @@ SCircle satpass_c;
 
 // whether to shade night or show place names
 uint8_t night_on, names_on;
+uint8_t borders_on;
 
 // handy flag when showing main page
 bool mainpage_up;
@@ -61,6 +63,7 @@ const char *grid_styles[MAPGRID_N] = {
     "Tropics",
     "Lat/Long",
     "Maidenhead",
+    "Maidenhead+",
     "Azimuthal",
     "CQ Zones",
     "ITU Zones",
@@ -92,6 +95,8 @@ typedef enum {
     ROTM_RSSI,                                  // show RSSI
     ROTM_LIP,                                   // show local IP
     ROTM_PIP,                                   // show public IP
+    ROTM_BE,                                    // show backend hostname
+    ROTM_BEIP,                                  // show backend ip address
     ROTM_CPUTEMP,                               // show CPU temperature
     ROTM_FSUSE,                                 // show file system usage
     ROTM_N,                                     // n values
@@ -279,6 +284,9 @@ void setup()
     tft.PWM1config(true, RA8875_PWM_CLK_DIV1024); // PWM output for backlight
     initBrightness();
 
+    // initialize Antennas
+    initAntennas();
+
 // #define _GFX_COORD_TEST                              // RBF
 #if defined(_GFX_COORD_TEST)
 
@@ -448,6 +456,18 @@ void setup()
     view_btn_b.w = 60;
     view_btn_b.h = 14;
 
+    // position Borders on-map badge just to the right of the View button, with a small gap.
+    // width is sized to fit "Borders Off", the longer of its two labels, plus padding.
+    {
+        const int gap = 4;                       // pixels between View button and badge
+        const int pad = 8;                       // pixels of horizontal padding inside the badge
+        selectFontStyle (LIGHT_FONT, FAST_FONT);
+        borders_btn_b.x = view_btn_b.x + view_btn_b.w + gap;
+        borders_btn_b.y = view_btn_b.y;          // tracks view_btn_b.y each time it's (re)drawn
+        borders_btn_b.w = getTextWidth ("Borders Off") + pad;
+        borders_btn_b.h = view_btn_b.h;
+    }
+
     // redefine callsign for main screen
     cs_info.box.x = 0;
     cs_info.box.y = 0;
@@ -600,6 +620,8 @@ void setup()
     rss_bnr_b.w = map_b.w;
     rss_bnr_b.h = 68;
     NVReadUInt8 (NV_RSS_ON, &rss_on);
+    initLightning();
+    initStorms();
     if (!NVReadUInt8 (NV_RSS_INTERVAL, &rss_interval) || rss_interval < RSS_MIN_INT) {
         rss_interval = RSS_DEF_INT;
         NVWriteUInt8 (NV_RSS_INTERVAL, rss_interval);
@@ -677,10 +699,18 @@ void loop()
         // display more of earth map
         drawMoreEarth();
 
+        // refresh just the satellite footprint(s) at a much tighter cadence than the full map
+        // sweep, without the cost of a full sweep (see updateSatFootprintFast())
+        #define SAT_FOOT_FAST_MS 5000U
+        static uint32_t sat_foot_ms;
+        uint32_t now_ms = millis();
+        if (now_ms - sat_foot_ms >= SAT_FOOT_FAST_MS) {
+            sat_foot_ms = now_ms;
+            updateSatFootprintFast();
+        }
+
         // other goodies
-        drawUptime(false);
-        drawRotatingMessage();
-        drawVersion(false);
+        updateCallsignStatus(false);
         followBrightness();
         checkOnAirPin();
         readBME280();
@@ -808,6 +838,7 @@ void initScreen()
     initWiFiRetry();
     drawUptime(true);
     drawScreenLock();
+    drawMOTDIcon();
     drawDemoRunner();
 
     // always close so it will restart if open in any pane
@@ -865,10 +896,17 @@ static void checkTouch()
             // set flag to draw map menu at next opportunity
             mapmenu_pending = true;
         }
+    } else if (bordersBadgeVisible() && inBox (s, borders_btn_b)) {
+        borders_on = !borders_on;
+        NVWriteUInt8 (NV_CTYBORDERS_ON, borders_on);
+        initEarthMap();
+        tft.drawPR();
     } else if (checkSatMapTouch (s)) {
         // set showing sat in DX box
         dx_info_for_sat = true;
         drawSatPass();
+    } else if (checkPlanetMapTouch (s)) {
+        // handled entirely within checkPlanetMapTouch
     } else if (!overViewBtn(s, DX_R) && s2ll (s, ll)) {
         // tapped map: set flag to run popup after map finishes or set newDX here if special-tap
         if (names_on)
@@ -962,7 +1000,8 @@ static void checkTouch()
             if (askOTAupdate (new_version, true, false) && askPasswd ("upgrade", false))
                 doOTAupdate(new_version);
         } else {
-            (void) askOTAupdate (new_version, false, false);
+            if (askOTAupdate (new_version, false, false) && askPasswd ("upgrade", false))
+                doOTAupdate(new_version);
         }
         initScreen();
 #endif // NO_UPGRADE
@@ -979,6 +1018,8 @@ static void checkTouch()
         case ROTM_FSUSE:        // fallthru
         case ROTM_LIP:  // fallthru
         case ROTM_PIP:
+        case ROTM_BE:
+        case ROTM_BEIP:
             // sorry, nothing fun
             break;
         case ROTM_N:
@@ -1030,6 +1071,7 @@ void newDX (LatLong &ll, const char grid[MAID_CHARLEN], const char *ovprefix)
 
     // enable great path unless very close to DE
     dxpath_time = ERAD_M * dx_ll.GSD(de_ll) > DEDX_MINPATH ? millis() : 0;
+    scheduleMapRedraw();
 
     // just call initEarthMap??
     drawDXInfo ();
@@ -1093,8 +1135,11 @@ void newDE (LatLong &ll, const char grid[MAID_CHARLEN])
     char de_grid[MAID_CHARLEN];
     getNVMaidenhead (NV_DE_GRID, de_grid);
     Serial.printf ("New DE: %g %g %s\n", de_ll.lat_d, de_ll.lng_d, de_grid);
+
+    // lightning data was relative to old DE — force immediate refetch
+    resetLightning();
 }
- 
+
 /* find long- or short-path angular distance and east-of-north bearing from_ll to_ll given helper
  * values for sin and cos of from lat. all values in radians in range 0..2pi.
  */
@@ -1134,6 +1179,10 @@ bool desiredBearing (const LatLong &ll, float &bear)
         float yr = year(t0) + ((month(t0)-1) + (day(t0)-1)/30.0F)/12.0F;        // approx
         if (!magdecl (ll.lat_d, ll.lng_d, 200, yr, &decl)) {
             Serial.printf ("Magnetic model only valid %g .. %g\n", decl, decl+5);
+            return (false);
+        } else if (!isfinite(decl)) {
+            // Never allow a bad model result to turn a valid true bearing into NaN.
+            Serial.printf ("Invalid magnetic declination at %g, %g\n", ll.lat_d, ll.lng_d);
             return (false);
         } else {
             // Serial.printf ("magdecl @ %g = %g\n", yr, decl);
@@ -1317,7 +1366,8 @@ static void drawVersion (bool draw)
         uint16_t vw = getTextWidth (ver);
         tft.setTextColor (col);
         tft.setCursor (version_b.x+version_b.w-vw, version_b.y+1);      // right justify
-        fillSBox (version_b, RA8875_BLACK);
+        // clear from cs_info.box bottom down through status box to catch any descenders
+        tft.fillRect (version_b.x, cs_info.box.y+cs_info.box.h, version_b.w, CSINFO_DROP+CSINFO_H+2, RA8875_BLACK);
         // drawSBox (version_b, RA8875_GREEN);         // RBF
         tft.print (ver);
     }
@@ -1429,6 +1479,42 @@ static void drawRotatingMessage()
 
             break;
 
+        case ROTM_BE: {
+
+            if (backend_host[0]) {
+                snprintf (str, sizeof(str), "%s", backend_host);
+            } else {
+                strcpy (str, "No host");
+                tft.setTextColor (RA8875_RED);
+            }
+            }
+
+            break;
+
+        case ROTM_BEIP: {
+            if (backend_host[0]) {
+                struct addrinfo hints, *res;
+                memset(&hints, 0, sizeof(hints));
+                hints.ai_family = AF_INET; // Force IPv4 for a simple string
+                hints.ai_socktype = SOCK_STREAM;
+
+                // Attempt to resolve the hostname
+                if (getaddrinfo(backend_host, NULL, &hints, &res) == 0) {
+                    struct sockaddr_in *ipv4 = (struct sockaddr_in *)res->ai_addr;
+                    char be_addr[INET_ADDRSTRLEN];
+                    inet_ntop(AF_INET, &(ipv4->sin_addr), be_addr, sizeof(be_addr));
+                    snprintf (str, sizeof(str), "BE-IP %s", be_addr);
+                    freeaddrinfo(res);
+                } else {
+                    strcpy(str, "Res Err");
+                    tft.setTextColor(RA8875_RED);
+                }
+            } else {
+                strcpy(str, "No host");
+                tft.setTextColor(RA8875_RED);
+            }
+            break;
+        }
 
         case ROTM_N:
             // lint -- never get here
@@ -1442,7 +1528,8 @@ static void drawRotatingMessage()
     selectFontStyle (LIGHT_FONT, FAST_FONT);
     tft.setTextColor (show_red ? RA8875_RED : GRAY);
     uint16_t sw = getTextWidth(str);
-    fillSBox (wifi_b, RA8875_BLACK);
+    // clear from cs_info.box bottom down through status box to catch any descenders
+    tft.fillRect (wifi_b.x, cs_info.box.y+cs_info.box.h, wifi_b.w, CSINFO_DROP+CSINFO_H+2, RA8875_BLACK);
     tft.setCursor (wifi_b.x+(wifi_b.w-sw)/2, wifi_b.y+1);
     tft.print(str);
 }
@@ -1457,7 +1544,8 @@ static void prepUptime()
     const uint16_t y = cs_info.box.y+cs_info.box.h+CSINFO_DROP;
     const uint16_t w = uptime_b.w - UPTIME_INDENT;
 
-    tft.fillRect (x, y, w, CSINFO_H, RA8875_BLACK);             // Skip "Up"
+    // clear from cs_info.box bottom down through status box to catch any descenders
+    tft.fillRect (x, cs_info.box.y+cs_info.box.h, w, CSINFO_DROP+CSINFO_H+2, RA8875_BLACK);             // Skip "Up"
     // drawSBox (uptime_b, RA8875_GREEN);                       // RBF
 
     selectFontStyle (LIGHT_FONT, FAST_FONT);
@@ -1549,6 +1637,21 @@ static void drawUptime(bool force)
     }
 }
 
+/* update gray status items under callsign (uptime, rotating message, version)
+ */
+void updateCallsignStatus (bool force)
+{
+    FontWeight fw;
+    FontSize fs;
+    getFontStyle (&fw, &fs);
+
+    drawUptime (force);
+    drawRotatingMessage ();
+    drawVersion (force);
+
+    selectFontStyle (fw, fs);
+}
+
 /* given an SCoord in raw coords, return one in app coords
  */
 const SCoord raw2appSCoord (const SCoord &s_raw)
@@ -1564,7 +1667,8 @@ const SCoord raw2appSCoord (const SCoord &s_raw)
  */
 static bool overMaidKey (const SCoord &s)
 {
-    return (map_proj == MAPP_MERCATOR && mapgrid_choice == MAPGRID_MAID       
+    return (map_proj == MAPP_MERCATOR
+                        && (mapgrid_choice == MAPGRID_MAID || mapgrid_choice == MAPGRID_MAID4)
                         && (inBox(s,maidlbltop_b) || inBox(s,maidlblright_b)) );
 }
 
@@ -1647,6 +1751,7 @@ void drawAllSymbols()
 
     if (mapScaleIsUp())
         drawMapScale();
+    drawCountryBorders();
     if (overMap(sun_c.s))
         drawSun();
     if (overMap(moon_c.s))
@@ -1658,10 +1763,19 @@ void drawAllSymbols()
     drawDXClusterSpotsOnMap();
     drawADIFSpotsOnMap();
     drawDXPedsOnMap();
+    drawHamsatOnMap();
+    drawMeshtasticOnMap();
+    drawPlanetsOnMap();
+    drawLaunchesOnMap();
+    drawActiveNetsOnMap();
     drawDEMarker(false);
     drawDXMarker(false);
     drawFarthestPSKSpots();
+    drawLightningOnMap();
+    drawStormsOnMap();
+    drawSatPathAndFoot();
     drawSanta ();
+    drawEnterprise ();
 
     updateClocks(false);
 }
@@ -1838,29 +1952,28 @@ void drawDEFormatMenu()
 
         {MENU_1OFN, SHOWING_PANE_0(), 1, mi, "Data Panes:", NULL},
 
-            // bottom submenu is list of possible pane choices, see next.
-            // N.B. don't include ones already in play in the top set
-
+            // bottom submenu is filled below from PANE_0_CH_MASK, including high-word choices.
     };
 
-    // set and record PANE_0 choices from successive bits in PANE_0_CH_MASK
-    uint32_t pane_0_bits = PANE_0_CH_MASK;
+    // prepare each suitable Pane 0 choice in PlotChoice order
     PlotChoice menu_ch[N_PANE_0_CH];
-    for (int i = 0; i < N_PANE_0_CH; i++) {
-        // find and zero out the next bit in mask of possible PANE_0 panes
-        int plot_n = 0;
-        for (uint32_t bits = pane_0_bits; bits >>= 1; plot_n++)
+    int n_menu_ch = 0;
+    for (int i = 0; i < PLOT_CH_N; i++) {
+        PlotChoice pc = (PlotChoice)i;
+        if (!PLOT_CH_IS_REAL(pc) || !(PANE_0_CH_MASK & PLOTBIT(pc)))
             continue;
-        pane_0_bits &= ~(1<<plot_n);
-        menu_ch[i] = (PlotChoice)plot_n;
-        // prepare menu item
-        PlotPane pp = findPaneForChoice ((PlotChoice)plot_n);
-        bool available =  plotChoiceIsAvailable((PlotChoice)plot_n) && (pp == PANE_NONE || pp == PANE_0);
+
+        menu_ch[n_menu_ch] = pc;
+        PlotPane pp = findPaneForChoice (pc);
+        bool available = plotChoiceIsAvailable(pc) && (pp == PANE_NONE || pp == PANE_0);
         MenuFieldType type = available ? MENU_AL1OFN : MENU_IGNORE;
-        mitems[N_DEFMT_CORE+i] = {type, !!(plot_rotset[PANE_0] & (1<<plot_n)), 3, Mi, plot_names[plot_n], 0};
+        mitems[N_DEFMT_CORE+n_menu_ch] = {
+            type, !!(plot_rotset[PANE_0] & PLOTBIT(pc)), 3, Mi, plot_names[pc], 0
+        };
+        n_menu_ch++;
     }
-    if (pane_0_bits != 0)
-        fatalError ("drawDEFormatMenu() %d %d 0x%x\n", pane_0_bits, N_PANE_0_CH, PANE_0_CH_MASK);
+    if (n_menu_ch != N_PANE_0_CH)
+        fatalError ("drawDEFormatMenu() found %d of %d Pane 0 choices", n_menu_ch, N_PANE_0_CH);
 
     // create a box for the menu
     SBox menu_b;
@@ -1871,65 +1984,56 @@ void drawDEFormatMenu()
     // run menu
     SBox ok_b;
     MenuInfo menu = {menu_b, ok_b, UF_NOCLOCKS, M_CANCELOK, 1, NARRAY(mitems), mitems};
-    if (runMenu (menu)) {
+    if (!runMenu (menu))
+        return;
 
-        // capture and save new state
+    if (mitems[0].set) {
 
-        if (mitems[0].set) {
-
-            // set desired detime format
-
-            int new_fmt = -1;
-            for (int i = 0; i < DETIME_N; i++) {
-                if (mitems[i+1].set) {
-                    new_fmt = i;
-                    break;
-                }
+        // set desired DE time format and restore the normal DE/DX layout
+        int new_fmt = -1;
+        for (int i = 0; i < DETIME_N; i++) {
+            if (mitems[i+1].set) {
+                new_fmt = i;
+                break;
             }
+        }
+        if (new_fmt < 0)
+            fatalError ("drawDEFormatMenu: No de fmt");
 
-            // paranoid
-            if (new_fmt < 0)
-                fatalError ("drawDEFormatMenu: No de fmt");
+        de_time_fmt = (uint8_t)new_fmt;
+        NVWriteUInt8 (NV_DE_TIMEFMT, de_time_fmt);
+        restoreNormPANE0();
 
-            // set fmt and turn off PANE_0
-            de_time_fmt = (uint8_t)new_fmt;
-            NVWriteUInt8(NV_DE_TIMEFMT, de_time_fmt);
-            plot_ch[PANE_0] = PLOT_CH_NONE;
-            plot_rotset[PANE_0] = 0;
+    } else {
 
+        // collect low- and high-word choices into one in-memory rotation mask
+        PlotMask new_rotset = 0;
+        for (int i = 0; i < N_PANE_0_CH; i++) {
+            if (mitems[N_DEFMT_CORE+i].set)
+                new_rotset |= PLOTBIT(menu_ch[i]);
+        }
+
+        if (new_rotset == 0) {
+            restoreNormPANE0();
         } else {
+            plot_rotset[PANE_0] = new_rotset;
 
-            // get new collection of plot choices
-            uint32_t new_rotset = 0;
-            for (int i = 0; i < N_PANE_0_CH; i++) { 
-                if (mitems[N_DEFMT_CORE+i].set)
-                    new_rotset |= (1<<menu_ch[i]);
-            }
-
-            // might not be any if user clicked this section but made no choice
-            if (new_rotset != 0) {
-
-                // ok!
-                plot_rotset[PANE_0] = new_rotset;
-
-                // pick any one as current
+            // retain the current choice when still selected, otherwise choose the first set bit
+            if (!(plot_rotset[PANE_0] & PLOTBIT(plot_ch[PANE_0]))) {
                 for (int i = 0; i < PLOT_CH_N; i++) {
-                    if (plot_rotset[PANE_0] & (1 << i)) {
-                        plot_ch[PANE_0] = (PlotChoice) i;
+                    if (plot_rotset[PANE_0] & PLOTBIT(i)) {
+                        plot_ch[PANE_0] = (PlotChoice)i;
                         break;
                     }
                 }
             }
+
+            if (!setPlotChoice (PANE_0, plot_ch[PANE_0]))
+                fatalError ("drawDEFormatMenu: can not set Pane 0 choice %d", (int)plot_ch[PANE_0]);
         }
     }
 
-    // set PANE_0 choice, even if none
-    setPlotChoice (PANE_0, plot_ch[PANE_0]);
     logPaneRotSet (PANE_0, plot_ch[PANE_0]);
-
-    // redraw if normal
-    if (!SHOWING_PANE_0())
-        restoreNormPANE0();
 }
 
 /* resume using nearestPrefix
@@ -2218,7 +2322,7 @@ bool postDiags (void)
         int buf_l = 0;
 
         // hand-crafted POST header, move to its own func if ever used for something else
-        buf_l += snprintf (buf+buf_l, sizeof(buf)-buf_l, "POST %s HTTP\r\n", fn);
+        buf_l += snprintf (buf+buf_l, sizeof(buf)-buf_l, "POST %s HTTP/1.0\r\n", fn);
         buf_l += snprintf (buf+buf_l, sizeof(buf)-buf_l, "Content-Length: %d\r\n", cl);
         pd_client.print (buf);
         sendUserAgent (pd_client);

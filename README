@@ -1,16 +1,20 @@
-Project web site: http://www.clearskyinstitute.com/ham/HamClock
+HamClock (Open HamClock / OHB Edition)
+Backend: https://ohb.hamclock.app
 
 HamClock is a kiosk-style application that provides real time space weather, radio propagation models,
-operating events and other information particularly useful to the radio amateur.
+operating events, satellite tracking, and other information particularly useful to the radio amateur.
 
-Executive summary for UNIX systems:
-    type `make' for size and style options
-    make <size>
-    sudo make install
+For comprehensive documentation, build instructions, and one-liner installer scripts, see README.md.
 
-Executive summary for ESP8266 Huzzah:
+Executive summary for UNIX / Linux / Raspberry Pi / macOS / FreeBSD systems:
+    Run the universal installer:
+        ./install.sh
+    Or manual build:
+        make <target>   (e.g., make hamclock-800x480 or make hamclock-1600x960)
+        sudo make install
+
+Executive summary for ESP8266:
     install and run Arduino IDE
-    configure as per "ESP8266 Notes" tab at above web page
     open ESPHamClock.ino in IDE
     Sketch -> Compile
     Sketch -> Upload
