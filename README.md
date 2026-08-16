@@ -16,6 +16,7 @@
 [![HamClock Version](https://img.shields.io/badge/version-4.29-blue.svg?style=for-the-badge&logo=cplusplus)](file:///home/x/ESPHamClock/version.cpp)
 [![Backend Status](https://img.shields.io/badge/backend-OHB%20(Open%20HamClock%20Backend)-brightgreen.svg?style=for-the-badge&logo=server)](https://ohb.hamclock.app)
 [![AUR package](https://img.shields.io/aur/version/esphamclock-git?color=1793D1&label=AUR&logo=archlinux&style=for-the-badge)](https://aur.archlinux.org/packages/esphamclock-git)
+[![Windows Support](https://img.shields.io/badge/Windows-WSL2%20%7C%20Docker-0078D6.svg?style=for-the-badge&logo=windows&logoColor=white)](docs/WINDOWS.md)
 [![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2Fesphamclock-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/pkgs/container/esphamclock)
 [![License](https://img.shields.io/badge/license-Custom%20Amateur%20Radio-purple.svg?style=for-the-badge)](file:///home/x/ESPHamClock/LICENSE)
 
@@ -168,6 +169,20 @@ chmod +x ESPHamClock-4.29-x86_64.AppImage
 # Launch with custom resolution
 ./ESPHamClock-4.29-x86_64.AppImage -r 1600x960
 ```
+
+---
+
+## 🪟 Windows Support (PowerShell & WSL2)
+
+Run HamClock on **Windows 10 & Windows 11** via automated PowerShell installer:
+
+```powershell
+irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/scripts/install.ps1 | iex
+```
+
+- **WSL2 / WSLg**: Runs as a seamless, hardware-accelerated native desktop window.
+- **Docker Desktop**: Deploys the isolated headless container and opens `http://localhost:8081/live.html`.
+- For detailed instructions, see the [Windows User Guide](docs/WINDOWS.md).
 
 ---
 
