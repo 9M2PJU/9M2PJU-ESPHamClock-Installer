@@ -16,9 +16,18 @@ Comprehensive installation instructions for **HamClock (Open HamClock / OHB Edit
 
 ---
 
-## 2. Pre-Built Linux Packages (.deb, .rpm, .AppImage)
+## 2. Pre-Built Linux Packages (.deb, .rpm, .AppImage, AUR)
 
-For quick installation without building from source, download pre-compiled packages directly from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/releases):
+For quick installation without building from source, download pre-compiled packages directly from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/releases) or install via AUR:
+
+### 🏹 Arch Linux / Manjaro / EndeavourOS / CachyOS (AUR)
+```bash
+# Using yay
+yay -S esphamclock-git
+
+# Using paru
+paru -S esphamclock-git
+```
 
 ### 🐧 Debian / Ubuntu / Raspberry Pi OS (`.deb`)
 Supports `amd64`, `arm64` (RPi 4/5), and `armhf` (RPi 2/3, 32-bit):

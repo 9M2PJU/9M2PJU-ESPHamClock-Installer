@@ -15,7 +15,7 @@
 
 [![HamClock Version](https://img.shields.io/badge/version-4.29-blue.svg?style=for-the-badge&logo=cplusplus)](file:///home/x/ESPHamClock/version.cpp)
 [![Backend Status](https://img.shields.io/badge/backend-OHB%20(Open%20HamClock%20Backend)-brightgreen.svg?style=for-the-badge&logo=server)](https://ohb.hamclock.app)
-[![Platform Support](https://img.shields.io/badge/platforms-Linux%20%7C%20Raspberry%20Pi%20%7C%20macOS%20%7C%20FreeBSD%20%7C%20ESP8266-orange.svg?style=for-the-badge&logo=linux)](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer)
+[![AUR package](https://img.shields.io/aur/version/esphamclock-git?color=1793D1&label=AUR&logo=archlinux&style=for-the-badge)](https://aur.archlinux.org/packages/esphamclock-git)
 [![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2Fesphamclock-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/pkgs/container/esphamclock)
 [![License](https://img.shields.io/badge/license-Custom%20Amateur%20Radio-purple.svg?style=for-the-badge)](file:///home/x/ESPHamClock/LICENSE)
 
@@ -129,11 +129,21 @@ For instant installation without compiling from source, pre-built binary package
 
 | Package Format | Target Operating Systems | Supported Architectures |
 | :--- | :--- | :--- |
+| **`AUR`** | Arch Linux, Manjaro, EndeavourOS, CachyOS | `x86_64`, `aarch64`, `armv7h` |
 | **`.deb`** | Debian, Ubuntu, Raspberry Pi OS, Armbian, Linux Mint | `amd64`, `arm64`, `armhf` |
 | **`.rpm`** | Fedora, RHEL, CentOS, Rocky Linux, openSUSE | `x86_64`, `aarch64`, `armhfp` |
 | **`.AppImage`** | **Universal** (Runs on any Linux distribution) | `x86_64`, `aarch64`, `armhf` |
 
 </div>
+
+### 🏹 Arch Linux (AUR)
+```bash
+# Using yay
+yay -S esphamclock-git
+
+# Using paru
+paru -S esphamclock-git
+```
 
 ### 🐧 Debian / Ubuntu / Raspberry Pi OS (`.deb`)
 ```bash
