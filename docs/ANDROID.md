@@ -11,13 +11,10 @@ Repurposing an old or spare Android tablet makes one of the **cheapest, lowest-p
 Open the **Termux** app and paste this single command:
 
 ```bash
-pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
+pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh | bash
 ```
 
-> 💡 **Tip:** To install a specific resolution non-interactively, pass `TARGET`:
-> ```bash
-> TARGET=web-1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
-> ```
+> 💡 **Tip:** The installer is also available via the main installer (`install.sh`), which automatically detects Termux.
 
 ---
 

@@ -1,4 +1,4 @@
-CXX ?= g++
+CXX=g++
 
 LIBOBJ =  \
 	adler32.o \

@@ -172,11 +172,10 @@ elif has_cmd sysctl; then
 fi
 
 if [ "$IS_TERMUX" = "1" ]; then
-    export CXX="${CXX:-clang++}"
-    export CC="${CC:-clang}"
+    make "$MAKE_TARGET" CXX="clang++" -j"$NPROCS"
+else
+    make "$MAKE_TARGET" -j"$NPROCS"
 fi
-
-make "$MAKE_TARGET" -j"$NPROCS"
 
 # 4. Install binary and desktop shortcuts
 echo -e "\n${YELLOW}[4/4] Installing HamClock...${NC}"

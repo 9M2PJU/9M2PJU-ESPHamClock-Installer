@@ -4,7 +4,7 @@
 
 .PHONY: default
 
-CXX ?= g++
+CXX = g++
 
 OBJS = \
 	Adafruit_BME280.o \
