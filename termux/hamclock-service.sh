@@ -9,5 +9,5 @@ if command -v termux-wake-lock >/dev/null 2>&1; then
     termux-wake-lock
 fi
 
-echo "Starting HamClock Web Server on :8080..."
-exec hamclock
+echo "Starting HamClock Web Server (UI: http://localhost:8081/live.html)..."
+exec hamclock "$@"

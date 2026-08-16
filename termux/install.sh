@@ -95,10 +95,14 @@ echo -e "${GREEN}      HamClock Installation Completed on Android!   ${NC}"
 echo -e "${GREEN}=====================================================${NC}"
 echo -e "To start HamClock, run:\n"
 echo -e "  ${CYAN}hamclock${NC}\n"
-echo -e "Then open your Android web browser (Chrome/Brave/Firefox) to:"
-echo -e "  Local access:  ${CYAN}http://localhost:8080/liveweb.html${NC}"
-echo -e "  LAN access:    ${CYAN}http://${LOCAL_IP}:8080/liveweb.html${NC}\n"
-echo -e "${YELLOW}Tip for 24/7 display:${NC}"
-echo -e "  1. Run '${CYAN}termux-wake-lock${NC}' to keep HamClock running in background."
-echo -e "  2. In Chrome, tap 'Add to Home screen' for a dedicated full-screen kiosk app."
+echo -e "Then open your Android web browser (Chrome/Brave/Firefox) to:
+  Interactive Touch Screen:  ${CYAN}http://localhost:8081/live.html${NC}
+  LAN Remote Access:         ${CYAN}http://${LOCAL_IP}:8081/live.html${NC}
+  Read-Only Monitor Screen:  ${CYAN}http://localhost:8082/live.html${NC}
+  Backend RESTful API:       ${CYAN}http://localhost:8080/${NC}
+
+${YELLOW}Tip for 24/7 display:${NC}
+  1. Run '${CYAN}termux-wake-lock${NC}' to keep HamClock running when switching apps.
+  2. Start with '${CYAN}hamclock -k &${NC}' (or run '${CYAN}termux/hamclock-service.sh${NC}').
+  3. In Chrome, tap 'Add to Home screen' for a full-screen kiosk touch app."
 echo -e "${GREEN}=====================================================${NC}"
