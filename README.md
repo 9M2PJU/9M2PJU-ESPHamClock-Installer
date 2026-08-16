@@ -115,8 +115,48 @@ curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer
 ### Local Execution
 ```bash
 git clone https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer.git
-cd ESPHamClock
+cd 9M2PJU-ESPHamClock-Installer
 ./install.sh
+```
+
+---
+
+## 📦 Pre-Built Linux Packages (.deb, .rpm, .AppImage)
+
+For instant installation without compiling from source, pre-built binary packages are available directly from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/releases) for **amd64**, **arm64**, and **armhf**:
+
+<div align="center">
+
+| Package Format | Target Operating Systems | Supported Architectures |
+| :--- | :--- | :--- |
+| **`.deb`** | Debian, Ubuntu, Raspberry Pi OS, Armbian, Linux Mint | `amd64`, `arm64`, `armhf` |
+| **`.rpm`** | Fedora, RHEL, CentOS, Rocky Linux, openSUSE | `x86_64`, `aarch64`, `armhfp` |
+| **`.AppImage`** | **Universal** (Runs on any Linux distribution) | `x86_64`, `aarch64`, `armhf` |
+
+</div>
+
+### 🐧 Debian / Ubuntu / Raspberry Pi OS (`.deb`)
+```bash
+# Download and install for your architecture
+sudo dpkg -i esphamclock_4.29-1_amd64.deb    # x86_64 PCs
+sudo dpkg -i esphamclock_4.29-1_arm64.deb    # Raspberry Pi 4/5 / 64-bit ARM
+sudo dpkg -i esphamclock_4.29-1_armhf.deb    # Raspberry Pi 2/3 / 32-bit Raspbian
+sudo apt-get install -f                      # Resolve any missing dependencies
+```
+
+### 🎩 Fedora / RHEL / openSUSE (`.rpm`)
+```bash
+sudo rpm -Uvh esphamclock-4.29-1.x86_64.rpm  # x86_64
+sudo rpm -Uvh esphamclock-4.29-1.aarch64.rpm # ARM64
+```
+
+### 🚀 Universal AppImage (Single-File Executable)
+```bash
+chmod +x ESPHamClock-4.29-x86_64.AppImage
+./ESPHamClock-4.29-x86_64.AppImage
+
+# Launch with custom resolution
+./ESPHamClock-4.29-x86_64.AppImage -r 1600x960
 ```
 
 ---
@@ -151,7 +191,7 @@ RESOLUTION=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-E
    ```yaml
    services:
      hamclock:
-       image: ghcr.io/9m2pju/esphamclock:latest
+       image: ghcr.io/9m2pju/9m2pju-esphamclock-installer:latest
        container_name: hamclock
        restart: unless-stopped
        ports:
@@ -406,7 +446,7 @@ sudo systemctl status hamclock
 ## 📂 Repository Layout
 
 ```text
-ESPHamClock-Installer/
+9M2PJU-ESPHamClock-Installer/
 ├── src/                          # C++ implementation source files
 │   ├── ESPHamClock.cpp           # Main application entry point
 │   ├── astro.cpp, clocks.cpp...  # Core telemetry & map engines
@@ -416,10 +456,11 @@ ESPHamClock-Installer/
 ├── ArduinoLib/                   # POSIX / Linux Arduino hardware abstraction
 ├── wsServer/                     # Real-time WebSocket server library
 ├── zlib-hc/                      # Embedded data decompression library
+├── packaging/                    # .deb, .rpm, and AppImage package builders
 ├── deploy/                       # Linux desktop launchers, icons, systemd units
 ├── docker/                       # Dockerfile, entrypoint, and compose configs
 ├── scripts/                      # Native & Docker automated 1-line installers
-├── docs/                         # Comprehensive documentation library
+├── docs/                         # Comprehensive documentation library & GitHub Pages
 ├── Makefile                      # Standard POSIX build system
 └── README.md
 ```
