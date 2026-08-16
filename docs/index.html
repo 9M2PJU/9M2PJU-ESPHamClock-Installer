@@ -574,7 +574,8 @@
           <button class="install-tab active" onclick="setTab('native')">🚀 1-Line</button>
           <button class="install-tab" onclick="setTab('windows')">🪟 Windows</button>
           <button class="install-tab" onclick="setTab('aur')">🏹 AUR (Arch)</button>
-          <button class="install-tab" onclick="setTab('snap')">📦 Snap</button>
+          <button class="install-tab" onclick="setTab('snap')">📦 Snap ⏳</button>
+          <button class="install-tab" onclick="setTab('flatpak')">📦 Flatpak ⏳</button>
           <button class="install-tab" onclick="setTab('deb')">🐧 .deb (Ubuntu/Pi)</button>
           <button class="install-tab" onclick="setTab('rpm')">🎩 .rpm (Fedora)</button>
           <button class="install-tab" onclick="setTab('appimage')">📦 AppImage</button>
@@ -690,6 +691,8 @@
       <ul class="footer-links">
         <li><a href="https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer" target="_blank">GitHub Repository</a></li>
         <li><a href="https://ohb.hamclock.app" target="_blank">Open HamClock Backend (OHB)</a></li>
+        <li><a href="https://snapcraft.io/esphamclock" target="_blank">Snap Store</a></li>
+        <li><a href="https://flathub.org/apps/my.hamradio.HamClock" target="_blank">Flathub</a></li>
         <li><a href="https://hamradio.my" target="_blank">HamRadio.my</a></li>
       </ul>
       <p class="footer-copy">Maintained by <strong>9M2PJU</strong> &amp; The Open HamClock Community. Custom Amateur Radio License.</p>
@@ -702,7 +705,8 @@
       native: "curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash",
       windows: "irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/scripts/install.ps1 | iex",
       aur: "yay -S esphamclock-git",
-      snap: "sudo snap install esphamclock",
+      snap: "# ⏳ Snap Store submission in progress — coming soon!\n# Track: https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/actions/workflows/snap.yml\n# Once approved:\nsudo snap install esphamclock",
+      flatpak: "# ⏳ Flathub review pending — PR #9797\n# Track: https://github.com/flathub/flathub/pull/9797\n# Once approved:\nflatpak install flathub my.hamradio.HamClock\nflatpak run my.hamradio.HamClock",
       deb: "sudo dpkg -i esphamclock_4.29-1_amd64.deb # (or arm64 / armhf)",
       rpm: "sudo rpm -Uvh esphamclock-4.29-1.x86_64.rpm # (or aarch64 / armhfp)",
       appimage: "chmod +x ESPHamClock-4.29-x86_64.AppImage && ./ESPHamClock-4.29-x86_64.AppImage",
