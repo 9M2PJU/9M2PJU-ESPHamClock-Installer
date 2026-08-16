@@ -11,7 +11,7 @@ Repurposing an old or spare Android tablet makes one of the **cheapest, lowest-p
 Open the **Termux** app and paste this single command:
 
 ```bash
-pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh | bash
+pkg update -y && pkg install -y curl && bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh)"
 ```
 
 ---
@@ -28,7 +28,7 @@ pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent
 ### Step 2: Run the Installer
 Open Termux and run the installer one-liner:
 ```bash
-pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh | bash
+pkg update -y && pkg install -y curl && bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh)"
 ```
 The script will automatically:
 1. Detect Termux on Android.

@@ -114,7 +114,7 @@ curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/ma
 ### Android (Termux)
 > *Turns any Android phone or tablet into a dedicated, low-power (<3W) touch clock.*
 ```bash
-pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh | bash
+pkg update -y && pkg install -y curl && bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh)"
 ```
 
 ### FreeBSD
@@ -214,7 +214,7 @@ irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/scri
 Turn spare Android tablets or phones into permanent, low-power **shack touch clocks**:
 
 ```bash
-pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh | bash
+pkg update -y && pkg install -y curl && bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/termux/install.sh)"
 ```
 
 1. Run `hamclock -k &` in Termux.

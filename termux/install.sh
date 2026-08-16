@@ -58,10 +58,13 @@ else
     echo "  5) X11 GUI - 1600x960 (Requires Termux:X11 app)"
     echo "  6) X11 GUI - 800x480 (Requires Termux:X11 app)"
 
-    if [ -e /dev/tty ]; then
-        read -r -p "Enter choice [1-6, default: 1]: " TARGET_CHOICE < /dev/tty || TARGET_CHOICE=1
-    else
+    if [ -t 0 ]; then
         read -r -p "Enter choice [1-6, default: 1]: " TARGET_CHOICE || TARGET_CHOICE=1
+    elif [ -e /dev/tty ] && [ -r /dev/tty ]; then
+        echo -n "Enter choice [1-6, default: 1]: "
+        read -r -u 3 TARGET_CHOICE 3< /dev/tty 2>/dev/null || TARGET_CHOICE=1
+    else
+        read -r -p "Enter choice [1-6, default: 1]: " TARGET_CHOICE 2>/dev/null || TARGET_CHOICE=1
     fi
     TARGET_CHOICE=${TARGET_CHOICE:-1}
 

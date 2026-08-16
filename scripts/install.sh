@@ -94,10 +94,13 @@ else
     echo "  7) Raspberry Pi /dev/fb0 - 800x480 (Standalone Kiosk)"
     echo "  8) Raspberry Pi /dev/fb0 - 1600x960 (Large Standalone Kiosk)"
 
-    if [ -e /dev/tty ]; then
-        read -r -p "Enter choice [1-8, default: 1]: " TARGET_CHOICE < /dev/tty || TARGET_CHOICE=1
-    else
+    if [ -t 0 ]; then
         read -r -p "Enter choice [1-8, default: 1]: " TARGET_CHOICE || TARGET_CHOICE=1
+    elif [ -e /dev/tty ] && [ -r /dev/tty ]; then
+        echo -n "Enter choice [1-8, default: 1]: "
+        read -r -u 3 TARGET_CHOICE 3< /dev/tty 2>/dev/null || TARGET_CHOICE=1
+    else
+        read -r -p "Enter choice [1-8, default: 1]: " TARGET_CHOICE 2>/dev/null || TARGET_CHOICE=1
     fi
     TARGET_CHOICE=${TARGET_CHOICE:-1}
 
