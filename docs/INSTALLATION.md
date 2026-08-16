@@ -5,20 +5,43 @@ Comprehensive installation instructions for **HamClock (Open HamClock / OHB Edit
 ---
 
 ## 📑 Table of Contents
-1. [One-Liner Quick Install (Recommended)](#1-one-liner-quick-install)
-2. [Pre-Built Linux Packages (.deb, .rpm, .AppImage)](#2-pre-built-linux-packages-deb-rpm-appimage)
-3. [Docker & Containerized Setup](#3-docker--containerized-setup)
-4. [Raspberry Pi & Inovato Quadra Setup](#4-raspberry-pi--inovato-quadra-setup)
-5. [Linux Native Compilation (Debian, Ubuntu, Arch, Fedora)](#5-linux-native-compilation)
-6. [macOS Installation (Apple Silicon & Intel)](#6-macos-installation)
-7. [FreeBSD Installation](#7-freebsd-installation)
-8. [Systemd Autostart & Background Services](#8-systemd-autostart--background-services)
+1. [One-Liner Quick Install (Linux/macOS)](#1-one-liner-quick-install)
+2. [Pre-Built Linux Packages (AUR, .deb, .rpm, .AppImage, Flatpak)](#2-pre-built-linux-packages-aur-deb-rpm-appimage-flatpak)
+3. [Windows Installation (WSL2 & Docker)](#3-windows-installation-wsl2--docker)
+4. [Docker & Containerized Setup](#4-docker--containerized-setup)
+5. [Raspberry Pi & Inovato Quadra Setup](#5-raspberry-pi--inovato-quadra-setup)
+6. [Linux Native Compilation (Debian, Ubuntu, Arch, Fedora)](#6-linux-native-compilation)
+7. [macOS Installation (Apple Silicon & Intel)](#7-macos-installation)
+8. [FreeBSD Installation](#8-freebsd-installation)
+9. [Systemd Autostart & Background Services](#9-systemd-autostart--background-services)
 
 ---
 
-## 2. Pre-Built Linux Packages (.deb, .rpm, .AppImage, AUR)
+## 1. One-Liner Quick Install
 
-For quick installation without building from source, download pre-compiled packages directly from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/releases) or install via AUR:
+The universal installer automatically detects your operating system, installs any missing build packages, compiles HamClock, and sets up desktop shortcuts.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+```
+
+### Selecting Resolution / Target Non-Interactively:
+```bash
+# Large Desktop (1600x960)
+TARGET=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+
+# Headless Web Server (1600x960)
+TARGET=web-1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+
+# Raspberry Pi Touchscreen Framebuffer (/dev/fb0)
+TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
+```
+
+---
+
+## 2. Pre-Built Linux Packages (AUR, .deb, .rpm, .AppImage, Flatpak)
+
+For quick installation without building from source, download pre-compiled packages directly from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-ESPHamClock-Installer/releases) or install via package managers:
 
 ### 🏹 Arch Linux / Manjaro / EndeavourOS / CachyOS (AUR)
 ```bash
@@ -53,11 +76,26 @@ chmod +x ESPHamClock-4.29-x86_64.AppImage
 ./ESPHamClock-4.29-x86_64.AppImage -r 1600x960
 ```
 
+### 📦 Flatpak (Flathub)
+```bash
+flatpak install flathub my.hamradio.HamClock
+flatpak run my.hamradio.HamClock
+```
+
 ---
 
-## 1. One-Liner Quick Install
+## 3. Windows Installation (WSL2 & Docker)
 
-The universal installer automatically detects your operating system, installs any missing build packages, compiles HamClock, and sets up desktop shortcuts.
+See the full [Windows Installation Guide](WINDOWS.md) for complete instructions.
+
+### 1-Click Automated PowerShell Installer:
+```powershell
+irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/scripts/install.ps1 | iex
+```
+
+---
+
+## 4. Docker & Containerized Setup
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-ESPHamClock-Installer/main/install.sh | bash
