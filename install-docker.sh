@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# HamClock (Open HamClock / OHB Edition) - 1-Line Docker Installer
+# 9M2PJU ESPHamClock Installer - 1-Line Docker Installer
 # Runs HamClock in Docker with multi-resolution support & persistent storage.
 # ==============================================================================
 
@@ -14,7 +14,8 @@ CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 echo -e "${BLUE}====================================================${NC}"
-echo -e "${GREEN}    HamClock Docker Quick Installer (OHB Edition)   ${NC}"
+echo -e "${GREEN}      9M2PJU ESPHamClock Docker Installer           ${NC}"
+echo -e "${GREEN}         (Open HamClock - OHB Edition)              ${NC}"
 echo -e "${BLUE}====================================================${NC}"
 
 # Check for Docker

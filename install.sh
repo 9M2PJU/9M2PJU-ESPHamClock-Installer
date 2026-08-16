@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# HamClock (Open HamClock / OHB Edition) - Universal Installer
+# 9M2PJU ESPHamClock Installer (Open HamClock / OHB Edition)
 # Compatible with: Linux (Debian, Ubuntu, Raspberry Pi OS, Arch, Fedora),
 #                  macOS (Homebrew + XQuartz), and FreeBSD
 # ==============================================================================
@@ -15,7 +15,8 @@ CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 echo -e "${BLUE}====================================================${NC}"
-echo -e "${GREEN}      HamClock (Open HamClock - OHB Edition)        ${NC}"
+echo -e "${GREEN}           9M2PJU ESPHamClock Installer             ${NC}"
+echo -e "${GREEN}         (Open HamClock - OHB Edition)              ${NC}"
 echo -e "${BLUE}====================================================${NC}"
 
 OS="$(uname -s)"
