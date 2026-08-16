@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # 9M2PJU HamClock Installer - 1-Line Docker Installer
+# Author: 9M2PJU (https://hamradio.my)
+# Contact / Support Email: 9m2pju@hamradio.my
 # Runs HamClock in Docker with multi-resolution support & persistent storage.
 # ==============================================================================
 

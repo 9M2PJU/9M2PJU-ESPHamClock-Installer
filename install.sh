@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # 9M2PJU HamClock Installer (Open HamClock / OHB Edition)
+# Author: 9M2PJU (https://hamradio.my)
+# Contact / Support Email: 9m2pju@hamradio.my
 # Compatible with: Linux (Debian, Ubuntu, Raspberry Pi OS, Arch, Fedora),
 #                  macOS (Homebrew + XQuartz), and FreeBSD
 # ==============================================================================

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # 9M2PJU HamClock .deb Package Generator
+# Author: 9M2PJU (https://hamradio.my)
+# Contact / Support Email: 9m2pju@hamradio.my
 # Usage: ./packaging/build-deb.sh <arch> [output_dir]
 # Supported arch: amd64, arm64, armhf
 # ==============================================================================

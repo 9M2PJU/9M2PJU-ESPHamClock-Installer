@@ -1,6 +1,8 @@
 #!/bin/bash
 # ==============================================================================
 # HamClock Background Service Helper for Android Termux
+# Author: 9M2PJU (https://hamradio.my)
+# Contact / Support Email: 9m2pju@hamradio.my
 # Starts HamClock with wake-lock to prevent CPU sleep
 # ==============================================================================
 

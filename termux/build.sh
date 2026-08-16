@@ -1,6 +1,8 @@
 #!/bin/bash
 # ==============================================================================
 # HamClock Standalone Build Helper for Android Termux
+# Author: 9M2PJU (https://hamradio.my)
+# Contact / Support Email: 9m2pju@hamradio.my
 # Builds HamClock without permanently modifying upstream source files.
 # ==============================================================================
 

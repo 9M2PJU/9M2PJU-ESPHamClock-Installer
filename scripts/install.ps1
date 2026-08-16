@@ -1,5 +1,6 @@
 # 9M2PJU HamClock - Automated Windows One-Click Installer
-# Author: 9M2PJU <9m2pju@gmail.com>
+# Author: 9M2PJU (https://hamradio.my)
+# Contact / Support Email: 9m2pju@hamradio.my
 # Website: https://hamclock.hamradio.my
 
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8

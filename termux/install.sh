@@ -1,6 +1,8 @@
 #!/bin/bash
 # ==============================================================================
 # HamClock Dedicated Installer for Android (Termux)
+# Author: 9M2PJU (https://hamradio.my)
+# Contact / Support Email: 9m2pju@hamradio.my
 # https://github.com/9M2PJU/9M2PJU-HamClock-Installer
 # ==============================================================================
 

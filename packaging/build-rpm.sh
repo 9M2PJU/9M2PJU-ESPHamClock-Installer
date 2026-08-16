@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # 9M2PJU HamClock .rpm Package Generator
+# Author: 9M2PJU (https://hamradio.my)
+# Contact / Support Email: 9m2pju@hamradio.my
 # Usage: ./packaging/build-rpm.sh <arch> [output_dir]
 # Supported arch: x86_64, aarch64, armhfp
 # ==============================================================================
