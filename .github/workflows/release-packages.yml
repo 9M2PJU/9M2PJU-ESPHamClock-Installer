@@ -70,9 +70,9 @@ jobs:
               apt-get install -y build-essential make g++ libx11-dev libgpiod-dev pkg-config
               mkdir -p /tmp/built-bin
               for t in hamclock-800x480 hamclock-1600x960 hamclock-2400x1440 hamclock-3200x1920 hamclock-web-800x480 hamclock-web-1600x960; do
-                echo '=== Compiling target: \$t ==='
+                echo "=== Compiling target: \$t ==="
                 make clean
-                make \$t -j\$(nproc)
+                make \$t LIBS="-lpthread -larduino -lzlib-hc -lws -lX11" -j\$(nproc)
                 cp \$t /tmp/built-bin/
               done
               cp /tmp/built-bin/* ./
