@@ -16,6 +16,7 @@
 [![HamClock Version](https://img.shields.io/badge/version-4.29-blue.svg?style=for-the-badge&logo=cplusplus)](file:///home/x/ESPHamClock/version.cpp)
 [![Backend Status](https://img.shields.io/badge/backend-OHB%20(Open%20HamClock%20Backend)-brightgreen.svg?style=for-the-badge&logo=server)](https://ohb.hamclock.app)
 [![Platform Support](https://img.shields.io/badge/platforms-Linux%20%7C%20Raspberry%20Pi%20%7C%20macOS%20%7C%20FreeBSD%20%7C%20ESP8266-orange.svg?style=for-the-badge&logo=linux)](https://github.com/9M2PJU/ESPHamClock)
+[![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2Fesphamclock-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/ESPHamClock/pkgs/container/esphamclock)
 [![License](https://img.shields.io/badge/license-Custom%20Amateur%20Radio-purple.svg?style=for-the-badge)](file:///home/x/ESPHamClock/LICENSE)
 
 <br/>
@@ -124,17 +125,37 @@ cd ESPHamClock
 
 Docker is the easiest way to deploy HamClock in **Headless / Server Mode** on home servers, NAS devices (Synology, TrueNAS, Unraid), Proxmox, and mini PCs without installing GUI or X11 dependencies.
 
-### Option A: Using Docker Compose (Recommended)
+Multi-architecture images are built automatically via **GitHub Actions** and hosted on GitHub Container Registry (GHCR):
+- Supported Architectures: `linux/amd64` (x86_64 PCs & Servers), `linux/arm64` (Raspberry Pi 4/5, Apple Silicon), and `linux/arm/v7` (Raspberry Pi 2/3, 32-bit ARM).
+
+---
+
+### Option A: 1-Line Automated Docker Installer (Quickest)
+
+Run this single command to pull the multi-arch container, select your resolution, and start HamClock:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/ESPHamClock/main/install-docker.sh | bash
+```
+
+Or pass your desired resolution directly:
+```bash
+RESOLUTION=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/ESPHamClock/main/install-docker.sh | bash
+```
+
+---
+
+### Option B: Using Docker Compose
 
 1. Save the [`docker-compose.yml`](file:///home/x/ESPHamClock/docker-compose.yml) file:
    ```yaml
    services:
      hamclock:
-       image: 9m2pju/esphamclock:latest
+       image: ghcr.io/9m2pju/esphamclock:latest
        container_name: hamclock
        restart: unless-stopped
        ports:
-         - "8080:8080" # RESTful API & Screenshot (/live.png)
+         - "8080:8080" # RESTful API & Live Screenshot (/live.png)
          - "8081:8081" # Real-time Interactive Web UI (/live.html)
          - "8082:8082" # Read-Only Web Monitor
        environment:
@@ -156,7 +177,7 @@ Docker is the easiest way to deploy HamClock in **Headless / Server Mode** on ho
 
 ---
 
-### Option B: Using Standalone `docker run`
+### Option C: Using Standalone `docker run`
 
 ```bash
 docker run -d \
@@ -167,7 +188,7 @@ docker run -d \
   -p 8082:8082 \
   -e RESOLUTION=1600x960 \
   -v hamclock_data:/home/hamclock/.hamclock \
-  9m2pju/esphamclock:latest
+  ghcr.io/9m2pju/esphamclock:latest
 ```
 
 ---
