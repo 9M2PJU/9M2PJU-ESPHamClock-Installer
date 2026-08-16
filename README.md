@@ -15,7 +15,7 @@
 
 [![HamClock Version](https://img.shields.io/badge/version-4.29-blue.svg?style=for-the-badge&logo=cplusplus)](file:///home/x/ESPHamClock/version.cpp)
 [![Backend Status](https://img.shields.io/badge/backend-OHB%20(Open%20HamClock%20Backend)-brightgreen.svg?style=for-the-badge&logo=server)](https://ohb.hamclock.app)
-[![AUR package](https://img.shields.io/aur/version/esphamclock-git?color=1793D1&label=AUR&logo=archlinux&style=for-the-badge)](https://aur.archlinux.org/packages/esphamclock-git)
+[![AUR package](https://img.shields.io/aur/version/hamclock-git?color=1793D1&label=AUR&logo=archlinux&style=for-the-badge)](https://aur.archlinux.org/packages/hamclock-git)
 [![Snap Store](https://img.shields.io/badge/Snap%20Store-Submitted-E95420.svg?style=for-the-badge&logo=snapcraft&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/actions/workflows/snap.yml)
 [![Flathub](https://img.shields.io/badge/Flathub-Pending%20Review-4A90D9.svg?style=for-the-badge&logo=flathub&logoColor=white)](https://github.com/flathub/flathub/pull/9797)
 [![Windows Support](https://img.shields.io/badge/Windows-WSL2%20%7C%20Docker-0078D6.svg?style=for-the-badge&logo=windows&logoColor=white)](docs/WINDOWS.md)
@@ -156,10 +156,10 @@ flatpak run my.hamradio.HamClock
 ### 🏹 Arch Linux (AUR)
 ```bash
 # Using yay
-yay -S esphamclock-git
+yay -S hamclock-git
 
 # Using paru
-paru -S esphamclock-git
+paru -S hamclock-git
 ```
 
 ### 🐧 Debian / Ubuntu / Raspberry Pi OS (`.deb`)

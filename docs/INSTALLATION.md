@@ -51,10 +51,10 @@ sudo snap install esphamclock
 ### 🏹 Arch Linux / Manjaro / EndeavourOS / CachyOS (AUR)
 ```bash
 # Using yay
-yay -S esphamclock-git
+yay -S hamclock-git
 
 # Using paru
-paru -S esphamclock-git
+paru -S hamclock-git
 ```
 
 ### 🐧 Debian / Ubuntu / Raspberry Pi OS (`.deb`)
