@@ -125,7 +125,7 @@ make "$MAKE_TARGET" -j"$NPROCS"
 echo -e "\n${YELLOW}[4/4] Installing HamClock...${NC}"
 BIN_DEST="/usr/local/bin"
 if [ ! -w "$BIN_DEST" ] && [ "$(id -u)" -ne 0 ]; then
-    if sudo -v 2>/dev/null; then
+    if sudo -n true 2>/dev/null; then
         sudo cp "$MAKE_TARGET" "$BIN_DEST/hamclock"
         sudo chmod +x "$BIN_DEST/hamclock"
     else
