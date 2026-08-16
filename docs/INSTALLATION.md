@@ -5,15 +5,16 @@ Comprehensive installation instructions for **HamClock (Open HamClock / OHB Edit
 ---
 
 ## 📑 Table of Contents
-1. [One-Liner Quick Install (Linux/macOS)](#1-one-liner-quick-install)
+1. [One-Liner Quick Install (Linux/macOS/Android)](#1-one-liner-quick-install)
 2. [Pre-Built Linux Packages (AUR, .deb, .rpm, .AppImage, Flatpak)](#2-pre-built-linux-packages-aur-deb-rpm-appimage-flatpak)
 3. [Windows Installation (WSL2 & Docker)](#3-windows-installation-wsl2--docker)
-4. [Docker & Containerized Setup](#4-docker--containerized-setup)
-5. [Raspberry Pi & Inovato Quadra Setup](#5-raspberry-pi--inovato-quadra-setup)
-6. [Linux Native Compilation (Debian, Ubuntu, Arch, Fedora)](#6-linux-native-compilation)
-7. [macOS Installation (Apple Silicon & Intel)](#7-macos-installation)
-8. [FreeBSD Installation](#8-freebsd-installation)
-9. [Systemd Autostart & Background Services](#9-systemd-autostart--background-services)
+4. [Android Installation (Termux)](#4-android-installation-termux)
+5. [Docker & Containerized Setup](#5-docker--containerized-setup)
+6. [Raspberry Pi & Inovato Quadra Setup](#6-raspberry-pi--inovato-quadra-setup)
+7. [Linux Native Compilation (Debian, Ubuntu, Arch, Fedora)](#7-linux-native-compilation)
+8. [macOS Installation (Apple Silicon & Intel)](#8-macos-installation)
+9. [FreeBSD Installation](#9-freebsd-installation)
+10. [Systemd Autostart & Background Services](#10-systemd-autostart--background-services)
 
 ---
 
@@ -45,7 +46,7 @@ For quick installation without building from source, download pre-compiled packa
 
 ### 📦 Snap Store (Ubuntu / Universal Linux)
 ```bash
-sudo snap install esphamclock
+sudo snap install hamclock
 ```
 
 ### 🏹 Arch Linux / Manjaro / EndeavourOS / CachyOS (AUR)
@@ -100,7 +101,27 @@ irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/scri
 
 ---
 
-## 4. Docker & Containerized Setup
+## 4. Android Installation (Termux)
+
+See the full [Android & Termux Guide](ANDROID.md) for detailed battery, kiosk, and autostart optimizations.
+
+### 1-Line Automated Termux Installer:
+Open the **Termux** app and run:
+```bash
+pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
+```
+
+### Quick Start:
+1. Start HamClock background server:
+   ```bash
+   hamclock -k &
+   ```
+2. Open Chrome or Brave to `http://localhost:8081/live.html`.
+3. Tap **"Add to Home screen"** in Chrome for a full-screen, touch-enabled standalone clock app!
+
+---
+
+## 5. Docker & Containerized Setup
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash

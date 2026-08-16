@@ -19,6 +19,7 @@
 [![Snap Store](https://img.shields.io/badge/Snap%20Store-Submitted-E95420.svg?style=for-the-badge&logo=snapcraft&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/actions/workflows/snap.yml)
 [![Flathub](https://img.shields.io/badge/Flathub-Pending%20Review-4A90D9.svg?style=for-the-badge&logo=flathub&logoColor=white)](https://github.com/flathub/flathub/pull/9797)
 [![Windows Support](https://img.shields.io/badge/Windows-WSL2%20%7C%20Docker-0078D6.svg?style=for-the-badge&logo=windows&logoColor=white)](docs/WINDOWS.md)
+[![Android Support](https://img.shields.io/badge/Android-Termux%20%7C%20Web-3DDC84.svg?style=for-the-badge&logo=android&logoColor=white)](docs/ANDROID.md)
 [![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2Fhamclock-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/pkgs/container/hamclock)
 [![License](https://img.shields.io/badge/license-Custom%20Amateur%20Radio-purple.svg?style=for-the-badge)](file:///home/x/ESPHamClock/LICENSE)
 
@@ -110,6 +111,12 @@ curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/ma
 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
 ```
 
+### Android (Termux)
+> *Turns any Android phone or tablet into a dedicated, low-power (<3W) touch clock.*
+```bash
+pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
+```
+
 ### FreeBSD
 ```bash
 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
@@ -199,6 +206,21 @@ irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/scri
 - **WSL2 / WSLg**: Runs as a seamless, hardware-accelerated native desktop window.
 - **Docker Desktop**: Deploys the isolated headless container and opens `http://localhost:8081/live.html`.
 - For detailed instructions, see the [Windows User Guide](docs/WINDOWS.md).
+
+---
+
+## 📱 Android & Termux Support
+
+Turn spare Android tablets or phones into permanent, low-power **shack touch clocks**:
+
+```bash
+pkg update -y && pkg install -y curl && curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
+```
+
+1. Run `hamclock -k &` in Termux.
+2. Open `http://localhost:8081/live.html` in Chrome or Brave.
+3. Tap **"Add to Home screen"** to get a full-screen, native touch app!
+4. For 24/7 background operation, battery optimization, and boot autostart, see the [Android & Termux Guide](docs/ANDROID.md).
 
 ---
 
@@ -351,6 +373,9 @@ Explore comprehensive guides and documentation in the [`docs/`](docs/) directory
 | Guide | Description |
 | :--- | :--- |
 | 📖 [**Installation Guide**](docs/INSTALLATION.md) | Step-by-step installation for Linux, Raspberry Pi, Inovato Quadra, macOS, FreeBSD, and Docker. |
+| 📱 [**Android & Termux Guide**](docs/ANDROID.md) | Turn Android phones & tablets into dedicated, low-power shack touch clocks. |
+| 🪟 [**Windows Setup Guide**](docs/WINDOWS.md) | Setup on Windows 10 & 11 via PowerShell, WSL2/WSLg, and Docker Desktop. |
+| 📦 [**Snap Store Guide**](docs/SNAP.md) | Canonical Snap package maintainer and user deployment guide. |
 | 📻 [**Rotator & Radio CAT Guide**](docs/ROTATOR_AND_RADIO.md) | Setup and usage for `rotctld`, `rigctld`, `flrig`, satellite tracking, and click-to-tune QSY. |
 | ⚙️ [**Configuration & Settings**](docs/CONFIGURATION_AND_SETTINGS.md) | Guide to all setup pages, station coordinates, map layers, DX clusters, and ADIF loggers. |
 | 💡 [**Usage, Tips & CLI Reference**](docs/USAGE_AND_TIPS.md) | Touch gestures, mouse controls, keyboard shortcuts, command line options, and REST APIs. |
