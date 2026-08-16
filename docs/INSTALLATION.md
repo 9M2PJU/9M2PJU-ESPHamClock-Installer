@@ -122,7 +122,6 @@ pkg update -y && pkg install -y curl && bash -c "$(curl -fsSL https://raw.github
    ```text
    http://localhost:8081/live.html
    ```
-   *(Or open in Chrome, Brave, or Firefox).*
 
 ---
 

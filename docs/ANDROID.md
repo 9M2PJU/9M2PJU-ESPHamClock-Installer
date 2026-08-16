@@ -66,9 +66,6 @@ For the best, seamless, borderless full-screen display that automatically fits y
    - Automatically scales the HamClock display to perfectly fit your device screen.
    - Keeps the screen awake for 24/7 continuous shack monitoring.
    - Can optionally autostart on device boot.
-
-*(Alternatively, you can open `http://localhost:8081/live.html` in Chrome, Brave, or Firefox).*
-
 ---
 
 ## 🎯 Direct Non-Interactive Resolution Install
