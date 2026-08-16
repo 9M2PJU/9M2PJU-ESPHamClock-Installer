@@ -172,7 +172,20 @@ elif has_cmd sysctl; then
 fi
 
 if [ "$IS_TERMUX" = "1" ]; then
-    make "$MAKE_TARGET" CXX="clang++" -j"$NPROCS"
+    for p in "$BUILD_DIR"/termux/patches/*.patch; do
+        if [ -f "$p" ]; then
+            patch -p1 -N < "$p" || true
+        fi
+    done
+    clang -c "$BUILD_DIR/termux/disable-fdsan.c" -o "$BUILD_DIR/termux/disable-fdsan.o" 2>/dev/null || true
+    make "$MAKE_TARGET" CXX="clang++" LDXXFLAGS="-LArduinoLib -LwsServer -Lzlib-hc -g -pthread $BUILD_DIR/termux/disable-fdsan.o -ldl" -j"$NPROCS"
+    if [ "$CLEANUP_BUILD_DIR" -eq 0 ]; then
+        for p in "$BUILD_DIR"/termux/patches/*.patch; do
+            if [ -f "$p" ]; then
+                patch -p1 -R -s < "$p" || true
+            fi
+        done
+    fi
 else
     make "$MAKE_TARGET" -j"$NPROCS"
 fi

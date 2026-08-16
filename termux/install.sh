@@ -73,8 +73,28 @@ fi
 make clean
 NPROCS=$(nproc 2>/dev/null || echo 2)
 
-# Build without modifying upstream source files by passing CXX=clang++ on CLI
-make "$MAKE_TARGET" CXX="clang++" -j"$NPROCS"
+# Apply Termux patches
+for p in "$BUILD_DIR"/termux/patches/*.patch; do
+    if [ -f "$p" ]; then
+        echo "Applying $(basename "$p")..."
+        patch -p1 -N < "$p" || true
+    fi
+done
+
+# Compile disable-fdsan helper
+clang -c "$BUILD_DIR/termux/disable-fdsan.c" -o "$BUILD_DIR/termux/disable-fdsan.o"
+
+# Build target with clang++ and disable-fdsan runtime hook
+make "$MAKE_TARGET" CXX="clang++" LDXXFLAGS="-LArduinoLib -LwsServer -Lzlib-hc -g -pthread $BUILD_DIR/termux/disable-fdsan.o -ldl" -j"$NPROCS"
+
+# Revert patches if building in local repository directory
+if [ "$CLEANUP_BUILD_DIR" -eq 0 ]; then
+    for p in "$BUILD_DIR"/termux/patches/*.patch; do
+        if [ -f "$p" ]; then
+            patch -p1 -R -s < "$p" || true
+        fi
+    done
+fi
 
 # 4. Install Binary & Wrapper
 echo -e "\n${YELLOW}[4/4] Installing HamClock into Termux PATH...${NC}"
