@@ -112,11 +112,12 @@ pkg update -y && pkg install -y curl && bash -c "$(curl -fsSL https://raw.github
 ```
 
 ### Quick Start:
-1. Keep Termux running in background and start HamClock:
+1. Prevent Android from sleeping (disable Battery Saver) and start HamClock:
    ```bash
    termux-wake-lock
    hamclock -k &
    ```
+   *(Ensure Android **Settings ➔ Apps ➔ Termux ➔ Battery** is set to **"Unrestricted"**)*.
 2. For the best **Full-Screen & Auto-Fit** display, install [**Fully Kiosk Browser**](https://play.google.com/store/apps/details?id=de.ozerov.fully&hl=en) from Google Play and open:
    ```text
    http://localhost:8081/live.html

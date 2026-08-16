@@ -37,13 +37,18 @@ The script will automatically:
 4. Apply Android Bionic `fdsan` protection.
 5. Compile the optimized native ARM binary and install `hamclock` to `$PREFIX/bin/hamclock`.
 
----
-
-### Step 3: Launch HamClock in Background
-```bash
-hamclock -k &
-```
-*(The `-k` flag skips the setup countdown and boots immediately).*
+### Step 3: Keep Termux Awake & Launch HamClock
+1. Prevent Android from suspending Termux:
+   ```bash
+   termux-wake-lock
+   ```
+2. **Disable Android Battery Saver**:
+   - Go to Android **Settings ➔ Apps ➔ Termux ➔ Battery** and set it to **"Unrestricted"** (or *Don't optimize*).
+3. Start the HamClock daemon in the background:
+   ```bash
+   hamclock -k &
+   ```
+   *(The `-k` flag skips the setup countdown and boots immediately).*
 
 ---
 

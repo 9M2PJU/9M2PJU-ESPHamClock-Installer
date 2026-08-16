@@ -227,9 +227,9 @@ TARGET=800x480 bash -c "$(curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M
 ```
 
 ### Full-Screen & 24/7 Shack Operation:
-1. **Background Running**: Run `termux-wake-lock && hamclock -k &`
+1. **Background Running & Battery Saver**: Run `termux-wake-lock && hamclock -k &` and set Android **Settings ➔ Apps ➔ Termux ➔ Battery ➔ Unrestricted** (disable Battery Saver so Android does not suspend HamClock).
 2. **Best Full-Screen & Auto-Fit View**: Install [**Fully Kiosk Browser**](https://play.google.com/store/apps/details?id=de.ozerov.fully&hl=en) from Google Play and set Start URL to `http://localhost:8081/live.html`.
-3. For battery optimization, kiosk settings, and autostart on boot, see the [Android & Termux Guide](docs/ANDROID.md).
+3. For detailed kiosk settings and autostart on boot, see the [Android & Termux Guide](docs/ANDROID.md).
 
 ---
 

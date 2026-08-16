@@ -145,8 +145,9 @@ echo -e "\n${GREEN}=====================================================${NC}"
 echo -e "${GREEN}      HamClock Installation Completed on Android!   ${NC}"
 echo -e "${GREEN}=====================================================${NC}"
 echo -e "\n${YELLOW}🚀 NEXT STEPS TO RUN HAMCLOCK:${NC}\n"
-echo -e "  ${CYAN}Step 1:${NC} Keep Termux running in the background:"
-echo -e "    ${YELLOW}termux-wake-lock${NC}\n"
+echo -e "  ${CYAN}Step 1:${NC} Keep Termux running & disable battery saver:
+    • Run command: ${YELLOW}termux-wake-lock${NC}
+    • Android ${YELLOW}Settings ➔ Apps ➔ Termux ➔ Battery ➔ Unrestricted${NC} (Disable Battery Saver)\n"
 echo -e "  ${CYAN}Step 2:${NC} Start HamClock daemon:"
 echo -e "    ${YELLOW}hamclock -k &${NC}\n"
 echo -e "  ${CYAN}Step 3:${NC} For the best borderless Full-Screen & Auto-Fit shack display:"
