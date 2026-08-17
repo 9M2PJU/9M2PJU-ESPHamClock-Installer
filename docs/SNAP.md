@@ -6,11 +6,11 @@
 
 ## ⚡ User Installation
 
-Once published to the Snap Store:
+The snap is currently published on the `candidate` channel pending Canonical's stable review:
 
 ```bash
-# Install stable release
-sudo snap install esphamclock
+# Install from the candidate channel (stable review pending)
+sudo snap install esphamclock --candidate
 
 # Launch HamClock
 esphamclock
@@ -18,6 +18,8 @@ esphamclock
 # Launch with specific resolution
 esphamclock -r 1600x960
 ```
+
+Once Canonical approves the stable release, the install command simplifies to `sudo snap install esphamclock`.
 
 ---
 

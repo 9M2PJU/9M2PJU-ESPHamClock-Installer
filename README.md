@@ -16,7 +16,7 @@
 [![HamClock Version](https://img.shields.io/badge/version-4.29-blue.svg?style=for-the-badge&logo=cplusplus)](file:///home/x/ESPHamClock/version.cpp)
 [![Backend Status](https://img.shields.io/badge/backend-OHB%20(Open%20HamClock%20Backend)-brightgreen.svg?style=for-the-badge&logo=server)](https://ohb.hamclock.app)
 [![AUR package](https://img.shields.io/aur/version/hamclock-git?color=1793D1&label=AUR&logo=archlinux&style=for-the-badge)](https://aur.archlinux.org/packages/hamclock-git)
-[![Snap Store](https://img.shields.io/badge/Snap%20Store-Submitted-E95420.svg?style=for-the-badge&logo=snapcraft&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/actions/workflows/snap.yml)
+[![Snap Store](https://img.shields.io/badge/Snap%20Store-Candidate-E95420.svg?style=for-the-badge&logo=snapcraft&logoColor=white)](https://snapcraft.io/esphamclock)
 [![Windows Support](https://img.shields.io/badge/Windows-WSL2%20%7C%20Docker-0078D6.svg?style=for-the-badge&logo=windows&logoColor=white)](docs/WINDOWS.md)
 [![Android Support](https://img.shields.io/badge/Android-Termux%20%7C%20Web-3DDC84.svg?style=for-the-badge&logo=android&logoColor=white)](docs/ANDROID.md)
 [![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2F9m2pju--hamclock--docker-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/pkgs/container/9m2pju-hamclock-docker)
@@ -141,7 +141,7 @@ For instant installation without compiling from source, pre-built binary package
 | Package Format | Target Operating Systems | Supported Architectures |
 | :--- | :--- | :--- |
 | **`AUR`** | Arch Linux, Manjaro, EndeavourOS, CachyOS | `x86_64`, `aarch64`, `armv7h` |
-| **`Snap`** *(submitted)* | Ubuntu, Debian, Fedora, Arch Linux, Manjaro, openSUSE | `amd64`, `arm64`, `armhf` |
+| **`Snap`** *(candidate)* | Ubuntu, Debian, Fedora, Arch Linux, Manjaro, openSUSE | `amd64`, `arm64`, `armhf` |
 | **`.deb`** | Debian, Ubuntu, Raspberry Pi OS, Armbian, Linux Mint | `amd64`, `arm64`, `armhf` |
 | **`.rpm`** | Fedora, RHEL, CentOS, Rocky Linux, openSUSE | `x86_64`, `aarch64`, `armhfp` |
 | **`.AppImage`** | **Universal** (Runs on any Linux distribution) | `x86_64`, `aarch64`, `armhf` |
@@ -149,7 +149,11 @@ For instant installation without compiling from source, pre-built binary package
 </div>
 
 ### 📦 Snap Store (Ubuntu / Universal Linux)
-> ⏳ **Submission in progress** — publishing to the Snap Store now. Will be available as `sudo snap install hamclock` once approved.
+> ⏳ **Pending stable review** — currently published on the `candidate` channel only. Install with:
+> ```bash
+> sudo snap install esphamclock --candidate
+> ```
+> Will graduate to `sudo snap install esphamclock` (stable) once Canonical review completes.
 >
 > Track build: [GitHub Actions — Snap Build](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/actions/workflows/snap.yml)
 
