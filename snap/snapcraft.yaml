@@ -79,28 +79,30 @@ parts:
     override-build: |
       mkdir -p $CRAFT_PART_INSTALL/lib/hamclock $CRAFT_PART_INSTALL/bin $CRAFT_PART_INSTALL/share/applications $CRAFT_PART_INSTALL/share/icons/hicolor/128x128/apps
       HAMCLOCK_LIBS="-lpthread -larduino -lzlib-hc -lws -lX11 -lgpiod"
+      # wsServer/Makefile uses CC, others use CXX; pass both for cross-compilation
+      CROSS_ARGS="${CXX:+CXX=$CXX CC=$CXX}"
 
-      make -j$(nproc) hamclock-800x480 LIBS="$HAMCLOCK_LIBS" ${CXX:+CXX="$CXX"}
+      make -j$(nproc) hamclock-800x480 LIBS="$HAMCLOCK_LIBS" $CROSS_ARGS
       cp hamclock-800x480 $CRAFT_PART_INSTALL/lib/hamclock/
       make clean
 
-      make -j$(nproc) hamclock-1600x960 LIBS="$HAMCLOCK_LIBS" ${CXX:+CXX="$CXX"}
+      make -j$(nproc) hamclock-1600x960 LIBS="$HAMCLOCK_LIBS" $CROSS_ARGS
       cp hamclock-1600x960 $CRAFT_PART_INSTALL/lib/hamclock/
       make clean
 
-      make -j$(nproc) hamclock-2400x1440 LIBS="$HAMCLOCK_LIBS" ${CXX:+CXX="$CXX"}
+      make -j$(nproc) hamclock-2400x1440 LIBS="$HAMCLOCK_LIBS" $CROSS_ARGS
       cp hamclock-2400x1440 $CRAFT_PART_INSTALL/lib/hamclock/
       make clean
 
-      make -j$(nproc) hamclock-3200x1920 LIBS="$HAMCLOCK_LIBS" ${CXX:+CXX="$CXX"}
+      make -j$(nproc) hamclock-3200x1920 LIBS="$HAMCLOCK_LIBS" $CROSS_ARGS
       cp hamclock-3200x1920 $CRAFT_PART_INSTALL/lib/hamclock/
       make clean
 
-      make -j$(nproc) hamclock-web-800x480 LIBS="$HAMCLOCK_LIBS" ${CXX:+CXX="$CXX"}
+      make -j$(nproc) hamclock-web-800x480 LIBS="$HAMCLOCK_LIBS" $CROSS_ARGS
       cp hamclock-web-800x480 $CRAFT_PART_INSTALL/lib/hamclock/
       make clean
 
-      make -j$(nproc) hamclock-web-1600x960 LIBS="$HAMCLOCK_LIBS" ${CXX:+CXX="$CXX"}
+      make -j$(nproc) hamclock-web-1600x960 LIBS="$HAMCLOCK_LIBS" $CROSS_ARGS
       cp hamclock-web-1600x960 $CRAFT_PART_INSTALL/lib/hamclock/
       make clean
 
