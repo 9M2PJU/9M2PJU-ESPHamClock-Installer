@@ -49,6 +49,7 @@ cp "$TOP_DIR/packaging/hamclock.spec" "$RPM_ROOT/SPECS/"
 
 rpmbuild --define "_topdir $RPM_ROOT" \
          --target "$RPM_BUILD_ARCH" \
+         --define "__strip /bin/true" \
          -bb "$RPM_ROOT/SPECS/hamclock.spec"
 
 # Copy built RPMs to output dir, renaming to the requested arch if it was mapped.
