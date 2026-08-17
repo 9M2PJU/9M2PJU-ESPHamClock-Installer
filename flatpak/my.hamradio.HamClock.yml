@@ -6,7 +6,7 @@ command: hamclock
 
 finish-args:
   - --share=ipc
-  - --socket=x11
+  - --socket=fallback-x11
   - --share=network
   - --device=all
   - --filesystem=~/.hamclock:create
