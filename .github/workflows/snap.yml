@@ -29,21 +29,40 @@ jobs:
         run: |
           sudo snap install snapcraft --classic --channel 8.x/stable
 
-      - name: 🔧 Enable Multi-Arch Package Sources
+      - name: 🔧 Configure Cross-Compilation Package Sources
         if: matrix.architecture != 'amd64'
         run: |
-          ARCH="${{ matrix.architecture }}"
-          case "$ARCH" in
-            arm64) DEB_ARCH="arm64" ;;
-            armhf) DEB_ARCH="armhf" ;;
-          esac
+          DEB_ARCH="${{ matrix.architecture }}"
+          # Restrict existing ubuntu repos to amd64 only (deb822 format on 24.04)
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i '/^Types: deb/a Architectures: amd64' /etc/apt/sources.list.d/ubuntu.sources
+          elif [ -f /etc/apt/sources.list ]; then
+            sudo sed -i 's/^deb /deb [arch=amd64] /g; s/^deb-src /deb-src [arch=amd64] /g' /etc/apt/sources.list
+          fi
+          # Add ubuntu-ports for the target architecture (deb822 format)
+          cat <<EOF | sudo tee /etc/apt/sources.list.d/ports.sources
+          Types: deb
+          Architectures: $DEB_ARCH
+          URIs: http://ports.ubuntu.com/ubuntu-ports/
+          Suites: noble noble-updates noble-backports
+          Components: main universe
+          Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+          Types: deb
+          Architectures: $DEB_ARCH
+          URIs: http://ports.ubuntu.com/ubuntu-ports/
+          Suites: noble-security
+          Components: main universe
+          Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+          EOF
           sudo dpkg --add-architecture "$DEB_ARCH"
           sudo apt-get update -qq
 
       - name: 📦 Build Snap
         id: snapcraft
         run: |
-          snapcraft pack --destructive-mode --platform ${{ matrix.architecture }}
+          sudo snapcraft pack --destructive-mode --platform ${{ matrix.architecture }}
+          sudo chown $USER *.snap
           echo "snap=$(ls *.snap)" >> $GITHUB_OUTPUT
 
       - name: 📤 Upload Snap Artifact
