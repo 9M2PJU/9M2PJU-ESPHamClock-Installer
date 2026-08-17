@@ -54,7 +54,7 @@ git push -u origin new-pr/my.hamradio.HamClock
 
 ```bash
 # Install Freedesktop SDK & Platform runtime
-flatpak install flathub org.freedesktop.Platform//24.08 org.freedesktop.Sdk//24.08
+flatpak install flathub org.freedesktop.Platform//25.08 org.freedesktop.Sdk//25.08
 
 # Build locally
 flatpak-builder --user --install --force-clean build-dir flatpak/my.hamradio.HamClock.yml
