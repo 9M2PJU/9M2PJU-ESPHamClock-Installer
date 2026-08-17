@@ -6,7 +6,7 @@ Comprehensive installation instructions for **HamClock (Open HamClock / OHB Edit
 
 ## 📑 Table of Contents
 1. [One-Liner Quick Install (Linux/macOS/Android)](#1-one-liner-quick-install)
-2. [Pre-Built Linux Packages (AUR, .deb, .rpm, .AppImage, Flatpak)](#2-pre-built-linux-packages-aur-deb-rpm-appimage-flatpak)
+2. [Pre-Built Linux Packages (AUR, .deb, .rpm, .AppImage)](#2-pre-built-linux-packages-aur-deb-rpm-appimage)
 3. [Windows Installation (WSL2 & Docker)](#3-windows-installation-wsl2--docker)
 4. [Android Installation (Termux)](#4-android-installation-termux)
 5. [Docker & Containerized Setup](#5-docker--containerized-setup)
@@ -40,7 +40,7 @@ TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-Ha
 
 ---
 
-## 2. Pre-Built Linux Packages (AUR, .deb, .rpm, .AppImage, Flatpak)
+## 2. Pre-Built Linux Packages (AUR, .deb, .rpm, .AppImage)
 
 For quick installation without building from source, download pre-compiled packages directly from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/releases) or install via package managers:
 
@@ -80,12 +80,6 @@ chmod +x HamClock-4.29-x86_64.AppImage
 
 # Launch with specific resolution
 ./HamClock-4.29-x86_64.AppImage -r 1600x960
-```
-
-### 📦 Flatpak (Flathub)
-```bash
-flatpak install flathub my.hamradio.HamClock
-flatpak run my.hamradio.HamClock
 ```
 
 ---

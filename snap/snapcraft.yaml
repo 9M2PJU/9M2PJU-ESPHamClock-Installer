@@ -107,7 +107,16 @@ parts:
       make clean
 
       install -m 755 packaging/hamclock-launcher.sh $CRAFT_PART_INSTALL/bin/hamclock-launcher
-      install -m 644 flatpak/my.hamradio.HamClock.desktop $CRAFT_PART_INSTALL/share/applications/esphamclock.desktop
-      sed -i 's/Exec=hamclock/Exec=esphamclock/' $CRAFT_PART_INSTALL/share/applications/esphamclock.desktop
-      sed -i 's/Icon=my.hamradio.HamClock/Icon=esphamclock/' $CRAFT_PART_INSTALL/share/applications/esphamclock.desktop
-      install -m 644 flatpak/my.hamradio.HamClock.png $CRAFT_PART_INSTALL/share/icons/hicolor/128x128/apps/esphamclock.png
+      cat > $CRAFT_PART_INSTALL/share/applications/esphamclock.desktop <<'DESKTOP'
+      [Desktop Entry]
+      Name=ESPHamClock
+      GenericName=Amateur Radio Space Weather & Propagation Clock
+      Comment=Space weather, VOACAP propagation, satellite tracker and telemetry dashboard for radio amateurs
+      Exec=esphamclock
+      Icon=esphamclock
+      Terminal=false
+      Type=Application
+      Categories=Network;HamRadio;Utility;Science;Astronomy;
+      StartupNotify=true
+      DESKTOP
+      install -m 644 deploy/hamclock.png $CRAFT_PART_INSTALL/share/icons/hicolor/128x128/apps/esphamclock.png

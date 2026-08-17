@@ -17,7 +17,6 @@
 [![Backend Status](https://img.shields.io/badge/backend-OHB%20(Open%20HamClock%20Backend)-brightgreen.svg?style=for-the-badge&logo=server)](https://ohb.hamclock.app)
 [![AUR package](https://img.shields.io/aur/version/hamclock-git?color=1793D1&label=AUR&logo=archlinux&style=for-the-badge)](https://aur.archlinux.org/packages/hamclock-git)
 [![Snap Store](https://img.shields.io/badge/Snap%20Store-Submitted-E95420.svg?style=for-the-badge&logo=snapcraft&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/actions/workflows/snap.yml)
-[![Flathub](https://img.shields.io/badge/Flathub-Pending%20Review-4A90D9.svg?style=for-the-badge&logo=flathub&logoColor=white)](https://github.com/flathub/flathub/pull/9797)
 [![Windows Support](https://img.shields.io/badge/Windows-WSL2%20%7C%20Docker-0078D6.svg?style=for-the-badge&logo=windows&logoColor=white)](docs/WINDOWS.md)
 [![Android Support](https://img.shields.io/badge/Android-Termux%20%7C%20Web-3DDC84.svg?style=for-the-badge&logo=android&logoColor=white)](docs/ANDROID.md)
 [![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2F9m2pju--hamclock--docker-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/pkgs/container/9m2pju-hamclock-docker)
@@ -143,7 +142,6 @@ For instant installation without compiling from source, pre-built binary package
 | :--- | :--- | :--- |
 | **`AUR`** | Arch Linux, Manjaro, EndeavourOS, CachyOS | `x86_64`, `aarch64`, `armv7h` |
 | **`Snap`** *(submitted)* | Ubuntu, Debian, Fedora, Arch Linux, Manjaro, openSUSE | `amd64`, `arm64`, `armhf` |
-| **`Flatpak`** *(pending review)* | Universal — all major Linux distros via Flathub | `x86_64`, `aarch64` |
 | **`.deb`** | Debian, Ubuntu, Raspberry Pi OS, Armbian, Linux Mint | `amd64`, `arm64`, `armhf` |
 | **`.rpm`** | Fedora, RHEL, CentOS, Rocky Linux, openSUSE | `x86_64`, `aarch64`, `armhfp` |
 | **`.AppImage`** | **Universal** (Runs on any Linux distribution) | `x86_64`, `aarch64`, `armhf` |
@@ -154,13 +152,6 @@ For instant installation without compiling from source, pre-built binary package
 > ⏳ **Submission in progress** — publishing to the Snap Store now. Will be available as `sudo snap install hamclock` once approved.
 >
 > Track build: [GitHub Actions — Snap Build](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/actions/workflows/snap.yml)
-
-### 📦 Flatpak / Flathub
-> ⏳ **Pending Flathub reviewer approval** — [PR #9797](https://github.com/flathub/flathub/pull/9797). Once merged, install via:
-```bash
-flatpak install flathub my.hamradio.HamClock
-flatpak run my.hamradio.HamClock
-```
 
 ### 🏹 Arch Linux (AUR)
 ```bash
@@ -337,7 +328,7 @@ All four resolutions are **pre-compiled** inside the Docker image. You can switc
 
 ---
 
-### How Resolution Works in Package Managers (AUR `yay`, `.deb`, `.rpm`, Snap, Flatpak, AppImage)
+### How Resolution Works in Package Managers (AUR `yay`, `.deb`, `.rpm`, Snap, AppImage)
 
 > [!NOTE]
 > **Why doesn't `yay` / `pacman` / `apt` ask for screen resolution during installation?**

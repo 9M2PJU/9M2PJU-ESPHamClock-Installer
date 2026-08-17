@@ -18,7 +18,6 @@ This project is the definitive open-source installer, multi-platform packaging s
 - **Arch User Repository (`hamclock-git`)**: Native AUR package on `aur.archlinux.org`.
 - **Pre-Built Linux Packages**: Multi-arch `.deb`, `.rpm`, `.AppImage` on GitHub Releases.
 - **App Store Submissions**:
-  - **Flathub**: PR #9797 submitted (`my.hamradio.HamClock`).
   - **Snap Store**: Snapcraft package descriptor (`esphamclock`) configured and published.
 
 ---
@@ -75,7 +74,6 @@ This project is the definitive open-source installer, multi-platform packaging s
 - **Backend**: [https://ohb.hamclock.app](https://ohb.hamclock.app)
 - **GitHub Repo**: [https://github.com/9M2PJU/9M2PJU-HamClock-Installer](https://github.com/9M2PJU/9M2PJU-HamClock-Installer)
 - **AUR Package**: [https://aur.archlinux.org/packages/hamclock-git](https://aur.archlinux.org/packages/hamclock-git)
-- **Flathub PR**: [https://github.com/flathub/flathub/pull/9797](https://github.com/flathub/flathub/pull/9797)
 - **Snapcraft**: [https://snapcraft.io/esphamclock](https://snapcraft.io/esphamclock)
 - **Buy Me a Coffee**: [https://buymeacoffee.com/9m2pju](https://buymeacoffee.com/9m2pju)
 - **Wise**: [https://wise.com/pay/me/faizulz13](https://wise.com/pay/me/faizulz13)
