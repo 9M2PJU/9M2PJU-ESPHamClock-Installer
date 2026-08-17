@@ -25,7 +25,11 @@ targets=(
 for t in "${targets[@]}"; do
   echo "=== Compiling target: $t ==="
   make clean
-  make "$t" LIBS="-lpthread -larduino -lzlib-hc -lws -lX11" -j$(nproc)
+  # Override LIBS to fix link order: -lX11 must come AFTER -larduino (static archive
+  # that references X11 symbols), and -lgpiod is required since libgpiod-dev is installed
+  # and Adafruit_MCP23X17.cpp references gpiod_* symbols. The Makefile's default link
+  # rule puts -lX11 before $(LIBS), which gets dropped by --as-needed on modern Debian.
+  make "$t" LIBS="-lpthread -larduino -lzlib-hc -lws -lX11 -lgpiod" -j$(nproc)
   cp "$t" /tmp/built-bin/
 done
 
