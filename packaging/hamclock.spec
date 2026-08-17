@@ -5,7 +5,6 @@ Summary:        Portable space weather, propagation and telemetry dashboard for 
 License:        Custom Amateur Radio License
 URL:            https://hamclock.hamradio.my
 Group:          Applications/Engineering
-BuildArch:      %{_target_cpu}
 
 Requires:       libX11
 Provides:       esphamclock = %{version}-%{release}
