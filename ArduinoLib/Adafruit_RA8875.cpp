@@ -33,10 +33,16 @@
 #include <ctype.h>
 #include <dirent.h>
 #include <math.h>
-#include <sys/ioctl.h>
 #include <sys/time.h>
 #include <sys/types.h>
+
+#ifdef _WIN32
+#include "win32_compat.h"
+#else
+#include <sys/ioctl.h>
 #include <sys/mman.h>
+#include <sys/wait.h>
+#endif
 
 #include "Adafruit_RA8875.h"
 

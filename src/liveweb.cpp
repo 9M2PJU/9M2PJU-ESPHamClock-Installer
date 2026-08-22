@@ -948,7 +948,9 @@ void initLiveWeb (bool verbose)
             bye ("liveweb_max must be %d < %d\n", liveweb_max, MAX_CLIENTS);
 
         // handle all write errors inline
+#ifndef _WIN32
         signal (SIGPIPE, SIG_IGN);
+#endif
 
         // actually start stuff unless not wanted
 

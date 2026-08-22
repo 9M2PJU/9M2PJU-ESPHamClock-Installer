@@ -2364,6 +2364,11 @@ bool postDiags (void)
  */
 static int runExecv (const char *path, ...)
 {
+#ifdef _WIN32
+        (void)path;
+        Serial.printf ("runExecv not supported on Windows\n");
+        return -1;
+#else
         int pid = fork();
 
         if (pid == 0) {
@@ -2389,6 +2394,7 @@ static int runExecv (const char *path, ...)
         int status;
         waitpid (pid, &status, 0);
         return (status);
+#endif
 }
 
 

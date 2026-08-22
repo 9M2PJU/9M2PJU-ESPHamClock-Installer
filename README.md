@@ -8,7 +8,7 @@
 [![Backend Status](https://img.shields.io/badge/backend-OHB%20(Open%20HamClock%20Backend)-brightgreen.svg?style=for-the-badge&logo=server)](https://ohb.hamclock.app)
 [![AUR package](https://img.shields.io/aur/version/hamclock-git?color=1793D1&label=AUR&logo=archlinux&style=for-the-badge)](https://aur.archlinux.org/packages/hamclock-git)
 [![Snap Store](https://img.shields.io/badge/Snap%20Store-Stable-E95420.svg?style=for-the-badge&logo=snapcraft&logoColor=white)](https://snapcraft.io/hamclock)
-[![Windows Support](https://img.shields.io/badge/Windows-WSL2%20%7C%20Docker-0078D6.svg?style=for-the-badge&logo=windows&logoColor=white)](docs/WINDOWS.md)
+[![Windows Support](https://img.shields.io/badge/Windows-Native%20.exe%20%7C%20WSL2%20%7C%20Docker-0078D6.svg?style=for-the-badge&logo=windows&logoColor=white)](docs/WINDOWS.md)
 [![Android Support](https://img.shields.io/badge/Android-Termux%20%7C%20Web-3DDC84.svg?style=for-the-badge&logo=android&logoColor=white)](docs/ANDROID.md)
 [![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2F9m2pju%2F9m2pju--hamclock--docker-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/pkgs/container/9m2pju-hamclock-docker)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy_Me_a_Coffee-9M2PJU-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/9m2pju)
@@ -268,9 +268,29 @@ chmod +x HamClock-4.29-x86_64.AppImage
 
 ---
 
-## 🪟 Windows Support (PowerShell & WSL2)
+## 🪟 Windows Support (Native .exe, PowerShell & WSL2)
 
-Run HamClock on **Windows 10 & Windows 11** via automated PowerShell installer:
+HamClock now builds as a **native Windows `.exe`** - no WSL, Docker, or X11 required. The executable runs a headless web server; you view the dashboard in any browser at `http://localhost:8081/live.html`.
+
+### Option A: Native Windows Executable (Cross-Compiled)
+
+Build from Linux using MinGW-w64:
+
+```bash
+# Install MinGW-w64 toolchain
+# Arch:   sudo pacman -S mingw-w64-gcc
+# Debian: sudo apt install g++-mingw-w64-x86-64
+
+# Build all four resolution variants:
+make mingw-all-web
+
+# Or build a single resolution:
+make mingw-web-800x480
+```
+
+Copy the resulting `mingw-web-*.exe` to your Windows machine and run it. The executable is statically linked and only depends on Windows system DLLs (KERNEL32, WS2_32, Windows CRT).
+
+### Option B: PowerShell Installer (WSL2 or Docker)
 
 ```powershell
 irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/scripts/install.ps1 | iex
@@ -541,14 +561,16 @@ sudo pkg install -y gmake gcc libX11 libgpio curl unzip
 
 ### 2. Choose Build Target & Resolution
 
-HamClock provides three output architectures across four resolutions:
+HamClock provides three output architectures across four resolutions, plus a native Windows cross-compile target:
 
-| Target Resolution | X11 Desktop GUI | Headless Web Server Only | RPi Direct Framebuffer (`/dev/fb0`) |
-| :--- | :--- | :--- | :--- |
-| **800 × 480** *(Standard)* | `make hamclock-800x480` | `make hamclock-web-800x480` | `make hamclock-fb0-800x480` |
-| **1600 × 960** *(Large)* | `make hamclock-1600x960` | `make hamclock-web-1600x960` | `make hamclock-fb0-1600x960` |
-| **2400 × 1440** *(Hi-DPI)* | `make hamclock-2400x1440` | `make hamclock-web-2400x1440` | `make hamclock-fb0-2400x1440` |
-| **3200 × 1920** *(4K UHD)* | `make hamclock-3200x1920` | `make hamclock-web-3200x1920` | `make hamclock-fb0-3200x1920` |
+| Target Resolution | X11 Desktop GUI | Headless Web Server Only | RPi Direct Framebuffer (`/dev/fb0`) | Native Windows `.exe` (MinGW) |
+| :--- | :--- | :--- | :--- | :--- |
+| **800 × 480** *(Standard)* | `make hamclock-800x480` | `make hamclock-web-800x480` | `make hamclock-fb0-800x480` | `make mingw-web-800x480` |
+| **1600 × 960** *(Large)* | `make hamclock-1600x960` | `make hamclock-web-1600x960` | `make hamclock-fb0-1600x960` | `make mingw-web-1600x960` |
+| **2400 × 1440** *(Hi-DPI)* | `make hamclock-2400x1440` | `make hamclock-web-2400x1440` | `make hamclock-fb0-2400x1440` | `make mingw-web-2400x1440` |
+| **3200 × 1920** *(4K UHD)* | `make hamclock-3200x1920` | `make hamclock-web-3200x1920` | `make hamclock-fb0-3200x1920` | `make mingw-web-3200x1920` |
+
+> **Windows cross-compile** requires the MinGW-w64 toolchain (`mingw-w64-gcc` on Arch, `g++-mingw-w64-x86-64` on Debian/Ubuntu). The resulting `.exe` is a statically linked PE32+ executable that runs the web-only backend natively on Windows 10/11 without WSL or Docker. See [docs/WINDOWS.md](docs/WINDOWS.md) for details.
 
 #### Build Example (800x480 Desktop GUI)
 ```bash

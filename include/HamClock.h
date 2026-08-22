@@ -21,8 +21,12 @@
 #include <math.h>
 #include <signal.h>
 #include <dirent.h>
-#include <sys/file.h>
 
+#ifdef _WIN32
+#include "win32_compat.h"
+#else
+#include <sys/file.h>
+#endif
 
 #include "ArduinoLib.h"
 
