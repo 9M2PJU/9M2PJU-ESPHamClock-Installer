@@ -45,9 +45,8 @@ TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-Ha
 For quick installation without building from source, download pre-compiled packages directly from [GitHub Releases](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/releases) or install via package managers:
 
 ### 📦 Snap Store (Ubuntu / Universal Linux)
-> ⏳ Currently on the `candidate` channel pending stable review.
 ```bash
-sudo snap install hamclock --candidate
+sudo snap install hamclock
 ```
 
 ### 🏹 Arch Linux / Manjaro / EndeavourOS / CachyOS (AUR)

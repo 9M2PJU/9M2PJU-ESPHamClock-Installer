@@ -6,11 +6,11 @@
 
 ## ⚡ User Installation
 
-The snap is currently published on the `candidate` channel pending Canonical's stable review:
+The snap is published on the `stable` channel:
 
 ```bash
-# Install from the candidate channel (stable review pending)
-sudo snap install hamclock --candidate
+# Install from the stable channel
+sudo snap install hamclock
 
 # Launch HamClock
 hamclock
@@ -18,8 +18,6 @@ hamclock
 # Launch with specific resolution
 hamclock -r 1600x960
 ```
-
-Once Canonical approves the stable release, the install command simplifies to `sudo snap install hamclock`.
 
 ---
 
@@ -46,4 +44,4 @@ snapcraft export-login --snaps=hamclock --channels=edge,beta,candidate,stable sn
 3. Name: `SNAPCRAFT_STORE_CREDENTIALS`
 4. Value: Paste the contents of `snapcraft.token`.
 
-Every new release tag (e.g. `v4.29`) pushed to GitHub will automatically compile multi-architecture snaps (`amd64`, `arm64`, `armhf`) and release them to the Snap Store!
+Every new release tag (e.g. `v4.29`) pushed to GitHub will automatically compile multi-architecture snaps (`amd64`, `arm64`, `armhf`) and release them to the Snap Store `stable` channel!
