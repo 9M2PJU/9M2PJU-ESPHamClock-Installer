@@ -10,34 +10,34 @@ The snap is currently published on the `candidate` channel pending Canonical's s
 
 ```bash
 # Install from the candidate channel (stable review pending)
-sudo snap install esphamclock --candidate
+sudo snap install hamclock --candidate
 
 # Launch HamClock
-esphamclock
+hamclock
 
 # Launch with specific resolution
-esphamclock -r 1600x960
+hamclock -r 1600x960
 ```
 
-Once Canonical approves the stable release, the install command simplifies to `sudo snap install esphamclock`.
+Once Canonical approves the stable release, the install command simplifies to `sudo snap install hamclock`.
 
 ---
 
 ## 🛠️ Maintainer Guide: Registering & Publishing to Snap Store
 
-To publish `esphamclock` under your Canonical developer account (**9M2PJU**):
+To publish `hamclock` under your Canonical developer account (**9M2PJU**):
 
 ### 1. Register the Name on Snapcraft
 Visit [snapcraft.io/register-snap](https://snapcraft.io/register-snap) or run:
 ```bash
 snapcraft login
-snapcraft register esphamclock
+snapcraft register hamclock
 ```
 
 ### 2. Generate Store Credentials for GitHub Actions
 Export a secure deployment token:
 ```bash
-snapcraft export-login --snaps=esphamclock --channels=edge,beta,candidate,stable snapcraft.token
+snapcraft export-login --snaps=hamclock --channels=edge,beta,candidate,stable snapcraft.token
 ```
 
 ### 3. Add to GitHub Secrets

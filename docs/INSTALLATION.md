@@ -47,7 +47,7 @@ For quick installation without building from source, download pre-compiled packa
 ### 📦 Snap Store (Ubuntu / Universal Linux)
 > ⏳ Currently on the `candidate` channel pending stable review.
 ```bash
-sudo snap install esphamclock --candidate
+sudo snap install hamclock --candidate
 ```
 
 ### 🏹 Arch Linux / Manjaro / EndeavourOS / CachyOS (AUR)

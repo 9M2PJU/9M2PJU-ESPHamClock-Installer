@@ -1,4 +1,4 @@
-name: esphamclock
+name: hamclock
 title: 9M2PJU HamClock
 base: core24
 version: '4.29'
@@ -28,9 +28,9 @@ platforms:
     build-for: [armhf]
 
 apps:
-  esphamclock:
+  hamclock:
     command: bin/hamclock-launcher
-    desktop: share/applications/esphamclock.desktop
+    desktop: share/applications/hamclock.desktop
     plugs:
       - x11
       - network
@@ -108,16 +108,16 @@ parts:
       make clean
 
       install -m 755 packaging/hamclock-launcher.sh $CRAFT_PART_INSTALL/bin/hamclock-launcher
-      cat > $CRAFT_PART_INSTALL/share/applications/esphamclock.desktop <<'DESKTOP'
+      cat > $CRAFT_PART_INSTALL/share/applications/hamclock.desktop <<'DESKTOP'
       [Desktop Entry]
-      Name=ESPHamClock
+      Name=HamClock
       GenericName=Amateur Radio Space Weather & Propagation Clock
       Comment=Space weather, VOACAP propagation, satellite tracker and telemetry dashboard for radio amateurs
-      Exec=esphamclock
-      Icon=esphamclock
+      Exec=hamclock
+      Icon=hamclock
       Terminal=false
       Type=Application
       Categories=Network;HamRadio;Utility;Science;Astronomy;
       StartupNotify=true
       DESKTOP
-      install -m 644 deploy/hamclock.png $CRAFT_PART_INSTALL/share/icons/hicolor/128x128/apps/esphamclock.png
+      install -m 644 deploy/hamclock.png $CRAFT_PART_INSTALL/share/icons/hicolor/128x128/apps/hamclock.png
