@@ -2,15 +2,6 @@
 
 <div align="center">
 
-```
-  _    _                 _____ _            _    
- | |  | |               / ____| |          | |   
- | |__| | __ _ _ __ ___| |    | | ___   ___| | __
- |  __  |/ _` | '_ ` _ \ |    | |/ _ \ / __| |/ /
- | |  | | (_| | | | | | | |___| | (_) | (__|   < 
- |_|  |_|\__,_|_| |_| |_|\____|_|\___/ \___|_|\_\
-```
-
 ### *The Quintessential Space Weather, Radio Propagation & Telemetry Dashboard for Amateur Radio*
 
 [![HamClock Version](https://img.shields.io/badge/version-4.29-blue.svg?style=for-the-badge&logo=cplusplus)](file:///home/x/ESPHamClock/version.cpp)
@@ -56,12 +47,8 @@ As the project gained massive popularity across the global amateur radio communi
 
 With Elwood Downey becoming **Silent Key (SK)**, the original Clear Sky Institute infrastructure ceased operations. Rather than letting this indispensable amateur radio instrument fade into history, the worldwide ham radio community mobilized to keep his legacy alive.
 
-```
-       +--------------------------------------------------------------+
-       |   In Memory of Elwood Downey, WB0OEW (Silent Key - SK)       |
-       |   "His signals continue to propagate across the globe."      |
-       +--------------------------------------------------------------+
-```
+> **In Memory of Elwood Downey, WB0OEW (Silent Key - SK)**
+> *"His signals continue to propagate across the globe."*
 
 ---
 
@@ -99,7 +86,7 @@ To ensure HamClock remains fully functional, reliable, and open for future gener
 
 ## ⚡ One-Liner Quick Install
 
-Use the universal automated installation script to install build dependencies, compile the optimized binary for your hardware, and create application menu shortcuts:
+Use the universal automated installation script to install build dependencies, compile the optimized binary for your hardware, create application menu shortcuts, and optionally configure auto-start on login:
 
 ### Linux / Raspberry Pi / Inovato Quadra / Ubuntu / Debian / Arch / Fedora
 ```bash
@@ -129,6 +116,97 @@ git clone https://github.com/9M2PJU/9M2PJU-HamClock-Installer.git
 cd 9M2PJU-HamClock-Installer
 ./install.sh
 ```
+
+---
+
+### 🔁 Auto-Start on Login
+
+The installer asks whether to auto-start HamClock on login. The available options depend on your OS:
+
+| OS | Auto-Start Methods |
+| :--- | :--- |
+| **Linux** | XDG autostart (`~/.config/autostart/hamclock.desktop`), systemd user service (`~/.config/systemd/user/hamclock.service`) |
+| **macOS** | launchd LaunchAgent (`~/Library/LaunchAgents/local.hamclock.plist`) |
+| **FreeBSD** | XDG autostart (`~/.config/autostart/hamclock.desktop`), `~/.xinitrc` (for `startx` sessions) |
+| **Android (Termux)** | Use [Termux:Boot](https://wiki.termux.com/wiki/Termux:Boot); see [Android & Termux Guide](docs/ANDROID.md) |
+
+#### Non-Interactive Auto-Start Selection
+
+Skip the prompt by setting the `AUTOSTART` environment variable. Note: the variable must be set for `bash` (the right side of the pipe), not `curl`:
+
+```bash
+# Linux: XDG autostart
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | AUTOSTART=xdg bash
+
+# Linux: systemd user service
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | AUTOSTART=systemd bash
+
+# macOS: launchd LaunchAgent
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | AUTOSTART=launchd bash
+
+# FreeBSD: ~/.xinitrc
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | AUTOSTART=xinitrc bash
+
+# Disable auto-start (default)
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | AUTOSTART=none bash
+```
+
+You can combine with target/resolution selection:
+```bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | TARGET=1600x960 AUTOSTART=xdg bash
+```
+
+#### Removing Auto-Start
+
+```bash
+# Linux (XDG)
+rm -f ~/.config/autostart/hamclock.desktop
+
+# Linux (systemd)
+systemctl --user disable --now hamclock.service
+rm -f ~/.config/systemd/user/hamclock.service
+systemctl --user daemon-reload
+
+# macOS (launchd)
+launchctl unload ~/Library/LaunchAgents/local.hamclock.plist
+rm -f ~/Library/LaunchAgents/local.hamclock.plist
+
+# FreeBSD (~/.xinitrc)
+# Edit ~/.xinitrc and remove the HamClock line manually
+```
+
+---
+
+### ▶️ Running HamClock
+
+After installation, start HamClock by running:
+
+```bash
+hamclock
+```
+
+If the `hamclock` command is not found, run `hash -r` or open a new terminal, then try again. You can also launch a specific resolution directly (if installed via package manager):
+
+```bash
+hamclock -r 1600x960      # Recommended for 1080p monitors
+hamclock -r 2400x1440     # 2K displays
+hamclock -r 3200x1920     # 4K displays
+hamclock -r 800x480       # Small touchscreens
+```
+
+For headless / web-only builds, access the web UI at `http://localhost:8081/live.html`.
+
+---
+
+### 🐛 Support & Reporting Issues
+
+If you encounter any problems, bugs, or have feature requests, please [open an issue on GitHub](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/issues):
+
+```
+https://github.com/9M2PJU/9M2PJU-HamClock-Installer/issues
+```
+
+Please include your OS, architecture, the install command you ran, and any error output. 73!
 
 ---
 
@@ -555,26 +633,18 @@ sudo systemctl status hamclock
 
 ## 📂 Repository Layout
 
-```text
-9M2PJU-HamClock-Installer/
-├── src/                          # C++ implementation source files
-│   ├── ESPHamClock.cpp           # Main application entry point
-│   ├── astro.cpp, clocks.cpp...  # Core telemetry & map engines
-│   ├── gimbal.cpp, radio.cpp...  # Rotator and CAT radio controllers
-│   └── liveweb.cpp, wifi.cpp...  # Embedded WebSocket & REST servers
-├── include/                      # C++ header files & global definitions
-├── ArduinoLib/                   # POSIX / Linux Arduino hardware abstraction
-├── wsServer/                     # Real-time WebSocket server library
-├── zlib-hc/                      # Embedded data decompression library
-├── packaging/                    # .deb, .rpm, and AppImage package builders
-├── deploy/                       # Linux desktop launchers, icons, systemd units
-├── docker/                       # Dockerfile, entrypoint, and compose configs
-├── scripts/                      # Native & Docker automated 1-line installers
-├── termux/                       # Dedicated Android Termux installer & build helpers
-├── docs/                         # Comprehensive documentation library & GitHub Pages
-├── Makefile                      # Standard POSIX build system
-└── README.md
-```
+- `src/` - C++ implementation source files (main entry point, telemetry, map engines, rotator and CAT radio controllers, WebSocket and REST servers)
+- `include/` - C++ header files and global definitions
+- `ArduinoLib/` - POSIX / Linux Arduino hardware abstraction
+- `wsServer/` - Real-time WebSocket server library
+- `zlib-hc/` - Embedded data decompression library
+- `packaging/` - .deb, .rpm, and AppImage package builders
+- `deploy/` - Linux desktop launchers, icons, systemd units
+- `docker/` - Dockerfile, entrypoint, and compose configs
+- `scripts/` - Native and Docker automated 1-line installers
+- `termux/` - Dedicated Android Termux installer and build helpers
+- `docs/` - Comprehensive documentation library and GitHub Pages
+- `Makefile` - Standard POSIX build system
 
 ---
 
@@ -627,8 +697,6 @@ Your sponsorship helps cover server costs for the **Open HamClock Backend (OHB)*
 
 <div align="center">
 
-```
-73 to all Radio Amateurs worldwide! de 9M2PJU
-```
+*73 to all Radio Amateurs worldwide! de 9M2PJU*
 
 </div>

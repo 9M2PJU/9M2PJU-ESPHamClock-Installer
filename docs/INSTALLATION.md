@@ -5,22 +5,24 @@ Comprehensive installation instructions for **HamClock (Open HamClock / OHB Edit
 ---
 
 ## 📑 Table of Contents
-1. [One-Liner Quick Install (Linux/macOS/Android)](#1-one-liner-quick-install)
+1. [One-Liner Quick Install (Linux/macOS/FreeBSD)](#1-one-liner-quick-install)
 2. [Pre-Built Linux Packages (AUR, .deb, .rpm, .AppImage)](#2-pre-built-linux-packages-aur-deb-rpm-appimage)
 3. [Windows Installation (WSL2 & Docker)](#3-windows-installation-wsl2--docker)
 4. [Android Installation (Termux)](#4-android-installation-termux)
 5. [Docker & Containerized Setup](#5-docker--containerized-setup)
 6. [Raspberry Pi & Inovato Quadra Setup](#6-raspberry-pi--inovato-quadra-setup)
-7. [Linux Native Compilation (Debian, Ubuntu, Arch, Fedora)](#7-linux-native-compilation)
-8. [macOS Installation (Apple Silicon & Intel)](#8-macos-installation)
-9. [FreeBSD Installation](#9-freebsd-installation)
-10. [Systemd Autostart & Background Services](#10-systemd-autostart--background-services)
+7. [Package Managers & Pre-Built Distributions](#7-package-managers--pre-built-distributions)
+8. [Linux Native Source Compilation](#8-linux-native-source-compilation)
+9. [macOS Installation (Apple Silicon & Intel)](#9-macos-installation)
+10. [FreeBSD Installation](#10-freebsd-installation)
+11. [Auto-Start on Login (All OSes)](#11-auto-start-on-login-all-oses)
+12. [Headless Web Server Systemd Service](#12-headless-web-server-systemd-service)
 
 ---
 
 ## 1. One-Liner Quick Install
 
-The universal installer automatically detects your operating system, installs any missing build packages, compiles HamClock, and sets up desktop shortcuts.
+The universal installer automatically detects your operating system, installs any missing build packages, compiles HamClock, sets up desktop shortcuts, and optionally configures auto-start on login.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
@@ -29,14 +31,55 @@ curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/ma
 ### Selecting Resolution / Target Non-Interactively:
 ```bash
 # Large Desktop (1600x960)
-TARGET=1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | TARGET=1600x960 bash
 
 # Headless Web Server (1600x960)
-TARGET=web-1600x960 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | TARGET=web-1600x960 bash
 
 # Raspberry Pi Touchscreen Framebuffer (/dev/fb0)
-TARGET=fb0-800x480 curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | TARGET=fb0-800x480 bash
 ```
+
+### Selecting Auto-Start Non-Interactively:
+```bash
+# Linux: XDG autostart
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | AUTOSTART=xdg bash
+
+# Linux: systemd user service
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | AUTOSTART=systemd bash
+
+# macOS: launchd LaunchAgent
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | AUTOSTART=launchd bash
+
+# FreeBSD: ~/.xinitrc
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | AUTOSTART=xinitrc bash
+```
+
+Combine target and auto-start:
+```bash
+curl -fsSL https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/install.sh | TARGET=1600x960 AUTOSTART=xdg bash
+```
+
+### Running HamClock After Install
+
+Start HamClock by running:
+```bash
+hamclock
+```
+
+If the `hamclock` command is not found, run `hash -r` or open a new terminal. To launch a specific resolution (package manager installs):
+```bash
+hamclock -r 1600x960      # Recommended for 1080p monitors
+hamclock -r 2400x1440     # 2K displays
+hamclock -r 3200x1920     # 4K displays
+hamclock -r 800x480       # Small touchscreens
+```
+
+For headless / web-only builds, access the web UI at `http://localhost:8081/live.html`.
+
+### Reporting Issues
+
+If you encounter any problems, please [open an issue on GitHub](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/issues). Include your OS, architecture, the install command you ran, and any error output.
 
 ---
 
@@ -265,16 +308,110 @@ sudo gmake install
 
 ---
 
-## 11. Systemd Autostart & Background Services
+## 11. Auto-Start on Login (All OSes)
 
-### Desktop Autostart on Login
+The 1-liner installer asks whether to auto-start HamClock on login. The available options depend on your OS:
+
+| OS | Auto-Start Methods |
+| :--- | :--- |
+| **Linux** | XDG autostart (`~/.config/autostart/hamclock.desktop`), systemd user service (`~/.config/systemd/user/hamclock.service`) |
+| **macOS** | launchd LaunchAgent (`~/Library/LaunchAgents/local.hamclock.plist`) |
+| **FreeBSD** | XDG autostart (`~/.config/autostart/hamclock.desktop`), `~/.xinitrc` (for `startx` sessions) |
+| **Android (Termux)** | Use [Termux:Boot](https://wiki.termux.com/wiki/Termux:Boot); see [Android & Termux Guide](ANDROID.md) |
+
+### Linux: XDG Autostart (Desktop Login)
+Starts HamClock when you log into your desktop environment (GNOME, KDE, XFCE, etc.):
 ```bash
 mkdir -p ~/.config/autostart
-cp hamclock.desktop ~/.config/autostart/
-chmod +x ~/.config/autostart/hamclock.desktop
+cp ~/.local/share/applications/hamclock.desktop ~/.config/autostart/
 ```
 
-### Headless Web Server Systemd Service
+### Linux: Systemd User Service (Auto-Restart on Crash)
+Creates a user-level systemd service that restarts on failure:
+```bash
+mkdir -p ~/.config/systemd/user
+cat > ~/.config/systemd/user/hamclock.service <<'EOF'
+[Unit]
+Description=HamClock
+After=graphical-session.target
+
+[Service]
+ExecStart=%h/.local/bin/hamclock
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+EOF
+
+systemctl --user daemon-reload
+systemctl --user enable --now hamclock.service
+```
+
+> [!NOTE]
+> For systemd user services to survive reboot without an active login session:
+> ```bash
+> loginctl enable-linger $USER
+> ```
+
+### macOS: launchd LaunchAgent
+Starts HamClock on login and keeps it alive (auto-restarts on crash):
+```bash
+mkdir -p ~/Library/LaunchAgents
+cat > ~/Library/LaunchAgents/local.hamclock.plist <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>local.hamclock</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/hamclock</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>ProcessType</key>
+    <string>Interactive</string>
+</dict>
+</plist>
+EOF
+
+launchctl load ~/Library/LaunchAgents/local.hamclock.plist
+```
+
+### FreeBSD: ~/.xinitrc (startx Sessions)
+Appends HamClock to your X11 startup script:
+```bash
+echo '/usr/local/bin/hamclock &' >> ~/.xinitrc
+```
+
+### Removing Auto-Start
+```bash
+# Linux (XDG)
+rm -f ~/.config/autostart/hamclock.desktop
+
+# Linux (systemd)
+systemctl --user disable --now hamclock.service
+rm -f ~/.config/systemd/user/hamclock.service
+systemctl --user daemon-reload
+
+# macOS (launchd)
+launchctl unload ~/Library/LaunchAgents/local.hamclock.plist
+rm -f ~/Library/LaunchAgents/local.hamclock.plist
+
+# FreeBSD (~/.xinitrc)
+# Edit ~/.xinitrc and remove the HamClock line manually
+```
+
+---
+
+## 12. Headless Web Server Systemd Service
+
+For headless servers running the web-only build (`hamclock-web-*`), create a system-level systemd service.
+
 Create `/etc/systemd/system/hamclock.service`:
 ```ini
 [Unit]
