@@ -1,4 +1,4 @@
-name: Build & Release Packages (.deb, .rpm, .appimage)
+name: Build & Release Packages (.deb, .rpm, .appimage, .exe)
 
 on:
   push:
@@ -86,9 +86,39 @@ jobs:
           name: packages-${{ matrix.arch }}
           path: dist/*
 
+  build-windows-exe:
+    name: Build Windows .exe (MinGW cross-compile)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Install MinGW-w64 Toolchain
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y g++-mingw-w64-x86-64
+
+      - name: Build All Windows .exe Targets
+        run: |
+          make mingw-all-web
+
+      - name: Verify Executables
+        run: |
+          for f in mingw-web-*.exe; do
+            echo "--- $f ---"
+            file "$f"
+            ls -la "$f"
+          done
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages-windows-exe
+          path: mingw-web-*.exe
+
   create-release:
     name: Publish GitHub Release
-    needs: build-packages
+    needs: [build-packages, build-windows-exe]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -156,6 +186,21 @@ jobs:
             chmod +x HamClock-4.29-*.AppImage
             ./HamClock-4.29-*.AppImage
             ```
+            
+            #### 🪟 Native Windows Executable (`.exe`)
+            - **800x480**: `mingw-web-800x480.exe`
+            - **1600x960**: `mingw-web-1600x960.exe`
+            - **2400x1440**: `mingw-web-2400x1440.exe`
+            - **3200x1920**: `mingw-web-3200x1920.exe`
+            
+            No WSL, Docker, or X11 required. Statically linked, only depends on Windows system DLLs.
+            
+            ```cmd
+            :: Run from Command Prompt or PowerShell
+            mingw-web-1600x960.exe
+            ```
+            
+            Then open `http://localhost:8081/live.html` in any browser.
             
             #### 🐳 Multi-Arch Docker
             ```bash

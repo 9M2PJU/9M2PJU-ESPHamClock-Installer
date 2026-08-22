@@ -272,7 +272,20 @@ chmod +x HamClock-4.29-x86_64.AppImage
 
 HamClock now builds as a **native Windows `.exe`** - no WSL, Docker, or X11 required. The executable runs a headless web server; you view the dashboard in any browser at `http://localhost:8081/live.html`.
 
-### Option A: Native Windows Executable (Cross-Compiled)
+### Option A: Download Pre-Built .exe from GitHub Releases
+
+Download the latest `mingw-web-*.exe` from the [GitHub Releases page](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/releases). Four resolutions are available:
+
+| File | Resolution | Use Case |
+| :--- | :--- | :--- |
+| `mingw-web-800x480.exe` | 800 x 480 | Standard, smaller displays |
+| `mingw-web-1600x960.exe` | 1600 x 960 | Large, recommended default |
+| `mingw-web-2400x1440.exe` | 2400 x 1440 | Hi-DPI |
+| `mingw-web-3200x1920.exe` | 3200 x 1920 | 4K UHD |
+
+Run the `.exe` from Command Prompt or PowerShell, then open `http://localhost:8081/live.html` in any browser. No installation required - the executable is statically linked and only depends on Windows system DLLs.
+
+### Option B: Build from Source (MinGW-w64 Cross-Compile)
 
 Build from Linux using MinGW-w64:
 
@@ -288,9 +301,9 @@ make mingw-all-web
 make mingw-web-800x480
 ```
 
-Copy the resulting `mingw-web-*.exe` to your Windows machine and run it. The executable is statically linked and only depends on Windows system DLLs (KERNEL32, WS2_32, Windows CRT).
+Copy the resulting `mingw-web-*.exe` to your Windows machine and run it.
 
-### Option B: PowerShell Installer (WSL2 or Docker)
+### Option C: PowerShell Installer (WSL2 or Docker)
 
 ```powershell
 irm https://raw.githubusercontent.com/9M2PJU/9M2PJU-HamClock-Installer/main/scripts/install.ps1 | iex

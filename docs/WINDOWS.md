@@ -8,7 +8,11 @@
 
 HamClock can be cross-compiled to a native Windows `.exe` that runs the web-only backend without WSL, Docker, or any Linux subsystem. The executable serves the dashboard over HTTP/WebSocket; you view it in any browser.
 
-### Building (from Linux with MinGW-w64)
+### Option A: Download Pre-Built .exe
+
+Download the latest `mingw-web-*.exe` from the [GitHub Releases page](https://github.com/9M2PJU/9M2PJU-HamClock-Installer/releases). Four resolutions are available (800x480, 1600x960, 2400x1440, 3200x1920). Run the `.exe` from Command Prompt or PowerShell, then open `http://localhost:8081/live.html` in any browser. No installation required.
+
+### Option B: Building (from Linux with MinGW-w64)
 
 Install the MinGW-w64 cross-compiler toolchain, then build:
 
